@@ -7,6 +7,12 @@ spring:
     port: 6379
     password: root
     database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000
 
   datasource:
     url: jdbc:mysql://114.116.103.22:3306/jingdian

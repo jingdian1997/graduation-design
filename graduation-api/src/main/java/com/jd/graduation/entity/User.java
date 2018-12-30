@@ -2,12 +2,14 @@ package com.jd.graduation.entity;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
     private int id;
     private String accountName;
     private String accountPassword;
