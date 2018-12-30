@@ -10,7 +10,6 @@
         <result column="ID_card" property="idCard"/>
         <result column="telephone" property="telephone"/>
         <result column="mail" property="mail"/>
-        <result column="role" property="role"/>
     </resultMap>
 
     <!--<select id="list" resultMap="baseMap">-->
