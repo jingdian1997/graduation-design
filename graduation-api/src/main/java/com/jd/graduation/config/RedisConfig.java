@@ -1,6 +1,5 @@
 package com.jd.graduation.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -31,7 +30,6 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     RedisTemplate<String, Object> objectRedisTemplate(){
-        System.out.println("RedisTemplate initing");
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 

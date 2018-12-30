@@ -5,6 +5,6 @@ import com.jd.graduation.entity.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> list();
-    public User findById(Integer id);
+    public List<User> selectList();
+    public User selectById(Integer id);
 }

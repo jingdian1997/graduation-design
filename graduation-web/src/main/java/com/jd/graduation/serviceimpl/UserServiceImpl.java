@@ -17,11 +17,11 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    public List<User> list(){
-        return userMapper.list();
+    public List<User> selectList(){
+        return userMapper.selectList(null);
     }
 
-    public User findById(Integer id){
-        return userMapper.findById(id);
+    public User selectById(Integer id){
+        return userMapper.selectById(id);
     }
 }

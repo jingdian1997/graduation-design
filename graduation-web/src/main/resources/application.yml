@@ -20,6 +20,6 @@ spring:
     password: Jingdian_1997
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.jd.graduation.mapper

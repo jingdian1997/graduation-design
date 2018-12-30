@@ -26,13 +26,13 @@ public class UserController {
 
     @GetMapping("/")
     public ReturnMap list(){
-        List<User> data = userService.list();
+        List<User> data = userService.selectList();
         return ReturnMap.ok(data);
     }
 
     @GetMapping("/{id}")
     public ReturnMap findById(@PathVariable("id") Integer id){
-        User user = userService.findById(id);
+        User user = userService.selectById(id);
         template.opsForValue().set(user.getAccountName(), user);
         User data = (User) template.opsForValue().get(user.getAccountName());
         return ReturnMap.ok(data);
