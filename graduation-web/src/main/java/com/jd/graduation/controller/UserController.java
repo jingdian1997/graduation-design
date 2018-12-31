@@ -18,26 +18,26 @@ import java.util.List;
 @RequestMapping("/user")
 @Api(description = "用户管理")
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserServiceImpl userServiceImpl;
     private final RedisTemplate<String, Object> template;
 
     @Autowired
-    public UserController(UserServiceImpl userService, RedisTemplate<String, Object> template) {
-        this.userService = userService;
+    public UserController(UserServiceImpl userServiceImpl, RedisTemplate<String, Object> template) {
+        this.userServiceImpl = userServiceImpl;
         this.template = template;
     }
 
     @GetMapping("/")
     @ApiOperation(value = "获取用户列表", notes = "获取所有用户信息")
     public ReturnMap list(){
-        List<User> data = userService.selectList();
+        List<User> data = userServiceImpl.selectList();
         return ReturnMap.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "获取指定用户", notes = "获取指定用户信息")
     public ReturnMap findById(@PathVariable("id") Integer id){
-        User user = userService.selectById(id);
+        User user = userServiceImpl.selectById(id);
         template.opsForValue().set(user.getAccountName(), user);
         User data = (User) template.opsForValue().get(user.getAccountName());
         return ReturnMap.ok(data);

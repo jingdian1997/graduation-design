@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("userServiceImpl")
 public class UserServiceImpl extends UserService {
     private final UserMapper userMapper;
 
