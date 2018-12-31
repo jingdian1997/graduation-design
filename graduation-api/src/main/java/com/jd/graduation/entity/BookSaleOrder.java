@@ -6,15 +6,22 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
-@TableName(value = "system_config_detail")
-public class SystemConfigDetail {
+@TableName(value = "book_sale_order")
+public class BookSaleOrder {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
-    @TableField(value = "name")
-    private String name;
-    @TableField(value = "value")
-    private String value;
+    @TableField(value = "order_state")
+    private int orderState;
+    @TableField(value = "sale_price")
+    private double salePrice;
+    @TableField(value = "create_time")
+    private Date createTime;
+
+    @TableField(value = "user_id")
+    private int userId;
 }

@@ -1,6 +1,8 @@
 package com.jd.graduation.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
@@ -8,12 +10,10 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-@AllArgsConstructor
 @TableName(value = "user")
 public class User implements Serializable {
-    @TableField(value = "id")
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     @TableField(value = "account_name")
     private String accountName;

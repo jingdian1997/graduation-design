@@ -10,9 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class AdminConfigValues implements Serializable {
+public class AdminConfigVO implements Serializable {
     public static String ADMIN_ACCOUNT = "ADMIN_ACCOUNT";
     public static String ADMIN_PASSWORD = "ADMIN_PASSWORD";
 

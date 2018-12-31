@@ -1,5 +1,6 @@
 package com.jd.graduation.serviceimpl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jd.graduation.mapper.UserMapper;
 import com.jd.graduation.entity.User;
 import com.jd.graduation.service.UserService;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private final UserMapper userMapper;
 
     @Autowired

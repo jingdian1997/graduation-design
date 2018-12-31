@@ -9,12 +9,10 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@TableName(value = "system_config_detail")
-public class SystemConfigDetail {
+@TableName(value = "category")
+public class Category {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
     @TableField(value = "name")
     private String name;
-    @TableField(value = "value")
-    private String value;
 }
