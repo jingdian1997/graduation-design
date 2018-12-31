@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="graduation" />
+        <module name="graduation-admin" />
         <module name="graduation-api" />
         <module name="graduation-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="graduation" target="1.8" />
+      <module name="graduation-admin" target="1.8" />
       <module name="graduation-api" target="1.8" />
       <module name="graduation-web" target="1.8" />
     </bytecodeTargetLevel>
@@ -20,6 +22,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="graduation" options="-parameters" />
+      <module name="graduation-admin" options="-parameters" />
       <module name="graduation-api" options="-parameters" />
       <module name="graduation-web" options="-parameters" />
     </option>

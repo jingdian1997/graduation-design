@@ -1,7 +1,7 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.entity.User;
-import com.jd.graduation.service.UserService;
+import com.jd.graduation.serviceimpl.UserServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,11 +18,11 @@ import java.util.List;
 @RequestMapping("/user")
 @Api(description = "用户管理")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final RedisTemplate<String, Object> template;
 
     @Autowired
-    public UserController(UserService userService, RedisTemplate<String, Object> template) {
+    public UserController(UserServiceImpl userService, RedisTemplate<String, Object> template) {
         this.userService = userService;
         this.template = template;
     }

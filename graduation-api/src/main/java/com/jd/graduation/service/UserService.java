@@ -1,11 +1,12 @@
 package com.jd.graduation.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jd.graduation.entity.User;
+import com.jd.graduation.mapper.UserMapper;
 
 import java.util.List;
 
-public interface UserService extends IService<User> {
-    List<User> selectList();
-    User selectById(Integer id);
+public abstract class UserService extends ServiceImpl<UserMapper, User> {
+    public abstract List<User> selectList();
+    public abstract User selectById(Integer id);
 }
