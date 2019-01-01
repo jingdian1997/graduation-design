@@ -19,4 +19,8 @@ public class ReturnMap {
     public static ReturnMap error(String message){
         return new ReturnMap(500, message, null);
     }
+
+    public static ReturnMap notLogin(){
+        return new ReturnMap(401, "未登录", null);
+    }
 }
