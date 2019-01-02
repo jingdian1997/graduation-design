@@ -1,7 +1,7 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.model.LoginUserModel;
-import com.jd.graduation.serviceimpl.UserServiceImpl;
+import com.jd.graduation.serviceimpl.UserServiceImplAdmin;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,22 +17,22 @@ import javax.validation.Valid;
 @RestController
 @Api(description = "登录登出注册")
 public class LoginController {
-    private final UserServiceImpl userService;
+    private final UserServiceImplAdmin userService;
 
     @Autowired
-    public LoginController(UserServiceImpl userService) {
+    public LoginController(UserServiceImplAdmin userService) {
         this.userService = userService;
     }
 
     @PostMapping("/login")
     @ApiOperation(value = "用户登录", notes = "获取设置用户登录信息")
     public ReturnMap login(HttpServletResponse response, @Valid LoginUserModel model){
-        String key = userService.login(model.getAccountName(), model.getAccountPassword());
-
-        if (key != null){
-            response.addCookie(new Cookie("token", key));
-            return ReturnMap.ok(null);
-        }
+//        String key = userService.login(model.getAccountName(), model.getAccountPassword());
+//
+//        if (key != null){
+//            response.addCookie(new Cookie("token", key));
+//            return ReturnMap.ok(null);
+//        }
         return ReturnMap.wrongLogin();
     }
 
@@ -44,7 +44,6 @@ public class LoginController {
 
     @PostMapping("/register")
     public ReturnMap register(){
-        boolean result = userService.register();
         return ReturnMap.ok(null);
     }
 }

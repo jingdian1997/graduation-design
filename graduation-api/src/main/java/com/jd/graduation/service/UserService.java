@@ -8,6 +8,6 @@ import java.util.List;
 
 public abstract class UserService extends ServiceImpl<UserMapper, User> {
     public abstract List<User> selectList();
-    public abstract boolean login(String accountName, String accountPassword);
+    public abstract String login(String accountName, String accountPassword);
     public abstract boolean logout(String token);
 }

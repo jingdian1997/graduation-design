@@ -23,4 +23,8 @@ public class ReturnMap {
     public static ReturnMap notLogin(){
         return new ReturnMap(401, "未登录", null);
     }
+
+    public static ReturnMap wrongLogin() {
+        return error("错误的用户名或密码");
+    }
 }
