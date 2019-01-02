@@ -7,15 +7,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthenticationService {
-    public static final Integer EXPIRE_TIME = 60;
-    public static final String COOKIE_NAME = "token";
-
+    private static final Integer EXPIRE_TIME = 60;
     private final RedisTemplate<String, Object> template;
 
     @Autowired
@@ -23,8 +19,7 @@ public class AuthenticationService {
         this.template = template;
     }
 
-    public User getUserEntity(HttpServletRequest request){
-        String key = getTokenFromCookie(request);
+    public User getUserEntity(String key){
         if (key != null){
             User entity = (User) template.opsForValue().get(key);
             if (entity != null){
@@ -37,8 +32,7 @@ public class AuthenticationService {
         return null;
     }
 
-    public AdminConfigVO getAdminEntity(HttpServletRequest request){
-        String key = getTokenFromCookie(request);
+    public AdminConfigVO getAdminEntity(String key){
         if (key != null){
             AdminConfigVO entity = (AdminConfigVO) template.opsForValue().get(key);
             if (entity != null){
@@ -72,19 +66,5 @@ public class AuthenticationService {
         long time = System.currentTimeMillis();
         accountName += time;
         return DigestUtils.md5DigestAsHex(accountName.getBytes());
-    }
-
-    //非注解方式获取cookie，解析token
-    private String getTokenFromCookie(HttpServletRequest request){
-        Cookie[] cookies =  request.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals(COOKIE_NAME)){
-                    return cookie.getValue();
-                }
-            }
-        }
-
-        return  null;
     }
 }

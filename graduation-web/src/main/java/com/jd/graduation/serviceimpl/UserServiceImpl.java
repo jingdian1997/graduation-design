@@ -7,8 +7,6 @@ import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service("userServiceImpl")
 public class UserServiceImpl extends UserService {
     private final AuthenticationService authenticationService;
@@ -19,14 +17,9 @@ public class UserServiceImpl extends UserService {
     }
 
     @Override
-    public List<User> selectList(){
-        return baseMapper.selectList(null);
-    }
-
-    @Override
     public String login(String accountName, String accountPassword) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        //构造想相等条件，注意这里的字段为数据表中的字段，而不是Java实体类
+        //构造相等条件，注意这里的字段为数据表中的字段，而不是Java实体类
         wrapper.eq("account_name", accountName);
 
         User user = baseMapper.selectOne(wrapper);
@@ -44,7 +37,8 @@ public class UserServiceImpl extends UserService {
     }
 
     @Override
-    public boolean logout(String token) {
+    public boolean logout(String key) {
+        authenticationService.delete(key);
         return true;
     }
 
