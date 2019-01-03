@@ -9,9 +9,11 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class LoginModel {
+public class ChangePasswordModel {
     @NotNull
-    private String accountName;
+    private String prePassword;
     @NotNull
-    private String accountPassword;
+    private String newPassword;
+    @NotNull
+    private String newPasswordAgain;
 }

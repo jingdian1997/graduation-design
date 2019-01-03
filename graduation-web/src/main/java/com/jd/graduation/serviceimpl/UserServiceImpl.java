@@ -2,6 +2,9 @@ package com.jd.graduation.serviceimpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.entity.User;
+import com.jd.graduation.model.ChangePasswordModel;
+import com.jd.graduation.model.UserChangeInfoModel;
+import com.jd.graduation.model.UserCreateModel;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +45,49 @@ public class UserServiceImpl extends UserService {
         return true;
     }
 
-    public boolean register() {
+    public boolean register(UserCreateModel model) {
+        if (!model.getAccountPassword().equals(model.getAccountPasswordAgain())){
+            return false;
+        }
+
+        User user = new User();
+        user.setAccountName(model.getAccountName());
+        user.setAccountPassword(model.getAccountPassword());
+        user.setName(model.getName());
+        if ("女".equals(model.getSex())) {
+            user.setSex("女");
+        } else {
+            user.setSex("男");
+        }
+        user.setIdCard(model.getIdCard());
+        user.setTelephone(model.getTelephone());
+        user.setMail(model.getEmail());
+
+        int result = baseMapper.insert(user);
+
+        return true;
+    }
+
+    public boolean changePwd(ChangePasswordModel model, int id) {
+        User user = baseMapper.selectById(id);
+
+        if (user.getAccountPassword().equals(model.getPrePassword())
+                && model.getNewPassword().equals(model.getNewPasswordAgain())) {
+            user.setAccountPassword(model.getNewPassword());
+
+            int result = baseMapper.updateById(user);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean changeInfo(UserChangeInfoModel model, int id) {
+        User user = baseMapper.selectById(id);
+        user.setMail(model.getMail());
+        user.setTelephone(model.getTelephone());
+
+        int result = baseMapper.updateById(user);
         return true;
     }
 }
