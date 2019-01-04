@@ -1,8 +1,10 @@
 package com.jd.graduation.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.model.AdminConfigVO;
 import com.jd.graduation.model.request.BookCreateModel;
 import com.jd.graduation.model.request.BookUpdateModel;
+import com.jd.graduation.model.response.BookCategoryVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.serviceimpl.BookServiceImpl;
 import com.jd.graduation.util.ReturnMap;
@@ -57,5 +59,17 @@ public class BookController extends BaseController {
 
         bookService.pullOff(id);
         return ReturnMap.ok(null);
+    }
+
+    @GetMapping("/list/{page}/{size}")
+    public ReturnMap list(@PathVariable("page") int page, @PathVariable("size") int size,
+                          HttpServletRequest request) {
+        AdminConfigVO adminConfigVO = authenticationService.getAdminEntity(getHeaderAuthorization(request));
+        if (adminConfigVO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        Page<BookCategoryVO> books = bookService.selectList(new Page<>(page, size));
+        return ReturnMap.ok(books);
     }
 }

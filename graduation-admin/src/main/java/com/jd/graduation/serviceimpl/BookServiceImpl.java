@@ -1,9 +1,11 @@
 package com.jd.graduation.serviceimpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.entity.Book;
 import com.jd.graduation.model.request.BookCreateModel;
 import com.jd.graduation.model.request.BookUpdateModel;
+import com.jd.graduation.model.response.BookCategoryVO;
 import com.jd.graduation.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -62,11 +64,11 @@ public class BookServiceImpl extends BookService {
         baseMapper.updateById(book);
     }
 
-    public List<Book> list() {
-        return null;
+    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page) {
+        return page.setRecords(baseMapper.getBooks(page));
     }
 
-    public Book one(int bookId) {
+    public Book selectOne(int bookId) {
         return null;
     }
 }
