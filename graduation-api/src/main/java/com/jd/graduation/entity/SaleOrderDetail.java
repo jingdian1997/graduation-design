@@ -6,22 +6,22 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
-@TableName(value = "shopping_cart")
-public class ShoppingCart {
+@TableName(value = "sale_order_detail")
+public class SaleOrderDetail {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
+    @TableField(value = "amount")
+    private int amount;
     @TableField(value = "price")
     private double price;
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "pay")
+    private double pay;
 
-    @TableField(value = "user_id")
-    private int userId;
+    @TableField(value = "sale_id")
+    private int saleId;
     @TableField(value = "book_id")
     private int bookId;
 }

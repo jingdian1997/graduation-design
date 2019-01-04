@@ -11,17 +11,24 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName(value = "book_sale_order")
-public class BookSaleOrder {
+@TableName(value = "purchase_refund")
+public class PurchaseRefund {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
-    @TableField(value = "order_state")
-    private int orderState;
-    @TableField(value = "sale_price")
-    private double salePrice;
+    @TableField(value = "amount")
+    private int amount;
+    @TableField(value = "price")
+    private double price;
+
+    @TableField(value = "pay")
+    private double pay;
     @TableField(value = "create_time")
     private Date createTime;
 
-    @TableField(value = "user_id")
-    private int userId;
+    @TableField(value = "purchase_id")
+    private int purchase_id;
+    @TableField(value = "book_id")
+    private int bookId;
+    @TableField(value = "supplier_id")
+    private int supplierId;
 }
