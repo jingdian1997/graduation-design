@@ -1,7 +1,7 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.model.LoginModel;
-import com.jd.graduation.serviceimpl.UserServiceImplAdmin;
+import com.jd.graduation.serviceimpl.UserServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import javax.validation.Valid;
 @RestController
 @Api(description = "登录登出")
 public class LoginController extends BaseController{
-    private final UserServiceImplAdmin userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public LoginController(UserServiceImplAdmin userService) {
+    public LoginController(UserServiceImpl userService) {
         this.userService = userService;
     }
 

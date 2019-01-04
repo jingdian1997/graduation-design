@@ -7,14 +7,14 @@ import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("UserServiceImplAdmin")
-public class UserServiceImplAdmin extends UserService {
+@Service("UserServiceImpl")
+public class UserServiceImpl extends UserService {
     private final AuthenticationService authenticationService;
     private final SystemConfigDetailServiceImpl systemConfigDetailService;
 
     @Autowired
-    public UserServiceImplAdmin(AuthenticationService authenticationService,
-                                SystemConfigDetailServiceImpl systemConfigDetailService) {
+    public UserServiceImpl(AuthenticationService authenticationService,
+                           SystemConfigDetailServiceImpl systemConfigDetailService) {
         this.authenticationService = authenticationService;
         this.systemConfigDetailService = systemConfigDetailService;
     }
