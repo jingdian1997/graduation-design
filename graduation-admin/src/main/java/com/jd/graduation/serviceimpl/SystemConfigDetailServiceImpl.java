@@ -3,7 +3,7 @@ package com.jd.graduation.serviceimpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.entity.SystemConfigDetail;
 import com.jd.graduation.model.AdminConfigVO;
-import com.jd.graduation.model.ChangePasswordModel;
+import com.jd.graduation.model.request.ChangePasswordModel;
 import com.jd.graduation.service.SystemConfigDetailService;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,9 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.entity.User;
-import com.jd.graduation.model.ChangePasswordModel;
-import com.jd.graduation.model.UserChangeInfoModel;
-import com.jd.graduation.model.UserCreateModel;
+import com.jd.graduation.model.request.ChangePasswordModel;
+import com.jd.graduation.model.request.UserChangeInfoModel;
+import com.jd.graduation.model.request.UserCreateModel;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.serviceimpl.UserServiceImpl;
 import com.jd.graduation.util.ReturnMap;

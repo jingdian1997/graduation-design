@@ -1,7 +1,7 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.model.AdminConfigVO;
-import com.jd.graduation.model.ChangePasswordModel;
+import com.jd.graduation.model.request.ChangePasswordModel;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.serviceimpl.SystemConfigDetailServiceImpl;
 import com.jd.graduation.util.ReturnMap;
@@ -30,9 +30,8 @@ public class AdminController extends BaseController{
 
     @PostMapping("/changePwd")
     public ReturnMap changePwd(@RequestBody @Valid ChangePasswordModel model, HttpServletRequest request) {
-        String key = getHeaderAuthorization(request);
-        AdminConfigVO adminConfigVO = authenticationService.getAdminEntity(key);
-        if (adminConfigVO == null){
+        AdminConfigVO adminConfigVO = authenticationService.getAdminEntity(getHeaderAuthorization(request));
+        if (adminConfigVO == null) {
             return ReturnMap.notLogin();
         }
 

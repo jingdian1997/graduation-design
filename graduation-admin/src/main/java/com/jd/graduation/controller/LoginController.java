@@ -1,6 +1,6 @@
 package com.jd.graduation.controller;
 
-import com.jd.graduation.model.LoginModel;
+import com.jd.graduation.model.request.LoginModel;
 import com.jd.graduation.serviceimpl.UserServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
@@ -38,7 +38,7 @@ public class LoginController extends BaseController{
     @PostMapping("/logout")
     public ReturnMap logout(HttpServletRequest request){
         String key = getHeaderAuthorization(request);
-        boolean result = userService.logout(key);
+        userService.logout(key);
         return ReturnMap.ok(null);
     }
 }

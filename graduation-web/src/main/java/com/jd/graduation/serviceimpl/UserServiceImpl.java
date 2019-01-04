@@ -2,9 +2,9 @@ package com.jd.graduation.serviceimpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.entity.User;
-import com.jd.graduation.model.ChangePasswordModel;
-import com.jd.graduation.model.UserChangeInfoModel;
-import com.jd.graduation.model.UserCreateModel;
+import com.jd.graduation.model.request.ChangePasswordModel;
+import com.jd.graduation.model.request.UserChangeInfoModel;
+import com.jd.graduation.model.request.UserCreateModel;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,8 @@ public class UserServiceImpl extends UserService {
     }
 
     @Override
-    public boolean logout(String key) {
+    public void logout(String key) {
         authenticationService.delete(key);
-        return true;
     }
 
     public boolean register(UserCreateModel model) {

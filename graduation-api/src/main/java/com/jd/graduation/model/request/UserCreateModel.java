@@ -1,4 +1,4 @@
-package com.jd.graduation.model;
+package com.jd.graduation.model.request;
 
 import lombok.Getter;
 import lombok.Setter;

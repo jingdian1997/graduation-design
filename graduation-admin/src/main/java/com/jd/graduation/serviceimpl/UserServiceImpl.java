@@ -1,7 +1,6 @@
 package com.jd.graduation.serviceimpl;
 
 import com.jd.graduation.model.AdminConfigVO;
-import com.jd.graduation.model.ChangePasswordModel;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +35,7 @@ public class UserServiceImpl extends UserService {
     }
 
     @Override
-    public boolean logout(String key) {
+    public void logout(String key) {
         authenticationService.delete(key);
-        return true;
-    }
-
-    public boolean changePwd(ChangePasswordModel model, AdminConfigVO entity) {
-        return false;
     }
 }
