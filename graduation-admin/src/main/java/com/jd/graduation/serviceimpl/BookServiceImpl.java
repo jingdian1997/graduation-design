@@ -8,8 +8,7 @@ import com.jd.graduation.model.request.BookUpdateModel;
 import com.jd.graduation.model.response.BookCategoryVO;
 import com.jd.graduation.service.BookService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.util.StringUtils;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
@@ -64,11 +63,18 @@ public class BookServiceImpl extends BookService {
         baseMapper.updateById(book);
     }
 
-    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page) {
-        return page.setRecords(baseMapper.getBooks(page));
+    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page, Integer categoryId, String query) {
+        if (query == null) {
+            query = "";
+        }
+
+        if (categoryId == null){
+            return page.setRecords(baseMapper.getBooks(page, query));
+        }
+        return page.setRecords(baseMapper.getBooksByCategory(page, query, categoryId));
     }
 
-    public Book selectOne(int bookId) {
-        return null;
+    public BookCategoryVO selectOne(Integer bookId) {
+        return baseMapper.getOneBook(bookId);
     }
 }

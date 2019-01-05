@@ -63,13 +63,26 @@ public class BookController extends BaseController {
 
     @GetMapping("/list/{page}/{size}")
     public ReturnMap list(@PathVariable("page") int page, @PathVariable("size") int size,
+                          @RequestParam(value = "query", required = false) String query,
+                          @RequestParam(value = "category", required = false) Integer categoryId,
                           HttpServletRequest request) {
         AdminConfigVO adminConfigVO = authenticationService.getAdminEntity(getHeaderAuthorization(request));
         if (adminConfigVO == null) {
             return ReturnMap.notLogin();
         }
 
-        Page<BookCategoryVO> books = bookService.selectList(new Page<>(page, size));
+        Page<BookCategoryVO> books = bookService.selectList(new Page<>(page, size), categoryId, query);
         return ReturnMap.ok(books);
+    }
+
+    @GetMapping("/one/{id}")
+    public ReturnMap one(@PathVariable("id") Integer id, HttpServletRequest request) {
+        AdminConfigVO adminConfigVO = authenticationService.getAdminEntity(getHeaderAuthorization(request));
+        if (adminConfigVO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        BookCategoryVO book = bookService.selectOne(id);
+        return ReturnMap.ok(book);
     }
 }
