@@ -11,8 +11,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName(value = "shopping_cart")
-public class ShoppingCart {
+@TableName(value = "cart")
+public class Cart {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
     @TableField(value = "price")
