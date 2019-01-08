@@ -9,13 +9,15 @@
         <module name="graduation" />
         <module name="graduation-admin" />
         <module name="graduation-api" />
+        <module name="graduation-shop" />
         <module name="graduation-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="graduation" target="1.8" />
       <module name="graduation-admin" target="1.8" />
-      <module name="graduation-api" target="1.8" />
+      <module name="graduation-api" target="1.5" />
+      <module name="graduation-shop" target="1.8" />
       <module name="graduation-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -24,6 +26,7 @@
       <module name="graduation" options="-parameters" />
       <module name="graduation-admin" options="-parameters" />
       <module name="graduation-api" options="-parameters" />
+      <module name="graduation-shop" options="-parameters" />
       <module name="graduation-web" options="-parameters" />
     </option>
   </component>

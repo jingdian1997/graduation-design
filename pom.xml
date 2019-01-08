@@ -12,7 +12,7 @@
 
     <groupId>com.jd</groupId>
     <artifactId>graduation</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>graduation</name>
     <description>null</description>
 
@@ -26,6 +26,7 @@
         <module>graduation-api</module>
         <module>graduation-web</module>
         <module>graduation-admin</module>
+        <module>graduation-shop</module>
     </modules>
 
     <dependencies>
