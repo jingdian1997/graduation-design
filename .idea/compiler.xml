@@ -16,7 +16,7 @@
     <bytecodeTargetLevel>
       <module name="graduation" target="1.8" />
       <module name="graduation-admin" target="1.8" />
-      <module name="graduation-api" target="1.5" />
+      <module name="graduation-api" target="1.8" />
       <module name="graduation-shop" target="1.8" />
       <module name="graduation-web" target="1.8" />
     </bytecodeTargetLevel>
