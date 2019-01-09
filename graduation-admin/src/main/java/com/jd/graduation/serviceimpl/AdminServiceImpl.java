@@ -1,7 +1,6 @@
 package com.jd.graduation.serviceimpl;
 
 import com.jd.graduation.DO.AdminDO;
-import com.jd.graduation.model.AdminConfigVO;
 import com.jd.graduation.service.AdminService;
 import com.jd.graduation.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;

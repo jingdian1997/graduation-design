@@ -1,7 +1,6 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.DTO.LoginDTO;
-import com.jd.graduation.model.request.LoginModel;
 import com.jd.graduation.serviceimpl.AdminServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;

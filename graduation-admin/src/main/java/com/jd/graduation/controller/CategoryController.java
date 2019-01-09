@@ -2,7 +2,6 @@ package com.jd.graduation.controller;
 
 import com.jd.graduation.DO.AdminDO;
 import com.jd.graduation.entity.Category;
-import com.jd.graduation.model.AdminConfigVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.serviceimpl.CategoryServiceImpl;
 import com.jd.graduation.util.ReturnMap;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
