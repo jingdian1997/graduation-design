@@ -1,12 +1,14 @@
 package com.jd.graduation.controller;
 
+import com.jd.graduation.DTO.LoginDTO;
 import com.jd.graduation.model.request.LoginModel;
-import com.jd.graduation.serviceimpl.UserServiceImpl;
+import com.jd.graduation.serviceimpl.AdminServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -15,20 +17,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/admin")
 @Api(description = "登录登出")
-public class LoginController extends BaseController{
-    private final UserServiceImpl userService;
+public class AdminLoginController extends BaseController{
+    private final AdminServiceImpl userService;
 
     @Autowired
-    public LoginController(UserServiceImpl userService) {
+    public AdminLoginController(AdminServiceImpl userService) {
         this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginModel model){
-        String key = userService.login(model.getAccountName(), model.getAccountPassword());
+    public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO){
+        String key = userService.login(loginDTO.getAccount(), loginDTO.getPwd());
 
         if (key != null){
+            System.out.println(key);
             response.addCookie(new Cookie("token", key));
             return ReturnMap.ok(null);
         }

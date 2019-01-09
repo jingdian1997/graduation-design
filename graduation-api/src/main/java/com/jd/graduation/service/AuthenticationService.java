@@ -1,7 +1,7 @@
 package com.jd.graduation.service;
 
-import com.jd.graduation.entity.User;
-import com.jd.graduation.model.AdminConfigVO;
+import com.jd.graduation.DO.AdminDO;
+import com.jd.graduation.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -19,26 +19,26 @@ public class AuthenticationService {
         this.template = template;
     }
 
-    public User getUserEntity(String key){
+    public UserVO getUser(String key){
         if (key != null){
-            User entity = (User) template.opsForValue().get(key);
-            if (entity != null){
+            UserVO user = (UserVO) template.opsForValue().get(key);
+            if (user != null){
                 //重设key，重置过期时间
-                set(key, entity);
-                return entity;
+                set(key, user);
+                return user;
             }
         }
 
         return null;
     }
 
-    public AdminConfigVO getAdminEntity(String key){
+    public AdminDO getAdmin(String key){
         if (key != null){
-            AdminConfigVO entity = (AdminConfigVO) template.opsForValue().get(key);
-            if (entity != null){
+            AdminDO admin = (AdminDO) template.opsForValue().get(key);
+            if (admin != null){
                 //重设key，重置过期时间
-                set(key, entity);
-                return entity;
+                set(key, admin);
+                return admin;
             }
         }
 

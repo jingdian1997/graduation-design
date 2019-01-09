@@ -19,20 +19,19 @@ public class UserLoginServiceImpl extends UserLoginService {
         this.userService = userService;
     }
 
-    @Override
-    public String login(String accountName, String accountPassword) {
+    public String login(String account, String pwd) {
         QueryWrapper<UserLoginDO> wrapper = new QueryWrapper<>();
 
         //构造相等条件，注意这里的字段为数据表中的字段，而不是Java实体类
-        if (accountName.contains("@")) {
+        if (account.contains("@")) {
             //是邮箱登录
-            wrapper.eq("mail", accountName);
+            wrapper.eq("mail", account);
         }else {
-            wrapper.eq("tel", accountName);
+            wrapper.eq("tel", account);
         }
 
         UserLoginDO userLoginDO = baseMapper.selectOne(wrapper);
-        if (userLoginDO != null && accountPassword.equals(userLoginDO.getPwd())){
+        if (userLoginDO != null && pwd.equals(userLoginDO.getPwd())){
             UserVO userVO = userService.getWholeUser(userLoginDO.getId());
 
             String key = authenticationService.makeToken(userLoginDO.getTel());
@@ -43,7 +42,6 @@ public class UserLoginServiceImpl extends UserLoginService {
         return null;
     }
 
-    @Override
     public void logout(String key) {
         authenticationService.delete(key);
     }

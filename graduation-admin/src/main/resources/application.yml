@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8001
 
 spring:
   redis:
@@ -15,7 +15,7 @@ spring:
     timeout: 10000
 
   datasource:
-    url: jdbc:mysql://114.116.103.22:3306/jingdian
+    url: jdbc:mysql://114.116.103.22:3306/jd
     username: jingdian
     password: Jingdian_1997
     driver-class-name: com.mysql.cj.jdbc.Driver

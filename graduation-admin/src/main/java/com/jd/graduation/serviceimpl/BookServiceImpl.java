@@ -12,69 +12,69 @@ import org.springframework.util.StringUtils;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
-    public int countBookByCategory(int categoryId) {
-        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category_id", categoryId);
-        queryWrapper.eq("del", 0);
-
-        return baseMapper.selectCount(queryWrapper);
-    }
-
-    public void insert(BookCreateModel model) {
-        Book book = new Book();
-
-        book.setName(model.getName());
-        book.setAuthor(model.getAuthor());
-        book.setPublisher(model.getPublisher());
-        book.setPublishDate(model.getPublishDate());
-        book.setDescription(model.getDescription());
-        book.setSale(model.getSale());
-        book.setPicture(model.getPicture());
-        book.setCategoryId(model.getCategoryId());
-        book.setDel(false);
-        book.setStock(0);
-
-        baseMapper.insert(book);
-    }
-
-    public void update(BookUpdateModel model) {
-        Book book = baseMapper.selectById(model.getId());
-        //set fields,exclude id and stock
-        if (book != null) {
-
-            book.setDel(false);
-            book.setName(model.getName());
-            book.setAuthor(model.getAuthor());
-            book.setPublisher(model.getPublisher());
-            book.setPublishDate(model.getPublishDate());
-            book.setPicture(model.getPicture());
-            book.setDescription(model.getDescription());
-            book.setSale(model.getSale());
-            book.setCategoryId(model.getCategoryId());
-
-            baseMapper.updateById(book);
-        }
-    }
-
-    public void pullOff(int bookId) {
-        Book book = baseMapper.selectById(bookId);
-
-        book.setDel(true);
-        baseMapper.updateById(book);
-    }
-
-    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page, Integer categoryId, String query) {
-        if (query == null) {
-            query = "";
-        }
-
-        if (categoryId == null){
-            return page.setRecords(baseMapper.getBooks(page, query));
-        }
-        return page.setRecords(baseMapper.getBooksByCategory(page, query, categoryId));
-    }
-
-    public BookCategoryVO selectOne(Integer bookId) {
-        return baseMapper.getOneBook(bookId);
-    }
+//    public int countBookByCategory(int categoryId) {
+//        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("category_id", categoryId);
+//        queryWrapper.eq("del", 0);
+//
+//        return baseMapper.selectCount(queryWrapper);
+//    }
+//
+//    public void insert(BookCreateModel model) {
+//        Book book = new Book();
+//
+//        book.setName(model.getName());
+//        book.setAuthor(model.getAuthor());
+//        book.setPublisher(model.getPublisher());
+//        book.setPublishDate(model.getPublishDate());
+//        book.setDescription(model.getDescription());
+//        book.setSale(model.getSale());
+//        book.setPicture(model.getPicture());
+//        book.setCategoryId(model.getCategoryId());
+//        book.setDel(false);
+//        book.setStock(0);
+//
+//        baseMapper.insert(book);
+//    }
+//
+//    public void update(BookUpdateModel model) {
+//        Book book = baseMapper.selectById(model.getId());
+//        //set fields,exclude id and stock
+//        if (book != null) {
+//
+//            book.setDel(false);
+//            book.setName(model.getName());
+//            book.setAuthor(model.getAuthor());
+//            book.setPublisher(model.getPublisher());
+//            book.setPublishDate(model.getPublishDate());
+//            book.setPicture(model.getPicture());
+//            book.setDescription(model.getDescription());
+//            book.setSale(model.getSale());
+//            book.setCategoryId(model.getCategoryId());
+//
+//            baseMapper.updateById(book);
+//        }
+//    }
+//
+//    public void pullOff(int bookId) {
+//        Book book = baseMapper.selectById(bookId);
+//
+//        book.setDel(true);
+//        baseMapper.updateById(book);
+//    }
+//
+//    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page, Integer categoryId, String query) {
+//        if (query == null) {
+//            query = "";
+//        }
+//
+//        if (categoryId == null){
+//            return page.setRecords(baseMapper.getBooks(page, query));
+//        }
+//        return page.setRecords(baseMapper.getBooksByCategory(page, query, categoryId));
+//    }
+//
+//    public BookCategoryVO selectOne(Integer bookId) {
+//        return baseMapper.getOneBook(bookId);
+//    }
 }

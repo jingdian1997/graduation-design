@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @TableName(value = "admin")
-public class AdminDO {
+public class AdminDO implements Serializable {
     @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
