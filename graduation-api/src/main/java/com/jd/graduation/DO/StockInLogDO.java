@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @TableName(value = "stock_in_log")
-public class StockInLog {
+public class StockInLogDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

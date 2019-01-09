@@ -1,7 +1,7 @@
 package com.jd.graduation.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jd.graduation.entity.Category;
+import com.jd.graduation.DO.CategoryDO;
 
-public interface CategoryMapper extends BaseMapper<Category> {
+public interface CategoryMapper extends BaseMapper<CategoryDO> {
 }

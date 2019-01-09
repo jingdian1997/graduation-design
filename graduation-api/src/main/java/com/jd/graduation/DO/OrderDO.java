@@ -31,6 +31,8 @@ public class OrderDO {
     private Double deliverPrice;
     @TableField(value = "pay")
     private Double pay;
+    @TableField(value = "deliver_no")
+    private Double deliverNo;
 
     @TableField(value = "status")
     private Integer status;
@@ -39,6 +41,8 @@ public class OrderDO {
     private Date createTime;
     @TableField(value = "pay_time")
     private Date payTime;
+    @TableField(value = "confirm_time")
+    private Date confirmTime;
     @TableField(value = "deliver_time")
     private Date deliverTime;
     @TableField(value = "complete_time")

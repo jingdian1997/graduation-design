@@ -1,7 +1,7 @@
 package com.jd.graduation.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jd.graduation.entity.Cart;
+import com.jd.graduation.DO.CartDO;
 
-public interface CartMapper extends BaseMapper<Cart> {
+public interface CartMapper extends BaseMapper<CartDO> {
 }

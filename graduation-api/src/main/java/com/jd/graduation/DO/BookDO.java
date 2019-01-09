@@ -31,6 +31,8 @@ public class BookDO {
     private String name;
     @TableField(value = "author")
     private String author;
+    @TableField(value = "ISBN")
+    private String ISBN;
 
     @TableField(value = "publish_date")
     private Date publishDate;
