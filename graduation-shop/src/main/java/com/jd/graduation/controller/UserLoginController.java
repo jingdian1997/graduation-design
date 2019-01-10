@@ -1,7 +1,11 @@
 package com.jd.graduation.controller;
 
+import com.jd.graduation.DO.UserLoginDO;
+import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.DTO.LoginDTO;
 import com.jd.graduation.Impl.UserLoginServiceImpl;
+import com.jd.graduation.Impl.UserServiceImpl;
+import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +23,12 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 @Api(description = "用户登录相关")
 public class UserLoginController extends BaseController {
-    private final UserLoginServiceImpl userLoginService;
-
     @Autowired
-    public UserLoginController(UserLoginServiceImpl userLoginService) {
-        this.userLoginService = userLoginService;
-    }
+    private AuthenticationService authenticationService;
+    @Autowired
+    private UserLoginServiceImpl userLoginService;
+    @Autowired
+    private UserServiceImpl userService;
 
     @PostMapping("/login")
     public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO) {
@@ -44,5 +48,20 @@ public class UserLoginController extends BaseController {
         String key = getHeaderAuthorization(request);
         userLoginService.logout(key);
         return ReturnMap.ok(null);
+    }
+
+
+    @PostMapping("/changePwd")
+    public ReturnMap changePwd(@RequestBody @Valid ChangePasswordDTO dto, HttpServletRequest request) {
+        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        String message = userLoginService.changePwd(user.getId(), dto);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
     }
 }

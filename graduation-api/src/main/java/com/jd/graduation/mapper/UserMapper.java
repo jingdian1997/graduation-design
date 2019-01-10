@@ -9,11 +9,11 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface UserMapper extends BaseMapper<UserDO> {
-    @Select("select u.*, ul.tel, ul.mail, ul.pwd from `user` u LEFT JOIN user_login ul " +
-            "on u.id = ul.id")
+    @Select("select * FROM(`user` AS u LEFT JOIN user_login AS ul ON u.id=ul.id) " +
+            "LEFT JOIN user_purse as up ON u.id = up.id WHERE u.id=1")
     List<UserVO> list();
 
-    @Select("select u.*, ul.tel, ul.mail, ul.pwd from `user` u " +
-            "LEFT JOIN user_login ul on u.id = ul.id WHERE u.id = #{id}")
+    @Select("select * FROM(`user` AS u LEFT JOIN user_login AS ul ON u.id=ul.id) " +
+            "LEFT JOIN user_purse as up ON u.id = up.id WHERE u.id = #{id}")
     UserVO findById(@Param("id") Integer id);
 }

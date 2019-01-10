@@ -2,6 +2,7 @@ package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.UserLoginDO;
+import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserLoginService;
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service("UserLoginServiceImpl")
 public class UserLoginServiceImpl extends UserLoginService {
-    private final UserServiceImpl userService;
-    private final AuthenticationService authenticationService;
-
     @Autowired
-    public UserLoginServiceImpl(AuthenticationService authenticationService, UserServiceImpl userService) {
-        this.authenticationService = authenticationService;
-        this.userService = userService;
+    private UserServiceImpl userService;
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    public int insert(UserLoginDO userLoginDO) {
+        return baseMapper.insert(userLoginDO);
     }
 
     public String login(String account, String pwd) {
@@ -32,10 +33,11 @@ public class UserLoginServiceImpl extends UserLoginService {
 
         UserLoginDO userLoginDO = baseMapper.selectOne(wrapper);
         if (userLoginDO != null && pwd.equals(userLoginDO.getPwd())){
-            UserVO userVO = userService.getWholeUser(userLoginDO.getId());
+            //不存密码
+            userLoginDO.setPwd(null);
 
             String key = authenticationService.makeToken(userLoginDO.getTel());
-            authenticationService.set(key, userVO);
+            authenticationService.set(key, userLoginDO);
 
             return key;
         }
@@ -44,5 +46,27 @@ public class UserLoginServiceImpl extends UserLoginService {
 
     public void logout(String key) {
         authenticationService.delete(key);
+    }
+
+    public String changePwd(Integer id, ChangePasswordDTO dto) {
+        UserLoginDO userLoginDO = baseMapper.selectById(id);
+        String prePwd = userLoginDO.getPwd();
+
+        if (!dto.getPrePassword().equals(prePwd)){
+            return "原密码错误";
+        }
+        if (prePwd.equals(dto.getNewPassword())){
+            return "新密码不能与原密码相同";
+        }
+        if (!dto.getNewPassword().equals(dto.getNewPasswordAgain())) {
+            return "两次密码不一致";
+        }
+
+        userLoginDO.setPwd(dto.getNewPassword());
+        baseMapper.updateById(userLoginDO);
+        //重置缓存
+//        userLoginDO.setPwd(null);
+//        authenticationService.set(key, userLoginDO);
+        return null;
     }
 }

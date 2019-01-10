@@ -17,14 +17,11 @@ import java.util.Date;
 @ToString
 @TableName(value = "user_purse")
 public class UserPurseDO {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.INPUT)
     private Integer id;
 
     @TableField(value = "balance")
     private Double balance;
     @TableField(value = "pay_pwd")
     private String payPwd;
-
-    @TableField(value = "time")
-    private Date time;
 }

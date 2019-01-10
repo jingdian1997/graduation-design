@@ -7,13 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @ToString
-public class UserVO implements Serializable {
+public class UserVO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -41,4 +40,9 @@ public class UserVO implements Serializable {
     private String mail;
     @TableField(value = "pwd")
     private String pwd;
+
+    @TableField(value = "balance")
+    private Double balance;
+    @TableField(value = "pay_pwd")
+    private String payPwd;
 }

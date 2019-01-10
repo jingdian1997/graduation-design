@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -16,8 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @TableName(value = "user_login")
-public class UserLoginDO {
-    @TableId(value = "id", type = IdType.AUTO)
+public class UserLoginDO implements Serializable {
+    @TableId(value = "id", type = IdType.INPUT)
     private Integer id;
 
     @TableField(value = "tel")
@@ -26,7 +27,4 @@ public class UserLoginDO {
     private String mail;
     @TableField(value = "pwd")
     private String pwd;
-
-    @TableField(value = "time")
-    private Date time;
 }

@@ -1,4 +1,4 @@
-package com.jd.graduation.model.request;
+package com.jd.graduation.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class UserChangeInfoModel {
-    @NotNull
-    private String telephone;
+public class UserChangeMailAndTelDTO {
     @Email
     private String mail;
+    @NotNull
+    private String tel;
 }

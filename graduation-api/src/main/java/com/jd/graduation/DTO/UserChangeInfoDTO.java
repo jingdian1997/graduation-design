@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -12,10 +13,10 @@ import javax.validation.constraints.NotNull;
 public class UserChangeInfoDTO {
     @NotNull
     private String nickname;
-    @NotNull
+
     private String name;
-    @NotNull
     private String sex;
-    @NotNull
     private String idCard;
+    private Date birthday;
+    private String introduce;
 }

@@ -1,6 +1,7 @@
 package com.jd.graduation.service;
 
 import com.jd.graduation.DO.AdminDO;
+import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,9 +20,9 @@ public class AuthenticationService {
         this.template = template;
     }
 
-    public UserVO getUser(String key){
+    public UserLoginDO getUser(String key){
         if (key != null){
-            UserVO user = (UserVO) template.opsForValue().get(key);
+            UserLoginDO user = (UserLoginDO) template.opsForValue().get(key);
             if (user != null){
                 //重设key，重置过期时间
                 set(key, user);
