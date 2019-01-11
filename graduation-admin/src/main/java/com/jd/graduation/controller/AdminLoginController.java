@@ -19,12 +19,8 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 @Api(description = "登录登出")
 public class AdminLoginController extends BaseController{
-    private final AdminServiceImpl userService;
-
     @Autowired
-    public AdminLoginController(AdminServiceImpl userService) {
-        this.userService = userService;
-    }
+    private AdminServiceImpl userService;
 
     @PostMapping("/login")
     public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO){

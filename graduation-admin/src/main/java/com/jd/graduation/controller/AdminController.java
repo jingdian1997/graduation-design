@@ -1,7 +1,11 @@
 package com.jd.graduation.controller;
 
-import com.jd.graduation.model.request.ChangePasswordModel;
+import com.jd.graduation.DO.AdminDO;
+import com.jd.graduation.DTO.AdminChangeInfoDTO;
+import com.jd.graduation.DTO.AdminCreateDTO;
+import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.service.AuthenticationService;
+import com.jd.graduation.serviceimpl.AdminServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +21,47 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 @Api(description = "管理员账户管理")
 public class AdminController extends BaseController{
-    private final AuthenticationService authenticationService;
-
     @Autowired
-    public AdminController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    private AuthenticationService authenticationService;
+    @Autowired
+    private AdminServiceImpl adminService;
+
+    @PostMapping("/create")
+    public ReturnMap create(@RequestBody @Valid AdminCreateDTO dto, HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }else if (adminDO.getRole() != 0){
+            return ReturnMap.error("不是超级管理员");
+        }
+
+        adminService.create(dto);
+        return ReturnMap.ok(null);
     }
 
     @PostMapping("/changePwd")
-    public ReturnMap changePwd(@RequestBody @Valid ChangePasswordModel model, HttpServletRequest request) {
-//        AdminConfigVO adminConfigVO = authenticationService.getAdmin(getHeaderAuthorization(request));
-//        if (adminConfigVO == null) {
-//            return ReturnMap.notLogin();
-//        }
-//
-//        boolean result = systemConfigDetailService.changePwd(model);
-//        if (result){
-//            return ReturnMap.ok(null);
-//        }
+    public ReturnMap changePwd(@RequestBody @Valid ChangePasswordDTO dto, HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
 
-        return ReturnMap.error("修改密码失败");
+        String message = adminService.changePwd(adminDO.getId(), dto);
+        if (message == null) {
+            return ReturnMap.ok(null);
+        }
+
+        return ReturnMap.error(message);
+    }
+
+    @PostMapping("/changeInfo")
+    public ReturnMap changeInfo(@RequestBody @Valid AdminChangeInfoDTO dto, HttpServletRequest request){
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        adminService.changeInfo(dto, adminDO.getId());
+        return ReturnMap.ok(null);
     }
 }

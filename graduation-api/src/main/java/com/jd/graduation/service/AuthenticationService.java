@@ -2,7 +2,6 @@ package com.jd.graduation.service;
 
 import com.jd.graduation.DO.AdminDO;
 import com.jd.graduation.DO.UserLoginDO;
-import com.jd.graduation.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

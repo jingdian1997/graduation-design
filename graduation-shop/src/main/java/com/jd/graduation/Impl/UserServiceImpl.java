@@ -4,7 +4,6 @@ import com.jd.graduation.DO.UserDO;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DO.UserPurseDO;
 import com.jd.graduation.DTO.UserChangeInfoDTO;
-import com.jd.graduation.DTO.UserChangeMailAndTelDTO;
 import com.jd.graduation.DTO.UserCreateDTO;
 import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.UserService;
@@ -62,9 +61,5 @@ public class UserServiceImpl extends UserService {
         userDO.setIntroduce(dto.getIntroduce());
 
         baseMapper.updateById(userDO);
-    }
-
-    public void changeMailAndTel(UserChangeMailAndTelDTO dto, Integer id) {
-
     }
 }

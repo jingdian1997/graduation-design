@@ -3,7 +3,8 @@ package com.jd.graduation.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.ChangePasswordDTO;
-import com.jd.graduation.VO.UserVO;
+import com.jd.graduation.DTO.UserChangeMailDTO;
+import com.jd.graduation.DTO.UserChangeTelDTO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,38 @@ public class UserLoginServiceImpl extends UserLoginService {
 
         userLoginDO.setPwd(dto.getNewPassword());
         baseMapper.updateById(userLoginDO);
+        return null;
+    }
+
+    public String changeMail(UserChangeMailDTO dto, Integer id, String key) {
+        UserLoginDO userLoginDO = baseMapper.selectById(id);
+
+        if (dto.getMail().equals(userLoginDO.getMail())) {
+            return "相同的邮箱";
+        }
+
+        userLoginDO.setMail(dto.getMail());
+        baseMapper.updateById(userLoginDO);
         //重置缓存
-//        userLoginDO.setPwd(null);
-//        authenticationService.set(key, userLoginDO);
+        userLoginDO.setPwd(null);
+        authenticationService.set(key, userLoginDO);
+
+        return null;
+    }
+
+    public String changeTel(UserChangeTelDTO dto, Integer id, String key) {
+        UserLoginDO userLoginDO = baseMapper.selectById(id);
+
+        if (dto.getTel().equals(userLoginDO.getTel())) {
+            return "相同的电话号码";
+        }
+
+        userLoginDO.setTel(dto.getTel());
+        baseMapper.updateById(userLoginDO);
+        //重置缓存
+        userLoginDO.setPwd(null);
+        authenticationService.set(key, userLoginDO);
+
         return null;
     }
 }

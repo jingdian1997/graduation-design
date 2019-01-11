@@ -3,6 +3,8 @@ package com.jd.graduation.controller;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.DTO.LoginDTO;
+import com.jd.graduation.DTO.UserChangeMailDTO;
+import com.jd.graduation.DTO.UserChangeTelDTO;
 import com.jd.graduation.Impl.UserLoginServiceImpl;
 import com.jd.graduation.Impl.UserServiceImpl;
 import com.jd.graduation.service.AuthenticationService;
@@ -27,8 +29,6 @@ public class UserLoginController extends BaseController {
     private AuthenticationService authenticationService;
     @Autowired
     private UserLoginServiceImpl userLoginService;
-    @Autowired
-    private UserServiceImpl userService;
 
     @PostMapping("/login")
     public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO) {
@@ -59,6 +59,40 @@ public class UserLoginController extends BaseController {
         }
 
         String message = userLoginService.changePwd(user.getId(), dto);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
+    }
+
+    @PostMapping("/changeMail")
+    public ReturnMap changeMail(@RequestBody @Valid UserChangeMailDTO dto,
+                                      HttpServletRequest request) {
+        String key = getHeaderAuthorization(request);
+
+        UserLoginDO user = authenticationService.getUser(key);
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        String message = userLoginService.changeMail(dto, user.getId(), key);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
+    }
+
+    @PostMapping("/changeTel")
+    public ReturnMap changeTel(@RequestBody @Valid UserChangeTelDTO dto,
+                                HttpServletRequest request) {
+        String key = getHeaderAuthorization(request);
+
+        UserLoginDO user = authenticationService.getUser(key);
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        String message = userLoginService.changeTel(dto, user.getId(), key);
         if (message == null){
             return ReturnMap.ok(null);
         }

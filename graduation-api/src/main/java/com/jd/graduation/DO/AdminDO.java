@@ -24,8 +24,11 @@ public class AdminDO implements Serializable {
     private String pwd;
     @TableField(value = "name")
     private String name;
+
     @TableField(value = "tel")
     private String tel;
+    @TableField(value = "mail")
+    private String mail;
 
     @TableField(value = "role")
     private Integer role;

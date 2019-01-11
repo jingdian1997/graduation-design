@@ -2,7 +2,6 @@ package com.jd.graduation.controller;
 
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.UserChangeInfoDTO;
-import com.jd.graduation.DTO.UserChangeMailAndTelDTO;
 import com.jd.graduation.DTO.UserCreateDTO;
 import com.jd.graduation.Impl.UserServiceImpl;
 import com.jd.graduation.service.AuthenticationService;
@@ -44,20 +43,6 @@ public class UserController extends BaseController{
         }
 
         userService.changeInfo(dto, user.getId());
-        return ReturnMap.ok(null);
-    }
-
-    @PostMapping("/changeMailAndTel")
-    public ReturnMap changeMailAndTel(@RequestBody @Valid UserChangeMailAndTelDTO dto,
-                                      HttpServletRequest request) {
-//        String key = getHeaderAuthorization(request);
-
-        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
-        if (user == null) {
-            return ReturnMap.notLogin();
-        }
-
-        userService.changeMailAndTel(dto, user.getId());
         return ReturnMap.ok(null);
     }
 }
