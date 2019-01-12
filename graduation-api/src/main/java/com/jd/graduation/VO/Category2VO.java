@@ -1,28 +1,26 @@
-package com.jd.graduation.DO;
+package com.jd.graduation.VO;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-@TableName(value = "category2")
-public class Category2DO {
+public class Category2VO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @TableField(value = "name")
     private String name;
+    @TableField(value = "del")
+    private boolean del;
 
     @TableField(value = "cid")
     private Integer cid;
-    @TableField(value = "del")
-    private boolean del;
+    @TableField(value = "cname")
+    private String cname;
 }

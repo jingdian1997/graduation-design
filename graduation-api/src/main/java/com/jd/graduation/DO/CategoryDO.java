@@ -20,4 +20,7 @@ public class CategoryDO {
 
     @TableField(value = "name")
     private String name;
+
+    @TableField(value = "del")
+    private boolean del;
 }

@@ -1,25 +1,28 @@
-package com.jd.graduation.serviceimpl;
+package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jd.graduation.entity.Book;
-import com.jd.graduation.model.request.BookCreateModel;
-import com.jd.graduation.model.request.BookUpdateModel;
-import com.jd.graduation.model.response.BookCategoryVO;
+import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.service.BookService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
-//    public int countBookByCategory(int categoryId) {
-//        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("category_id", categoryId);
-//        queryWrapper.eq("del", 0);
-//
-//        return baseMapper.selectCount(queryWrapper);
-//    }
-//
+    public Integer countBookByCategory2AndDel(Integer c2id){
+        QueryWrapper<BookDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("c2id", c2id);
+        queryWrapper.eq("del", 0);
+
+        return baseMapper.selectCount(queryWrapper);
+    }
+
+    public Integer countBookByCategoryAndDel(Integer cid){
+        QueryWrapper<BookDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("cid", cid);
+        queryWrapper.eq("del", 0);
+
+        return baseMapper.selectCount(queryWrapper);
+    }
+
 //    public void insert(BookCreateModel model) {
 //        Book book = new Book();
 //

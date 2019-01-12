@@ -1,16 +1,13 @@
 package com.jd.graduation.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jd.graduation.entity.User;
 import com.jd.graduation.model.response.BookCategoryVO;
 import com.jd.graduation.service.AuthenticationService;
-import com.jd.graduation.serviceimpl.BookServiceImpl;
+import com.jd.graduation.Impl.BookServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/book")

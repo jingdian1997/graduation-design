@@ -3,7 +3,7 @@ package com.jd.graduation.controller;
 import com.jd.graduation.DO.AdminDO;
 import com.jd.graduation.entity.Category;
 import com.jd.graduation.service.AuthenticationService;
-import com.jd.graduation.serviceimpl.CategoryServiceImpl;
+import com.jd.graduation.Impl.CategoryServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/category")
 @Api(description = "图书大类管理")
 public class CategoryController extends BaseController{
-    private final CategoryServiceImpl categoryService;
-    private final AuthenticationService authenticationService;
-
     @Autowired
-    public CategoryController(CategoryServiceImpl categoryService, AuthenticationService authenticationService) {
-        this.categoryService = categoryService;
-        this.authenticationService = authenticationService;
-    }
+    private CategoryServiceImpl categoryService;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @PostMapping("/insert")
     public ReturnMap insert(@RequestBody Category category, HttpServletRequest request) {

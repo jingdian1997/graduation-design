@@ -1,19 +1,15 @@
-package com.jd.graduation.serviceimpl;
+package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jd.graduation.entity.Category;
+import com.jd.graduation.DO.CategoryDO;
 import com.jd.graduation.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("CategoryServiceImpl")
 public class CategoryServiceImpl extends CategoryService {
-    private final BookServiceImpl bookService;
-
     @Autowired
-    public CategoryServiceImpl(BookServiceImpl bookService) {
-        this.bookService = bookService;
-    }
+    private BookServiceImpl bookService;
 
 //    public boolean insert(Category category) {
 //        if (!checkNameUnique(category.getName())){
@@ -41,12 +37,13 @@ public class CategoryServiceImpl extends CategoryService {
 //        baseMapper.updateById(category);
 //        return true;
 //    }
-//
-//    private boolean checkNameUnique(String name) {
-//        QueryWrapper<Category> wrapper = new QueryWrapper<>();
-//        wrapper.eq("name", name);
-//        int count = baseMapper.selectCount(wrapper);
-//
-//        return count == 0;
-//    }
+
+    private boolean checkNameUnique(String name) {
+        QueryWrapper<CategoryDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("name", name);
+        wrapper.eq("del", false);
+
+        int count = baseMapper.selectCount(wrapper);
+        return count == 0;
+    }
 }

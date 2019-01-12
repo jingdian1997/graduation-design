@@ -1,4 +1,4 @@
-package com.jd.graduation.serviceimpl;
+package com.jd.graduation.Impl;
 
 import com.jd.graduation.DO.AdminDO;
 import com.jd.graduation.DTO.AdminChangeInfoDTO;

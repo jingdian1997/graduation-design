@@ -5,7 +5,7 @@ import com.jd.graduation.DTO.AdminChangeInfoDTO;
 import com.jd.graduation.DTO.AdminCreateDTO;
 import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.service.AuthenticationService;
-import com.jd.graduation.serviceimpl.AdminServiceImpl;
+import com.jd.graduation.Impl.AdminServiceImpl;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
