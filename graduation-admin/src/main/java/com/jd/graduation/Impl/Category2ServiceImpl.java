@@ -45,7 +45,7 @@ public class Category2ServiceImpl extends Category2Service {
     public String update(Category2UpdateDTO dto) {
         Category2DO category2DO = baseMapper.selectById(dto.getId());
         if (!checkNameUnique(dto.getName(), category2DO.getCid())){
-            return "大类别下已经存在同名的小类别";
+            return "大类别下已经存在同名的小类别，或者你没有更改类名";
         }
 
         category2DO.setName(dto.getName());
@@ -65,5 +65,13 @@ public class Category2ServiceImpl extends Category2Service {
 
         int count = baseMapper.selectCount(wrapper);
         return count == 0;
+    }
+
+    public int countByCid(Integer cid) {
+        QueryWrapper<Category2DO> wrapper = new QueryWrapper<>();
+        wrapper.eq("cid", cid);
+        wrapper.eq("del", false);
+
+        return baseMapper.selectCount(wrapper);
     }
 }

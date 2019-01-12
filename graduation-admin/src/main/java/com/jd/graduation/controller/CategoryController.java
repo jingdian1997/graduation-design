@@ -1,15 +1,19 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.DO.AdminDO;
-import com.jd.graduation.entity.Category;
-import com.jd.graduation.service.AuthenticationService;
+import com.jd.graduation.DO.CategoryDO;
+import com.jd.graduation.DTO.CategoryCreateDTO;
+import com.jd.graduation.DTO.CategoryUpdateDTO;
 import com.jd.graduation.Impl.CategoryServiceImpl;
+import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -21,50 +25,55 @@ public class CategoryController extends BaseController{
     private AuthenticationService authenticationService;
 
     @PostMapping("/insert")
-    public ReturnMap insert(@RequestBody Category category, HttpServletRequest request) {
+    public ReturnMap insert(@RequestBody @Valid CategoryCreateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        boolean result = categoryService.insert(category);
-//        if (result){
-//            return ReturnMap.ok(null);
-//        }
-        return ReturnMap.error("修改失败，请检查是否类别重名");
+        String message = categoryService.insert(dto);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
     }
 
     @PostMapping("/delete/{id}")
-    public ReturnMap delete(@PathVariable("id") int id, HttpServletRequest request) {
+    public ReturnMap delete(@PathVariable("id") Integer id, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        boolean res = categoryService.delete(id);
-//        if (res) {
-//            return ReturnMap.ok(null);
-//        }
-        return ReturnMap.error("删除失败，请检查该分类下是否有图书");
+        String message = categoryService.delete(id);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
     }
 
     @PostMapping("/update")
-    public ReturnMap update(@RequestBody Category category, HttpServletRequest request) {
+    public ReturnMap update(@RequestBody @Valid CategoryUpdateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        boolean res = categoryService.update(category);
-//        if (res) {
-//            return ReturnMap.ok(null);
-//        }
-        return ReturnMap.error("修改失败，请检查类别重名或者没有任何更改");
+        String message = categoryService.update(dto);
+        if (message == null){
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
     }
 
     @GetMapping("/list")
-    public ReturnMap list() {
-//        List<Category> list = categoryService.selectList();
-        return ReturnMap.ok(null);
+    public ReturnMap list(HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        List<CategoryDO> list = categoryService.getList();
+        return ReturnMap.ok(list);
     }
 }

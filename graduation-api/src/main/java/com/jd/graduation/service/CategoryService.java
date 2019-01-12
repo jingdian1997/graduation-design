@@ -7,7 +7,4 @@ import com.jd.graduation.mapper.CategoryMapper;
 import java.util.List;
 
 public abstract class CategoryService extends ServiceImpl<CategoryMapper, CategoryDO> {
-    public List<CategoryDO> selectList() {
-        return baseMapper.selectList(null);
-    }
 }
