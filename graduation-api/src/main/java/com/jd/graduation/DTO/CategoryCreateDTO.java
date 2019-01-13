@@ -12,4 +12,6 @@ import javax.validation.constraints.NotNull;
 public class CategoryCreateDTO {
     @NotNull
     private String name;
+    @NotNull
+    private Integer parentId;
 }

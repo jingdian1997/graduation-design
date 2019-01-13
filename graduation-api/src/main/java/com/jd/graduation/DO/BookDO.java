@@ -22,8 +22,6 @@ public class BookDO {
 
     @TableField(value = "cid")
     private Integer cid;
-    @TableField(value = "c2id")
-    private Integer c2id;
 
     @TableField(value = "name")
     private String name;
@@ -38,9 +36,11 @@ public class BookDO {
     private Date publishDate;
     @TableField(value = "description")
     private String description;
+
     @TableField(value = "price")
     private Double price;
-
+    @TableField(value = "discount")
+    private Double discount;
     @TableField(value = "picture")
     private String picture;
 

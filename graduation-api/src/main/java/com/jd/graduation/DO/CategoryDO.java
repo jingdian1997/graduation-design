@@ -20,6 +20,8 @@ public class CategoryDO {
 
     @TableField(value = "name")
     private String name;
+    @TableField(value = "parent_id")
+    private Integer parentId;
 
     @TableField(value = "del")
     private boolean del;

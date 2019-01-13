@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -13,16 +12,12 @@ import java.util.Date;
 public class BookUpdateDTO {
     @NotNull
     private Integer id;
-//    @NotNull
-//    private String name;
-//    @NotNull
-//    private String author;
-//    @NotNull
-//    private String publisher;
-//    @NotNull
-//    private Date publishDate;
+
     @NotNull
     private double price;
+    @NotNull
+    private double discount;
+
     @NotNull
     private String picture;
     @NotNull

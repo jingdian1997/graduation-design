@@ -2,6 +2,7 @@ package com.jd.graduation.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.AdminDO;
+import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DTO.BookCreateDTO;
 import com.jd.graduation.DTO.BookUpdateDTO;
 import com.jd.graduation.Impl.BookServiceImpl;
@@ -65,14 +66,13 @@ public class BookController extends BaseController {
     public ReturnMap list(@PathVariable("page") int page, @PathVariable("size") int size,
                           @RequestParam(value = "query", required = false) String query,
                           @RequestParam(value = "cid", required = false) Integer cid,
-                          @RequestParam(value = "c2id", required = false) Integer c2id,
                           HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-        Page<BookVO> books = bookService.selectList(new Page<>(page, size), cid, c2id, query);
+        Page<BookDO> books = bookService.selectList(new Page<>(page, size), cid, query);
         return ReturnMap.ok(books);
     }
 

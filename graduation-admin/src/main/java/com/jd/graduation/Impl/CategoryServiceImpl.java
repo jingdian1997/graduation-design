@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("CategoryServiceImpl")
 public class CategoryServiceImpl extends CategoryService {
     @Autowired
     private BookServiceImpl bookService;
-    @Autowired
-    private Category2ServiceImpl category2Service;
 
     public String insert(CategoryCreateDTO dto) {
         if (!checkNameUnique(dto.getName())){
@@ -24,6 +23,7 @@ public class CategoryServiceImpl extends CategoryService {
 
         CategoryDO category = new CategoryDO();
         category.setName(dto.getName());
+        category.setParentId(dto.getParentId());
         category.setDel(false);
 
         baseMapper.insert(category);
@@ -34,7 +34,7 @@ public class CategoryServiceImpl extends CategoryService {
         if(bookService.countBookByCategoryAndDel(cid) > 0) {
             return "删除失败，请检查该分类下是否有图书";
         }
-        if (category2Service.countByCid(cid) > 0) {
+        if (countSonCategory(cid) > 0) {
             return "删除失败，请检查该分类下是否有小类";
         }
 
@@ -60,12 +60,29 @@ public class CategoryServiceImpl extends CategoryService {
         return baseMapper.selectList(null);
     }
 
+    public Map<Integer, CategoryDO> getMap(){
+        return baseMapper.getMap();
+    }
+
     private boolean checkNameUnique(String name) {
         QueryWrapper<CategoryDO> wrapper = new QueryWrapper<>();
         wrapper.eq("name", name);
-        wrapper.eq("del", false);
 
         int count = baseMapper.selectCount(wrapper);
         return count == 0;
+    }
+
+    private int countSonCategory(Integer parentId) {
+        QueryWrapper<CategoryDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id", parentId);
+        wrapper.eq("del", false);
+
+        return baseMapper.selectCount(wrapper);
+    }
+
+    public void active(Integer id) {
+        CategoryDO categoryDO = baseMapper.selectById(id);
+        categoryDO.setDel(false);
+        baseMapper.updateById(categoryDO);
     }
 }

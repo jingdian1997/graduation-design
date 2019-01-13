@@ -24,12 +24,12 @@ public class BookCreateDTO {
     @NotNull
     private double price;
     @NotNull
+    private double discount;
+    @NotNull
     private String picture;
     @NotNull
     private String description;
 
     @NotNull
     private Integer cid;
-    @NotNull
-    private Integer c2id;
 }

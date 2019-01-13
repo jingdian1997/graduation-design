@@ -52,6 +52,17 @@ public class CategoryController extends BaseController{
         return ReturnMap.error(message);
     }
 
+    @PostMapping("/active/{id}")
+    public ReturnMap active(@PathVariable("id") Integer id, HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        categoryService.active(id);
+        return ReturnMap.ok(null);
+    }
+
     @PostMapping("/update")
     public ReturnMap update(@RequestBody @Valid CategoryUpdateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
