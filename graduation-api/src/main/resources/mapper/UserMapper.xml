@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jd.graduation.mapper.UserMapper">
-    <resultMap id="baseMap" type="com.jd.graduation.entity.User">
-        <id column="id" property="id"/>
-        <result column="account_name" property="accountName"/>
-        <result column="account_password" property="accountPassword"/>
-        <result column="name" property="name"/>
-        <result column="sex" property="sex"/>
-        <result column="ID_card" property="idCard"/>
-        <result column="telephone" property="telephone"/>
-        <result column="mail" property="mail"/>
-    </resultMap>
-
-    <!--<select id="list" resultMap="baseMap">-->
-        <!--select * from user-->
-    <!--</select>-->
+    <!--<resultMap id="baseMap" type="com.jd.graduation.entity.User">-->
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="account_name" property="accountName"/>-->
+        <!--<result column="account_password" property="accountPassword"/>-->
+        <!--<result column="name" property="name"/>-->
+        <!--<result column="sex" property="sex"/>-->
+        <!--<result column="ID_card" property="idCard"/>-->
+        <!--<result column="telephone" property="telephone"/>-->
+        <!--<result column="mail" property="mail"/>-->
+    <!--</resultMap>-->
 
     <!--<select id="findById" resultMap="baseMap" parameterType="java.lang.Integer">-->
         <!--select * from user where id = #{id}-->

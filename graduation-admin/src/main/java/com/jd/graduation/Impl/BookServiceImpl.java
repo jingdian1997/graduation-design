@@ -1,7 +1,11 @@
 package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.BookDO;
+import com.jd.graduation.DTO.BookCreateDTO;
+import com.jd.graduation.DTO.BookUpdateDTO;
+import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -23,61 +27,66 @@ public class BookServiceImpl extends BookService {
         return baseMapper.selectCount(queryWrapper);
     }
 
-//    public void insert(BookCreateModel model) {
-//        Book book = new Book();
-//
-//        book.setName(model.getName());
-//        book.setAuthor(model.getAuthor());
-//        book.setPublisher(model.getPublisher());
-//        book.setPublishDate(model.getPublishDate());
-//        book.setDescription(model.getDescription());
-//        book.setSale(model.getSale());
-//        book.setPicture(model.getPicture());
-//        book.setCategoryId(model.getCategoryId());
-//        book.setDel(false);
-//        book.setStock(0);
-//
-//        baseMapper.insert(book);
-//    }
-//
-//    public void update(BookUpdateModel model) {
-//        Book book = baseMapper.selectById(model.getId());
-//        //set fields,exclude id and stock
-//        if (book != null) {
-//
-//            book.setDel(false);
-//            book.setName(model.getName());
-//            book.setAuthor(model.getAuthor());
-//            book.setPublisher(model.getPublisher());
-//            book.setPublishDate(model.getPublishDate());
-//            book.setPicture(model.getPicture());
-//            book.setDescription(model.getDescription());
-//            book.setSale(model.getSale());
-//            book.setCategoryId(model.getCategoryId());
-//
-//            baseMapper.updateById(book);
-//        }
-//    }
-//
-//    public void pullOff(int bookId) {
-//        Book book = baseMapper.selectById(bookId);
-//
-//        book.setDel(true);
-//        baseMapper.updateById(book);
-//    }
-//
-//    public Page<BookCategoryVO> selectList(Page<BookCategoryVO> page, Integer categoryId, String query) {
-//        if (query == null) {
-//            query = "";
-//        }
-//
-//        if (categoryId == null){
-//            return page.setRecords(baseMapper.getBooks(page, query));
-//        }
-//        return page.setRecords(baseMapper.getBooksByCategory(page, query, categoryId));
-//    }
-//
-//    public BookCategoryVO selectOne(Integer bookId) {
-//        return baseMapper.getOneBook(bookId);
-//    }
+    public void insert(BookCreateDTO dto) {
+        BookDO book = new BookDO();
+
+        book.setISBN(dto.getISBN());
+        book.setName(dto.getName());
+        book.setAuthor(dto.getAuthor());
+        book.setPublisher(dto.getPublisher());
+        book.setPublishDate(dto.getPublishDate());
+        book.setDescription(dto.getDescription());
+        book.setPrice(dto.getPrice());
+        book.setPicture(dto.getPicture());
+
+        book.setCid(dto.getCid());
+        book.setC2id(dto.getC2id());
+        book.setDel(false);
+
+        baseMapper.insert(book);
+    }
+
+    public void update(BookUpdateDTO dto) {
+        BookDO book = baseMapper.selectById(dto.getId());
+        //set fields,exclude id and isbn
+        if (book != null) {
+//            book.setName(dto.getName());
+//            book.setAuthor(dto.getAuthor());
+//            book.setPublisher(dto.getPublisher());
+//            book.setPublishDate(dto.getPublishDate());
+            book.setPicture(dto.getPicture());
+            book.setDescription(dto.getDescription());
+            book.setPrice(dto.getPrice());
+
+            book.setDel(false);
+            baseMapper.updateById(book);
+        }
+    }
+
+    public void pullOff(Integer bookId) {
+        BookDO book = baseMapper.selectById(bookId);
+
+        book.setDel(true);
+        baseMapper.updateById(book);
+    }
+
+    public Page<BookVO> selectList(Page<BookVO> page, Integer cid, Integer c2id, String query) {
+        if (query == null) {
+            query = "";
+        }
+
+        if (cid != null){
+            if (c2id != null){
+                return page.setRecords(baseMapper.getBooksByCategory2(page, query, cid, c2id));
+            } else {
+                return page.setRecords(baseMapper.getBooksByCategory(page, query, cid));
+            }
+        }
+
+        return page.setRecords(baseMapper.getBooks(page, query));
+    }
+
+    public BookVO selectOne(Integer bookId) {
+        return baseMapper.getOneBook(bookId);
+    }
 }

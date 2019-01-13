@@ -1,10 +1,12 @@
 package com.jd.graduation.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.AdminDO;
-import com.jd.graduation.model.request.BookCreateModel;
-import com.jd.graduation.model.request.BookUpdateModel;
-import com.jd.graduation.service.AuthenticationService;
+import com.jd.graduation.DTO.BookCreateDTO;
+import com.jd.graduation.DTO.BookUpdateDTO;
 import com.jd.graduation.Impl.BookServiceImpl;
+import com.jd.graduation.VO.BookVO;
+import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,50 +29,51 @@ public class BookController extends BaseController {
     }
 
     @PostMapping("/insert")
-    public ReturnMap insert(@RequestBody @Valid BookCreateModel model, HttpServletRequest request) {
+    public ReturnMap insert(@RequestBody @Valid BookCreateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        bookService.insert(model);
+        bookService.insert(dto);
         return ReturnMap.ok(null);
     }
 
     @PostMapping("/update")
-    public ReturnMap update(@RequestBody @Valid BookUpdateModel model, HttpServletRequest request) {
+    public ReturnMap update(@RequestBody @Valid BookUpdateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        bookService.update(model);
+        bookService.update(dto);
         return ReturnMap.ok(null);
     }
 
     @PostMapping("/pullOff/{id}")
-    public ReturnMap pullOff(@PathVariable("id") int id, HttpServletRequest request) {
+    public ReturnMap pullOff(@PathVariable("id") Integer id, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        bookService.pullOff(id);
+        bookService.pullOff(id);
         return ReturnMap.ok(null);
     }
 
     @GetMapping("/list/{page}/{size}")
     public ReturnMap list(@PathVariable("page") int page, @PathVariable("size") int size,
                           @RequestParam(value = "query", required = false) String query,
-                          @RequestParam(value = "category", required = false) Integer categoryId,
+                          @RequestParam(value = "cid", required = false) Integer cid,
+                          @RequestParam(value = "c2id", required = false) Integer c2id,
                           HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
-//        Page<BookCategoryVO> books = bookService.selectList(new Page<>(page, size), categoryId, query);
-        return ReturnMap.ok(null);
+        Page<BookVO> books = bookService.selectList(new Page<>(page, size), cid, c2id, query);
+        return ReturnMap.ok(books);
     }
 
     @GetMapping("/one/{id}")
@@ -80,7 +83,7 @@ public class BookController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-//        BookCategoryVO book = bookService.selectOne(id);
-        return ReturnMap.ok(null);
+        BookVO book = bookService.selectOne(id);
+        return ReturnMap.ok(book);
     }
 }

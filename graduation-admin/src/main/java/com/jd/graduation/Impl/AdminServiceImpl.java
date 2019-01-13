@@ -11,12 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service("AdminServiceImpl")
 public class AdminServiceImpl extends AdminService {
-    private final AuthenticationService authenticationService;
-
     @Autowired
-    public AdminServiceImpl(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
+    private AuthenticationService authenticationService;
 
     public String login(String account, String pwd) {
         AdminDO adminDO = baseMapper.selectById(account);

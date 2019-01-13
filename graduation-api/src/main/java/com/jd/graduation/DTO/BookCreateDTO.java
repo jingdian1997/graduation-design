@@ -1,4 +1,4 @@
-package com.jd.graduation.model.request;
+package com.jd.graduation.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class BookUpdateModel {
+public class BookCreateDTO {
     @NotNull
-    private int id;
+    private String ISBN;
     @NotNull
     private String name;
     @NotNull
@@ -22,11 +22,14 @@ public class BookUpdateModel {
     @NotNull
     private Date publishDate;
     @NotNull
-    private double sale;
-    @NotNull
-    private int categoryId;
+    private double price;
     @NotNull
     private String picture;
-
+    @NotNull
     private String description;
+
+    @NotNull
+    private Integer cid;
+    @NotNull
+    private Integer c2id;
 }
