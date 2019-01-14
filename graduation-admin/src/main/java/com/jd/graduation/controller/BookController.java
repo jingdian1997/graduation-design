@@ -72,7 +72,7 @@ public class BookController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        Page<BookDO> books = bookService.selectList(new Page<>(page, size), cid, query);
+        Page<BookVO> books = bookService.selectList(new Page<>(page, size), cid, query);
         return ReturnMap.ok(books);
     }
 

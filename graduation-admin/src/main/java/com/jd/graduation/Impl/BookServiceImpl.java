@@ -6,17 +6,22 @@ import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CategoryDO;
 import com.jd.graduation.DTO.BookCreateDTO;
 import com.jd.graduation.DTO.BookUpdateDTO;
+import com.jd.graduation.DTO.StockCreateDTO;
 import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.BookService;
+import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
+import java.util.List;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
     @Autowired
     private CategoryServiceImpl categoryService;
+    @Autowired
+    private StockServiceImpl stockService;
 
     public Integer countBookByCategoryAndDel(Integer cid){
         QueryWrapper<BookDO> queryWrapper = new QueryWrapper<>();
@@ -26,6 +31,7 @@ public class BookServiceImpl extends BookService {
         return baseMapper.selectCount(queryWrapper);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void insert(BookCreateDTO dto) {
         BookDO book = new BookDO();
 
@@ -43,6 +49,12 @@ public class BookServiceImpl extends BookService {
         book.setDel(false);
 
         baseMapper.insert(book);
+
+        StockCreateDTO stockCreateDTO = new StockCreateDTO();
+        stockCreateDTO.setBid(book.getId());
+        stockCreateDTO.setStock(0);
+
+        stockService.insert(stockCreateDTO);
     }
 
     public void update(BookUpdateDTO dto) {
@@ -66,21 +78,37 @@ public class BookServiceImpl extends BookService {
         baseMapper.updateById(book);
     }
 
-    public Page<BookDO> selectList(Page<BookDO> page, Integer cid, String query) {
+    public Page<BookVO> selectList(Page<BookVO> page, Integer cid, String query) {
+        List<BookVO> bookVOList = null;
+
         if (query == null) {
             query = "";
         }
 
         if (cid != null){
-            Map<Integer, CategoryDO> map = categoryService.getMap();
-            return page.setRecords(baseMapper.getBooksByCategory(page, query, cid));
+            List<Integer> cids = categoryService.getAllCategoryIds(cid);
+            String str = MyStringUtils.listToString(cids);
+            bookVOList = baseMapper.getBooksByCategory(page, query, str);
+        } else {
+            bookVOList = baseMapper.getBooks(page, query);
         }
 
-        return page.setRecords(baseMapper.getBooks(page, query));
+        for (BookVO bookVO : bookVOList) {
+            Integer oneCid = bookVO.getCid();
+            List<CategoryDO> categoryDOList = categoryService.getAllCategories(oneCid);
+            bookVO.setCategories(categoryDOList);
+        }
+
+        return page.setRecords(bookVOList);
     }
 
     public BookVO selectOne(Integer bookId) {
-//        return baseMapper.getOneBook(bookId);
-        return null;
+        BookVO bookVO = baseMapper.getOneBook(bookId);
+
+        Integer oneCid = bookVO.getCid();
+        List<CategoryDO> categoryDOList = categoryService.getAllCategories(oneCid);
+        bookVO.setCategories(categoryDOList);
+
+        return bookVO;
     }
 }
