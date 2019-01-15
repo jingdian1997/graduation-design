@@ -23,6 +23,4 @@ public class StockDO {
 
     @TableField(value = "stock")
     private Integer stock;
-    @TableField(value = "free_stock")
-    private Integer freeStock;
 }

@@ -27,6 +27,8 @@ public class CartDO {
 
     @TableField(value = "price")
     private Double price;
+    @TableField(value = "amount")
+    private Integer amount;
     @TableField(value = "create_time")
     private Date createTime;
 }

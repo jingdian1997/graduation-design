@@ -4,5 +4,5 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.mapper.CartMapper;
 
-public abstract class ShoppingCartService extends ServiceImpl<CartMapper, CartDO> {
+public abstract class CartService extends ServiceImpl<CartMapper, CartDO> {
 }
