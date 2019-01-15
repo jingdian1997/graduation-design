@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/graduation-admin/graduation-admin.iml" filepath="$PROJECT_DIR$/graduation-admin/graduation-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/graduation-api/graduation-api.iml" filepath="$PROJECT_DIR$/graduation-api/graduation-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/graduation-shop/graduation-shop.iml" filepath="$PROJECT_DIR$/graduation-shop/graduation-shop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/graduation-web/graduation-web.iml" filepath="$PROJECT_DIR$/graduation-web/graduation-web.iml" />
     </modules>
   </component>
 </project>

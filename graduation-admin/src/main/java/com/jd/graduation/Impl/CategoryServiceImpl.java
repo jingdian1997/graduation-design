@@ -68,7 +68,7 @@ public class CategoryServiceImpl extends CategoryService {
         return baseMapper.selectList(null);
     }
 
-    public Map<Integer, CategoryDO> getMap(){
+    public Map<Integer, CategoryDO> getCategoryMap(){
         return baseMapper.getMap();
     }
 
@@ -113,7 +113,7 @@ public class CategoryServiceImpl extends CategoryService {
 
     public List<CategoryDO> getAllCategories(Integer cid) {
         List<CategoryDO> list = new ArrayList<>();
-        Map<Integer, CategoryDO> map = getMap();
+        Map<Integer, CategoryDO> map = getCategoryMap();
 
         while (cid > 0) {
             CategoryDO categoryDO = map.get(cid);

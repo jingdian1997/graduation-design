@@ -4,7 +4,6 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/graduation-web/pom.xml" />
         <option value="$PROJECT_DIR$/graduation-api/pom.xml" />
         <option value="$PROJECT_DIR$/graduation-admin/pom.xml" />
         <option value="$PROJECT_DIR$/graduation-shop/pom.xml" />

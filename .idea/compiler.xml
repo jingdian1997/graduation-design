@@ -10,7 +10,6 @@
         <module name="graduation-admin" />
         <module name="graduation-api" />
         <module name="graduation-shop" />
-        <module name="graduation-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

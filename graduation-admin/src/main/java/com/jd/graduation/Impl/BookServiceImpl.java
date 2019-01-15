@@ -88,9 +88,18 @@ public class BookServiceImpl extends BookService {
         if (cid != null){
             List<Integer> cids = categoryService.getAllCategoryIds(cid);
             String str = MyStringUtils.listToString(cids);
-            bookVOList = baseMapper.getBooksByCategory(page, query, str);
+
+            if ("".equals(query)){
+                bookVOList = baseMapper.getBooksByCategory(page, str);
+            } else {
+                bookVOList = baseMapper.getBooksByCategoryAndQuery(page, query, str);
+            }
         } else {
-            bookVOList = baseMapper.getBooks(page, query);
+            if ("".equals(query)) {
+                bookVOList = baseMapper.getBooks(page);
+            } else {
+                bookVOList = baseMapper.getBooksByQuery(page, query);
+            }
         }
 
         for (BookVO bookVO : bookVOList) {
@@ -104,6 +113,10 @@ public class BookServiceImpl extends BookService {
 
     public BookVO selectOne(Integer bookId) {
         BookVO bookVO = baseMapper.getOneBook(bookId);
+
+        if (bookVO == null){
+            return null;
+        }
 
         Integer oneCid = bookVO.getCid();
         List<CategoryDO> categoryDOList = categoryService.getAllCategories(oneCid);
