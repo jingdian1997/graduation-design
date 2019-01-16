@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jd.graduation.mapper.CartMapper">
+    <select id="getInIds" resultType="com.jd.graduation.DO.CartDO">
+        select * from cart where uid = #{uid}
+        <if test="ids != null">
+            and id in
+            <foreach item="id" collection="ids" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+    </select>
 </mapper>
