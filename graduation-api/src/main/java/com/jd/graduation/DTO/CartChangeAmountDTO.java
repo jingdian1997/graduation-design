@@ -5,14 +5,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
-public class OrderCreateDTO {
+public class CartChangeAmountDTO {
     @NotNull
-    private List<Integer> cartIds;
+    private Integer id;
     @NotNull
-    private Integer addressId;
+    private Integer amount;
 }

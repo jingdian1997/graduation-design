@@ -2,7 +2,7 @@ package com.jd.graduation.controller;
 
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.UserLoginDO;
-import com.jd.graduation.DTO.OrderCreateDTO;
+import com.jd.graduation.DTO.CartChangeAmountDTO;
 import com.jd.graduation.Impl.CartServiceImpl;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
-@Api(description = "用户模块")
+@Api(description = "购物车模块")
 public class CartController extends BaseController{
     @Autowired
     private CartServiceImpl cartService;
@@ -48,9 +48,31 @@ public class CartController extends BaseController{
         return ReturnMap.ok(data);
     }
 
-    @PostMapping("/createOrder")
-    public ReturnMap createOrder(@RequestBody @Valid List<OrderCreateDTO> dtos, HttpServletRequest request){
-        //TODO:订单生成
-        return ReturnMap.ok(null);
+    @PostMapping("/delete")
+    public ReturnMap delete(@RequestBody Integer id, HttpServletRequest request){
+        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        String message = cartService.delete(id, user.getId());
+        if (message == null) {
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
+    }
+
+    @PostMapping("/changAmount")
+    public ReturnMap changAmount(@RequestBody @Valid CartChangeAmountDTO dto, HttpServletRequest request) {
+        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        String message = cartService.changeAmount(dto, user.getId());
+        if (message == null) {
+            return ReturnMap.ok(null);
+        }
+        return ReturnMap.error(message);
     }
 }

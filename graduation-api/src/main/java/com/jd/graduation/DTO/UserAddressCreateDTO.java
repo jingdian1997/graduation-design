@@ -5,14 +5,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
-public class OrderCreateDTO {
+public class UserAddressCreateDTO {
     @NotNull
-    private List<Integer> cartIds;
+    private String address;
     @NotNull
-    private Integer addressId;
+    private String recipient;
+    @NotNull
+    private String tel;
+
+    private boolean defaulting = false;
 }

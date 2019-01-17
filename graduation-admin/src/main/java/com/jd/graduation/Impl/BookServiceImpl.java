@@ -52,7 +52,7 @@ public class BookServiceImpl extends BookService {
 
         StockCreateDTO stockCreateDTO = new StockCreateDTO();
         stockCreateDTO.setBid(book.getId());
-        stockCreateDTO.setStock(0);
+        stockCreateDTO.setStock(1000);
 
         stockService.insert(stockCreateDTO);
     }

@@ -34,7 +34,4 @@ public class UserAddressDO {
     private boolean defaulting;
     @TableField(value = "del")
     private boolean del;
-
-    @TableField(value = "time")
-    private Date time;
 }
