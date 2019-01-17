@@ -32,24 +32,18 @@ public class OrderRefundDO {
     @TableField(value = "price")
     private Double price;
 
-    @TableField(value = "refund_reason")
-    private String refundReason;
+    @TableField(value = "reason")
+    private String reason;
     @TableField(value = "refuse_reason")
     private String refuseReason;
 
-    @TableField(value = "other_pay")
-    private Double otherPay;
     @TableField(value = "pay")
     private Double pay;
-    @TableField(value = "status")
-    private Integer status;
 
     @TableField(value = "create_time")
     private Date createTime;
     @TableField(value = "reply_time")
     private Date replyTime;
-    @TableField(value = "operate_time")
-    private Date operateTime;
     @TableField(value = "complete_time")
     private Date completeTime;
 }

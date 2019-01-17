@@ -1,6 +1,7 @@
 package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CategoryDO;
 import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.BookService;
@@ -81,5 +82,10 @@ public class BookServiceImpl extends BookService {
 
         result.put("book", books);
         return result;
+    }
+
+    public double getRealPrice(Integer bid) {
+        BookDO bookDO = baseMapper.selectById(bid);
+        return bookDO.getDiscount() * bookDO.getPrice();
     }
 }

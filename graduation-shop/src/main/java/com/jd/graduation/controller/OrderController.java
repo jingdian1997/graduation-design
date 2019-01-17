@@ -34,6 +34,7 @@ public class OrderController extends BaseController{
             return ReturnMap.notLogin();
         }
 
+        orderService.create(dto, user.getId());
         return ReturnMap.ok(null);
     }
 }

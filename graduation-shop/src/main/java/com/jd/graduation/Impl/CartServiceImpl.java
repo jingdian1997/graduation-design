@@ -1,9 +1,9 @@
 package com.jd.graduation.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DTO.CartChangeAmountDTO;
 import com.jd.graduation.VO.BookVO;
+import com.jd.graduation.VO.CartVO;
 import com.jd.graduation.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,6 @@ public class CartServiceImpl extends CartService {
         CartDO cartDO = new CartDO();
         cartDO.setUid(uid);
         cartDO.setBid(bid);
-        cartDO.setPrice(bookVO.getPrice());
         cartDO.setAmount(1);
         cartDO.setCreateTime(new Date());
 
@@ -48,10 +47,8 @@ public class CartServiceImpl extends CartService {
         return baseMapper.getInIds(ids, uid);
     }
 
-    public List<CartDO> getAll(Integer uid) {
-        QueryWrapper<CartDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", uid);
-        return baseMapper.selectList(wrapper);
+    public List<CartVO> getAll(Integer uid) {
+        return baseMapper.selectByUid(uid);
     }
 
     public String changeAmount(CartChangeAmountDTO dto, Integer uid) {

@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @ToString
-@TableName(value = "order")
+@TableName(value = "`order`")
 public class OrderDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -27,14 +27,14 @@ public class OrderDO {
 
     @TableField(value = "price")
     private Double price;
-    @TableField(value = "deliver_price")
-    private Double deliverPrice;
+    @TableField(value = "freight")
+    private Double freight;
     @TableField(value = "pay")
     private Double pay;
+
     @TableField(value = "deliver_no")
     private Double deliverNo;
-
-    @TableField(value = "status")
+    @TableField(value = "`status`")
     private Integer status;
 
     @TableField(value = "create_time")

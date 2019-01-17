@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 
 @Service("StockServiceImpl")
 public class StockServiceImpl extends StockService {
-    public boolean reduceStock(Integer number, Integer bid) {
+    public boolean reduceStock(Integer amount, Integer bid) {
         QueryWrapper<StockDO> wrapper = new QueryWrapper<>();
         wrapper.eq("bid", bid);
         StockDO stockDO = baseMapper.selectOne(wrapper);
 
         Integer now = stockDO.getStock();
-        if (now < number) {
+        if (now < amount) {
             return false;
         }
 
-        stockDO.setStock(now - number);
+        stockDO.setStock(now - amount);
         baseMapper.updateById(stockDO);
 
         return true;

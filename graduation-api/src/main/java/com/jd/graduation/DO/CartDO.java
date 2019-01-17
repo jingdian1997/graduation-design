@@ -25,9 +25,6 @@ public class CartDO {
     @TableField(value = "bid")
     private Integer bid;
 
-    //单价
-    @TableField(value = "price")
-    private Double price;
     @TableField(value = "amount")
     private Integer amount;
 

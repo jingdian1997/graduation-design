@@ -1,9 +1,9 @@
 package com.jd.graduation.controller;
 
-import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.CartChangeAmountDTO;
 import com.jd.graduation.Impl.CartServiceImpl;
+import com.jd.graduation.VO.CartVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
@@ -44,7 +44,7 @@ public class CartController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        List<CartDO> data = cartService.getAll(user.getId());
+        List<CartVO> data = cartService.getAll(user.getId());
         return ReturnMap.ok(data);
     }
 
