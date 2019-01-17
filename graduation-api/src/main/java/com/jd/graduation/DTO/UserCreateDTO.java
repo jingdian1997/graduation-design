@@ -17,12 +17,12 @@ public class UserCreateDTO {
     @NotNull
     private String pwdAgain;
 
-    @NotNull
-    @Size(min = 6, max = 6)
-    private String payPwd;
-    @NotNull
-    @Size(min = 6, max = 6)
-    private String payPwdAgain;
+//    @NotNull
+//    @Size(min = 6, max = 6)
+//    private String payPwd;
+//    @NotNull
+//    @Size(min = 6, max = 6)
+//    private String payPwdAgain;
 
     @NotNull
     private String nickname;

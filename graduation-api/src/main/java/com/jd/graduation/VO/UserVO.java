@@ -41,8 +41,8 @@ public class UserVO {
     @TableField(value = "pwd")
     private String pwd;
 
-    @TableField(value = "balance")
-    private Double balance;
-    @TableField(value = "pay_pwd")
-    private String payPwd;
+//    @TableField(value = "balance")
+//    private Double balance;
+//    @TableField(value = "pay_pwd")
+//    private String payPwd;
 }
