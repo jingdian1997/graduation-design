@@ -1,5 +1,6 @@
 package com.jd.graduation.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.OrderDetailDO;
 import com.jd.graduation.service.OrderDetailService;
@@ -19,7 +20,7 @@ public class OrderDetailServiceImpl extends OrderDetailService {
     private StockServiceImpl stockService;
 
     @Transactional(rollbackFor = Exception.class)
-    public double createList(List<Integer> cartIds, Integer uid, Integer oid){
+    public double createList(List<Integer> cartIds, Integer uid, Integer oid) throws Exception{
         List<CartDO> cartDOS = cartService.getInIds(cartIds, uid);
         double price = 0.0;
 
@@ -30,19 +31,20 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             double singlePrice = bookService.getRealPrice(bid);
             Integer amount = one.getAmount();
 
-            //TODO:库存不足的处理
             boolean result = stockService.reduceStock(amount, bid);
             if (!result){
-                continue;
+                throw new Exception(bid + "库存不足，创单失败");
             }
 
             double total = singlePrice * amount;
             price += total;
+
             orderDetailDO.setBid(bid);
             orderDetailDO.setAmount(amount);
             orderDetailDO.setPrice(singlePrice);
             orderDetailDO.setTotal(total);
             orderDetailDO.setOid(oid);
+            orderDetailDO.setFlag(0);
             baseMapper.insert(orderDetailDO);
 
             //删除购购物车
@@ -50,5 +52,23 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         }
 
         return price;
+    }
+
+    public void cancelList(Integer oid){
+        baseMapper.updateFlagByOid(oid, -1);
+    }
+
+    public void payList(Integer oid) {
+        baseMapper.updateFlagByOid(oid, 1);
+    }
+
+    public void completeList(Integer oid) {
+        baseMapper.updateFlagByOid(oid, 4);
+    }
+
+    public void deleteList(Integer oid) {
+        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("oid", oid);
+        baseMapper.delete(wrapper);
     }
 }

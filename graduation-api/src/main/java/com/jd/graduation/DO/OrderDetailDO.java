@@ -29,4 +29,8 @@ public class OrderDetailDO {
     private Double price;
     @TableField(value = "total")
     private Double total;
+
+    //冗余order status字段
+    @TableField(value = "flag")
+    private Integer flag;
 }
