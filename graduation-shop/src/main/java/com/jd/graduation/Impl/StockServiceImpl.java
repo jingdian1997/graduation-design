@@ -23,6 +23,17 @@ public class StockServiceImpl extends StockService {
         return true;
     }
 
+    public void addStock(Integer number, Integer bid) {
+        QueryWrapper<StockDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("bid", bid);
+        StockDO stockDO = baseMapper.selectOne(wrapper);
+
+        Integer now = stockDO.getStock();
+        stockDO.setStock(number + now);
+
+        baseMapper.updateById(stockDO);
+    }
+
     public Integer getStock(Integer bid) {
         return baseMapper.getStockByBid(bid);
     }

@@ -39,7 +39,7 @@ public class OrderServiceImpl extends OrderService {
         }
 
         orderDO.setFreight(freight);
-        orderDO.setPrice(price + freight);
+        orderDO.setPrice(price);
         baseMapper.updateById(orderDO);
     }
 

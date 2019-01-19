@@ -3,6 +3,7 @@ package com.jd.graduation.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.OrderDetailDO;
+import com.jd.graduation.VO.OrderDetailVO;
 import com.jd.graduation.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,13 @@ public class OrderDetailServiceImpl extends OrderDetailService {
     }
 
     public void cancelList(Integer oid){
+        List<OrderDetailDO> orderDetailDOS = getDetails(oid);
+
+        //释放库存
+        for (OrderDetailDO one : orderDetailDOS) {
+            stockService.addStock(one.getAmount(), one.getBid());
+        }
+
         baseMapper.updateFlagByOid(oid, -1);
     }
 
@@ -70,5 +78,15 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
         wrapper.eq("oid", oid);
         baseMapper.delete(wrapper);
+    }
+
+    private List<OrderDetailDO> getDetails(Integer oid){
+        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("oid", oid);
+        return baseMapper.selectList(wrapper);
+    }
+
+    public List<OrderDetailVO> getByOid(Integer oid) {
+        return baseMapper.getByOid(oid);
     }
 }

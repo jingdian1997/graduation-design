@@ -33,7 +33,7 @@ public class OrderDO {
     private Double pay;
 
     @TableField(value = "deliver_no")
-    private Double deliverNo;
+    private String deliverNo;
     @TableField(value = "`status`")
     private Integer status;
 
