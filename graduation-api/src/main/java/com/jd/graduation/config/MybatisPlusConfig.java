@@ -17,7 +17,7 @@ public class MybatisPlusConfig {
         return new PerformanceInterceptor();
     }
 
-    /*
+    /**
      * 分页插件，自动识别数据库类型 多租户，请参考官网【插件扩展】
      */
     @Bean
