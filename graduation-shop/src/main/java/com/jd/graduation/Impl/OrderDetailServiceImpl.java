@@ -89,4 +89,15 @@ public class OrderDetailServiceImpl extends OrderDetailService {
     public List<OrderDetailVO> getByOid(Integer oid) {
         return baseMapper.getByOid(oid);
     }
+
+    public boolean checkBought(Integer oid, Integer bid) {
+        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("oid", oid);
+        wrapper.eq("bid", bid);
+        //用户必须已经完成相关订单才可以评论
+        wrapper.eq("flag", 4);
+        int count = baseMapper.selectCount(wrapper);
+
+        return count > 0;
+    }
 }

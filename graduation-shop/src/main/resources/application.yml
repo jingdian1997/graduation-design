@@ -20,6 +20,10 @@ spring:
     password: Jingdian_1997
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  jackson:
+    time-zone: GMT+8
+    date-format: java.text.SimpleDateFormat
+
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.jd.graduation.mapper

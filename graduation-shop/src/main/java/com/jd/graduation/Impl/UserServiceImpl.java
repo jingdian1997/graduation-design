@@ -12,31 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("UserServiceImpl")
 public class UserServiceImpl extends UserService {
     @Autowired
-    private UserPurseServiceImpl userPurseService;
-    @Autowired
     private UserLoginServiceImpl userLoginService;
-
-//    public UserVO getWholeUser(Integer id) {
-//        return baseMapper.findById(id);
-//    }
 
     @Transactional(rollbackFor = Exception.class)
     public String create(UserCreateDTO dto) {
         if (!dto.getPwd().equals(dto.getPwdAgain())) {
             return "两次输入的密码不一致";
         }
-//        if (!dto.getPayPwd().equals(dto.getPayPwdAgain())) {
-//            return "两次输入的支付密码不一致";
-//        }
 
         UserDO userDO = new UserDO();
         userDO.setNickname(dto.getNickname());
         baseMapper.insert(userDO);
-
-//        UserPurseDO userPurseDO = new UserPurseDO();
-//        userPurseDO.setId(userDO.getId());
-//        userPurseDO.setPayPwd(dto.getPayPwd());
-//        userPurseService.insert(userPurseDO);
 
         UserLoginDO userLoginDO = new UserLoginDO();
         userLoginDO.setId(userDO.getId());
