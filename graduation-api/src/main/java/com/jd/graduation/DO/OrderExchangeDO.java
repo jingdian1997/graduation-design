@@ -20,9 +20,9 @@ public class OrderExchangeDO {
 
     @TableField(value = "oid")
     private Integer oid;
-    @TableField(value = "cid")
+    @TableField(value = "bid")
     private Integer bid;
-    @TableField(value = "aid")
+    @TableField(value = "uid")
     private Integer uid;
 
     @TableField(value = "amount")
@@ -35,6 +35,8 @@ public class OrderExchangeDO {
 
     @TableField(value = "pay")
     private Double pay;
+    @TableField(value = "flag")
+    private Integer flag;
 
     @TableField(value = "create_time")
     private Date createTime;
@@ -42,6 +44,9 @@ public class OrderExchangeDO {
     private Date replyTime;
     @TableField(value = "resend_time")
     private Date resendTime;
+    @TableField(value = "pay_time")
+    private Date payTime;
     @TableField(value = "complete_time")
     private Date completeTime;
+
 }

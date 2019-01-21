@@ -86,6 +86,10 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         return baseMapper.selectList(wrapper);
     }
 
+    public OrderDetailDO getOne(Integer id) {
+        return baseMapper.selectById(id);
+    }
+
     public List<OrderDetailVO> getByOid(Integer oid) {
         return baseMapper.getByOid(oid);
     }

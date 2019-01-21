@@ -20,11 +20,11 @@ public class OrderRefundDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "oid")
-    private Integer oid;
-    @TableField(value = "cid")
+    @TableField(value = "odid")
+    private Integer odid;
+    @TableField(value = "bid")
     private Integer bid;
-    @TableField(value = "aid")
+    @TableField(value = "uid")
     private Integer uid;
 
     @TableField(value = "amount")
@@ -39,11 +39,15 @@ public class OrderRefundDO {
 
     @TableField(value = "pay")
     private Double pay;
+    @TableField(value = "flag")
+    private Integer flag;
 
     @TableField(value = "create_time")
     private Date createTime;
     @TableField(value = "reply_time")
     private Date replyTime;
+    @TableField(value = "pay_time")
+    private Date payTime;
     @TableField(value = "complete_time")
     private Date completeTime;
 }
