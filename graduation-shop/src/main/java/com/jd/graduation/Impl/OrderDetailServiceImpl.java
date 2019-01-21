@@ -45,6 +45,7 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             orderDetailDO.setPrice(singlePrice);
             orderDetailDO.setTotal(total);
             orderDetailDO.setOid(oid);
+            orderDetailDO.setUid(uid);
             orderDetailDO.setFlag(0);
             baseMapper.insert(orderDetailDO);
 
