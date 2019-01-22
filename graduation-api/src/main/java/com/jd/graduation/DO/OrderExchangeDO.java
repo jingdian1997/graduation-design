@@ -18,8 +18,8 @@ public class OrderExchangeDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "oid")
-    private Integer oid;
+    @TableField(value = "odid")
+    private Integer odid;
     @TableField(value = "bid")
     private Integer bid;
     @TableField(value = "uid")
@@ -44,9 +44,9 @@ public class OrderExchangeDO {
     private Date replyTime;
     @TableField(value = "resend_time")
     private Date resendTime;
-    @TableField(value = "pay_time")
-    private Date payTime;
     @TableField(value = "complete_time")
     private Date completeTime;
 
+    @TableField(value = "pay_time")
+    private Date payTime;
 }
