@@ -3,11 +3,13 @@ package com.jd.graduation.Impl;
 import com.jd.graduation.DO.OrderDetailDO;
 import com.jd.graduation.DO.OrderExchangeDO;
 import com.jd.graduation.DTO.RefundCreateDTO;
+import com.jd.graduation.VO.OrderExchangeVO;
 import com.jd.graduation.service.OrderExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("OrderExchangeServiceImpl")
 public class OrderExchangeServiceImpl extends OrderExchangeService {
@@ -47,5 +49,10 @@ public class OrderExchangeServiceImpl extends OrderExchangeService {
         refundDO.setCompleteTime(new Date());
 
         baseMapper.updateById(refundDO);
+    }
+
+
+    public List<OrderExchangeVO> getByUid(Integer uid) {
+        return baseMapper.getByUid(uid);
     }
 }

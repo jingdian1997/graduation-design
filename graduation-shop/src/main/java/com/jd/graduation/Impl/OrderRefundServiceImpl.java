@@ -3,11 +3,13 @@ package com.jd.graduation.Impl;
 import com.jd.graduation.DO.OrderDetailDO;
 import com.jd.graduation.DO.OrderRefundDO;
 import com.jd.graduation.DTO.RefundCreateDTO;
+import com.jd.graduation.VO.OrderRefundVO;
 import com.jd.graduation.service.OrderRefundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("OrderRefundServiceImpl")
 public class OrderRefundServiceImpl extends OrderRefundService {
@@ -51,5 +53,9 @@ public class OrderRefundServiceImpl extends OrderRefundService {
         refundDO.setCompleteTime(new Date());
 
         baseMapper.updateById(refundDO);
+    }
+
+    public List<OrderRefundVO> getByUid(Integer uid) {
+        return baseMapper.getByUid(uid);
     }
 }

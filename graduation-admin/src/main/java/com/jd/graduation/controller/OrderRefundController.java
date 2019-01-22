@@ -6,17 +6,16 @@ import com.jd.graduation.DTO.RefundCreateDTO;
 import com.jd.graduation.DTO.RefundPayDTO;
 import com.jd.graduation.DTO.RefundRefuseDTO;
 import com.jd.graduation.Impl.OrderRefundServiceImpl;
+import com.jd.graduation.VO.OrderRefundVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/refund")
@@ -70,5 +69,16 @@ public class OrderRefundController extends BaseController {
             return ReturnMap.error(e.getMessage());
         }
         return ReturnMap.ok(null);
+    }
+
+    @GetMapping("/get")
+    public ReturnMap get( HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+
+        List<OrderRefundVO> list = orderRefundService.get();
+        return ReturnMap.ok(list);
     }
 }

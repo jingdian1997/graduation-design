@@ -3,10 +3,12 @@ package com.jd.graduation.Impl;
 import com.jd.graduation.DO.OrderRefundDO;
 import com.jd.graduation.DTO.RefundPayDTO;
 import com.jd.graduation.DTO.RefundRefuseDTO;
+import com.jd.graduation.VO.OrderRefundVO;
 import com.jd.graduation.service.OrderRefundService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("OrderRefundServiceImpl")
 public class OrderRefundServiceImpl extends OrderRefundService {
@@ -46,5 +48,9 @@ public class OrderRefundServiceImpl extends OrderRefundService {
         refundDO.setPayTime(new Date());
 
         baseMapper.updateById(refundDO);
+    }
+
+    public List<OrderRefundVO> get() {
+        return baseMapper.getAll();
     }
 }
