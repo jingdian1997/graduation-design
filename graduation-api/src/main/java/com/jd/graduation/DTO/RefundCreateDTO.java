@@ -16,4 +16,6 @@ public class RefundCreateDTO {
     private Integer amount;
     @NotNull
     private String reason;
+    @NotNull
+    private Integer type;
 }

@@ -1,8 +1,6 @@
 package com.jd.graduation.controller;
 
 import com.jd.graduation.DO.AdminDO;
-import com.jd.graduation.DO.UserLoginDO;
-import com.jd.graduation.DTO.RefundCreateDTO;
 import com.jd.graduation.DTO.RefundPayDTO;
 import com.jd.graduation.DTO.RefundRefuseDTO;
 import com.jd.graduation.Impl.OrderRefundServiceImpl;
@@ -56,15 +54,15 @@ public class OrderRefundController extends BaseController {
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/pay")
-    public ReturnMap pay(@RequestBody @Valid RefundPayDTO dto, HttpServletRequest request) {
+    @PostMapping("/deal")
+    public ReturnMap deal(@RequestBody @Valid RefundPayDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
 
         try {
-            orderRefundService.pay(dto);
+            orderRefundService.deal(dto);
         } catch (Exception e) {
             return ReturnMap.error(e.getMessage());
         }

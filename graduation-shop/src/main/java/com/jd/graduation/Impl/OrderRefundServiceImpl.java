@@ -33,6 +33,8 @@ public class OrderRefundServiceImpl extends OrderRefundService {
         orderRefundDO.setAmount(amount);
         orderRefundDO.setPrice(price * amount);
         orderRefundDO.setReason(dto.getReason());
+
+        orderRefundDO.setType(dto.getType());
         orderRefundDO.setFlag(0);
         orderRefundDO.setCreateTime(new Date());
 

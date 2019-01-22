@@ -37,7 +37,7 @@ public class OrderRefundServiceImpl extends OrderRefundService {
         baseMapper.updateById(refundDO);
     }
 
-    public void pay(RefundPayDTO dto) throws Exception {
+    public void deal(RefundPayDTO dto) throws Exception {
         OrderRefundDO refundDO = baseMapper.selectById(dto.getId());
         if (refundDO == null || !refundDO.getFlag().equals(1)) {
             throw new Exception("退货请求不可打款");
@@ -45,7 +45,7 @@ public class OrderRefundServiceImpl extends OrderRefundService {
 
         refundDO.setFlag(2);
         refundDO.setPay(dto.getPay());
-        refundDO.setPayTime(new Date());
+        refundDO.setDealTime(new Date());
 
         baseMapper.updateById(refundDO);
     }

@@ -39,6 +39,9 @@ public class OrderRefundDO {
 
     @TableField(value = "pay")
     private Double pay;
+
+    @TableField(value = "type")
+    private Integer type;
     @TableField(value = "flag")
     private Integer flag;
 
@@ -46,8 +49,8 @@ public class OrderRefundDO {
     private Date createTime;
     @TableField(value = "reply_time")
     private Date replyTime;
-    @TableField(value = "pay_time")
-    private Date payTime;
+    @TableField(value = "deal_time")
+    private Date dealTime;
     @TableField(value = "complete_time")
     private Date completeTime;
 }

@@ -26,7 +26,7 @@ public class OrderRefundVO {
     @TableField(value = "uid")
     private Integer uid;
     @TableField(value = "nickname")
-    private Integer nickname;
+    private String nickname;
 
     @TableField(value = "amount")
     private Integer amount;
@@ -40,6 +40,9 @@ public class OrderRefundVO {
 
     @TableField(value = "pay")
     private Double pay;
+
+    @TableField(value = "type")
+    private Integer type;
     @TableField(value = "flag")
     private Integer flag;
 
@@ -47,8 +50,8 @@ public class OrderRefundVO {
     private Date createTime;
     @TableField(value = "reply_time")
     private Date replyTime;
-    @TableField(value = "pay_time")
-    private Date payTime;
+    @TableField(value = "deal_time")
+    private Date dealTime;
     @TableField(value = "complete_time")
     private Date completeTime;
 }
