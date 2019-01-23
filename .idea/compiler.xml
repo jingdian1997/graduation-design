@@ -6,10 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="graduation" />
         <module name="graduation-admin" />
         <module name="graduation-api" />
-        <module name="graduation-shop" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
