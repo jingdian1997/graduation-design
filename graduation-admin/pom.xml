@@ -11,7 +11,7 @@
 
     <artifactId>graduation-admin</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>graduation</name>
+    <name>graduation-admin</name>
     <description>admin module for project</description>
 
     <properties>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.jd</groupId>
             <artifactId>graduation-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>

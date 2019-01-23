@@ -32,6 +32,9 @@ public class CommentController extends BaseController{
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(5) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         Page<CommentVO> list = commentService.getListByBid(bid, new Page<>(page, size));
         return ReturnMap.ok(list);
@@ -45,6 +48,9 @@ public class CommentController extends BaseController{
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(5) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         Page<CommentVO> list = commentService.getList(new Page<>(page, size));
         return ReturnMap.ok(list);
@@ -55,6 +61,9 @@ public class CommentController extends BaseController{
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(5) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         try {

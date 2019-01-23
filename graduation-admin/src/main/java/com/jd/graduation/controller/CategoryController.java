@@ -30,6 +30,9 @@ public class CategoryController extends BaseController{
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         String message = categoryService.insert(dto);
         if (message == null){
@@ -43,6 +46,9 @@ public class CategoryController extends BaseController{
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         String message = categoryService.delete(id);
@@ -58,6 +64,9 @@ public class CategoryController extends BaseController{
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         categoryService.active(id);
         return ReturnMap.ok(null);
@@ -68,6 +77,9 @@ public class CategoryController extends BaseController{
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         String message = categoryService.update(dto);
@@ -82,6 +94,9 @@ public class CategoryController extends BaseController{
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         List<CategoryDO> list = categoryService.getList();

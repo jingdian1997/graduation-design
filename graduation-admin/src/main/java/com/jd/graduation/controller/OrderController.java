@@ -27,11 +27,15 @@ public class OrderController extends BaseController{
     private OrderDetailServiceImpl orderDetailService;
     @Autowired
     private AuthenticationService authenticationService;
+
     @PostMapping("/confirmOrder")
     public ReturnMap confirmOrder(@RequestBody Integer oid, HttpServletRequest request){
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();
+        }
+        if (!admin.getRole().equals(1) && !admin.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         try {
@@ -49,6 +53,9 @@ public class OrderController extends BaseController{
         if (admin == null) {
             return ReturnMap.notLogin();
         }
+        if (!admin.getRole().equals(1) && !admin.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         try {
             orderService.deliver(dto.getOid(), dto.getDeliverNo());
@@ -65,6 +72,9 @@ public class OrderController extends BaseController{
         if (admin == null) {
             return ReturnMap.notLogin();
         }
+        if (!admin.getRole().equals(1) && !admin.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         List<OrderVO> list = orderService.getListByStatus(status);
         return ReturnMap.ok(list);
@@ -75,6 +85,9 @@ public class OrderController extends BaseController{
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();
+        }
+        if (!admin.getRole().equals(1) && !admin.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -91,6 +104,9 @@ public class OrderController extends BaseController{
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();
+        }
+        if (!admin.getRole().equals(1) && !admin.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         try {

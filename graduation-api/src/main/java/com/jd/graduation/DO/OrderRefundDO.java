@@ -51,6 +51,6 @@ public class OrderRefundDO {
     private Date replyTime;
     @TableField(value = "deal_time")
     private Date dealTime;
-    @TableField(value = "complete_time")
-    private Date completeTime;
+//    @TableField(value = "complete_time")
+//    private Date completeTime;
 }

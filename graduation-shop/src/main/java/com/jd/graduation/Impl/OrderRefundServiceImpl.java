@@ -41,21 +41,21 @@ public class OrderRefundServiceImpl extends OrderRefundService {
         baseMapper.insert(orderRefundDO);
     }
 
-    public void complete(Integer orid, Integer uid) throws Exception {
-        OrderRefundDO refundDO = baseMapper.selectById(orid);
-        if (refundDO == null || !refundDO.getFlag().equals(2)) {
-            throw new Exception("退货请求不可完成");
-        }
-
-        if (!refundDO.getUid().equals(uid)) {
-            throw new Exception("不是你的退货请求");
-        }
-
-        refundDO.setFlag(3);
-        refundDO.setCompleteTime(new Date());
-
-        baseMapper.updateById(refundDO);
-    }
+//    public void complete(Integer orid, Integer uid) throws Exception {
+//        OrderRefundDO refundDO = baseMapper.selectById(orid);
+//        if (refundDO == null || !refundDO.getFlag().equals(2)) {
+//            throw new Exception("退货请求不可完成");
+//        }
+//
+//        if (!refundDO.getUid().equals(uid)) {
+//            throw new Exception("不是你的退货请求");
+//        }
+//
+//        refundDO.setFlag(3);
+//        refundDO.setCompleteTime(new Date());
+//
+//        baseMapper.updateById(refundDO);
+//    }
 
     public List<OrderRefundVO> getByUid(Integer uid) {
         return baseMapper.getByUid(uid);

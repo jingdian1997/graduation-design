@@ -30,6 +30,9 @@ public class OrderRefundController extends BaseController {
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(3) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         try {
             orderRefundService.approve(id);
@@ -44,6 +47,9 @@ public class OrderRefundController extends BaseController {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(3) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         try {
@@ -60,6 +66,9 @@ public class OrderRefundController extends BaseController {
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(3) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         try {
             orderRefundService.deal(dto);
@@ -74,6 +83,9 @@ public class OrderRefundController extends BaseController {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(3) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         List<OrderRefundVO> list = orderRefundService.get();

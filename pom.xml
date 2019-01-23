@@ -24,7 +24,6 @@
 
     <modules>
         <module>graduation-api</module>
-        <module>graduation-web</module>
         <module>graduation-admin</module>
         <module>graduation-shop</module>
     </modules>

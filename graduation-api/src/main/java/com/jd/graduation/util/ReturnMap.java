@@ -24,6 +24,10 @@ public class ReturnMap {
         return new ReturnMap(401, "未登录", null);
     }
 
+    public static ReturnMap notAllowed(){
+        return new ReturnMap(403, "权限不足", null);
+    }
+
     public static ReturnMap wrongLogin() {
         return error("错误的用户名或密码");
     }

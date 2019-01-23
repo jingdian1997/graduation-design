@@ -20,20 +20,19 @@ import javax.validation.Valid;
 @RequestMapping("/book")
 @Api(description = "图书管理")
 public class BookController extends BaseController {
-    private final AuthenticationService authenticationService;
-    private final BookServiceImpl bookService;
-
     @Autowired
-    public BookController(AuthenticationService authenticationService, BookServiceImpl bookService) {
-        this.authenticationService = authenticationService;
-        this.bookService = bookService;
-    }
+    private AuthenticationService authenticationService;
+    @Autowired
+    private BookServiceImpl bookService;
 
     @PostMapping("/insert")
     public ReturnMap insert(@RequestBody @Valid BookCreateDTO dto, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         bookService.insert(dto);
@@ -46,6 +45,9 @@ public class BookController extends BaseController {
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         bookService.update(dto);
         return ReturnMap.ok(null);
@@ -56,6 +58,9 @@ public class BookController extends BaseController {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         bookService.pullOff(id);
@@ -71,6 +76,9 @@ public class BookController extends BaseController {
         if (adminDO == null) {
             return ReturnMap.notLogin();
         }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
 
         Page<BookVO> books = bookService.selectList(new Page<>(page, size), cid, query);
         return ReturnMap.ok(books);
@@ -81,6 +89,9 @@ public class BookController extends BaseController {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         BookVO book = bookService.selectOne(id);

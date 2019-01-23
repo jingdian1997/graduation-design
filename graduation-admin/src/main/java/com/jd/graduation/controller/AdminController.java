@@ -31,8 +31,9 @@ public class AdminController extends BaseController{
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
-        }else if (adminDO.getRole() != 0){
-            return ReturnMap.error("不是超级管理员");
+        }
+        if (!adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
         }
 
         adminService.create(dto);
