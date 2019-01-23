@@ -5,21 +5,28 @@
 
     <parent>
         <groupId>com.jd</groupId>
-        <artifactId>graduation-api</artifactId>
+        <artifactId>graduation</artifactId>
         <version>0.0.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>graduation-shop</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <name>graduation-shop</name>
     <description>user module</description>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.jd</groupId>
+            <artifactId>graduation-api</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -37,6 +44,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <configuration>
+                    <mainClass>com.jd.graduation.GraduationApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

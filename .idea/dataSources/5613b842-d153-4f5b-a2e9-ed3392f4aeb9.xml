@@ -83,8 +83,8 @@
       <Charset>cp1251</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-      <collation id="21" parent="1" name="cp1256_bin">
-          <Charset>cp1256</Charset>
+    <collation id="21" parent="1" name="cp1256_bin">
+      <Charset>cp1256</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
     <collation id="22" parent="1" name="cp1256_general_ci">
