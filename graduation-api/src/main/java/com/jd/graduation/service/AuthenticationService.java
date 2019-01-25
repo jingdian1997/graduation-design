@@ -60,10 +60,22 @@ public class AuthenticationService {
 
     /**
      * @param accountName 用户名
-     * @return 用户名+毫秒时间经md5加密生成简易token
+     * @return user_ + 用户名 + 毫秒时间经md5加密生成简易token
      */
     public String makeToken(String accountName) {
         long time = System.currentTimeMillis();
+        accountName = "user_" + accountName;
+        accountName += time;
+        return DigestUtils.md5DigestAsHex(accountName.getBytes());
+    }
+
+    /**
+     * @param accountName 用户名
+     * @return admin_ + 用户名 + 毫秒时间经md5加密生成简易token
+     */
+    public String makeAdminToken(String accountName) {
+        long time = System.currentTimeMillis();
+        accountName = "admin_" + accountName;
         accountName += time;
         return DigestUtils.md5DigestAsHex(accountName.getBytes());
     }

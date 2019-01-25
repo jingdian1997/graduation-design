@@ -3,7 +3,7 @@ server:
 
 spring:
   redis:
-    host: 122.112.244.157
+    host: 172.17.0.1
     port: 6379
     password: root
     database: 1

@@ -23,7 +23,7 @@ public class AdminServiceImpl extends AdminService {
             adminDO.setTel(null);
             adminDO.setMail(null);
 
-            String key = authenticationService.makeToken(account);
+            String key = authenticationService.makeAdminToken(account);
             authenticationService.set(key, adminDO);
 
             return key;
