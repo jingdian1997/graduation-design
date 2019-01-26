@@ -3,10 +3,10 @@ server:
 
 spring:
   redis:
-    host: 172.17.0.1
+    host: 119.23.107.68
     port: 6379
     password: root
-    database: 1
+    database: 0
     jedis:
       pool:
         max-active: 8
