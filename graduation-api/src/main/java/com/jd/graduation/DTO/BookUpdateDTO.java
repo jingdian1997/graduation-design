@@ -12,14 +12,8 @@ import javax.validation.constraints.NotNull;
 public class BookUpdateDTO {
     @NotNull
     private Integer id;
-
     @NotNull
     private double price;
-    @NotNull
-    private double discount;
-
-    @NotNull
-    private String picture;
     @NotNull
     private String description;
 }

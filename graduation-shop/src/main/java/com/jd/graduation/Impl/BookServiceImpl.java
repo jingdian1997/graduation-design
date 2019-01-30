@@ -28,16 +28,17 @@ public class BookServiceImpl extends BookService {
         if (cid != null){
             List<Integer> cids = categoryService.getAllCategoryIds(cid);
             String str = MyStringUtils.listToString(cids);
+
             if ("".equals(query)){
-                bookVOList = baseMapper.getBooksByCategoryNotDel(page, str);
+                bookVOList = baseMapper.getBooksByCategory(page, str);
             } else {
-                bookVOList = baseMapper.getBooksByQueryAndCategoryNotDel(page, query, str);
+                bookVOList = baseMapper.getBooksByCategoryAndQuery(page, query, str);
             }
         } else {
             if ("".equals(query)){
-                bookVOList = baseMapper.getBooksNotDel(page);
+                bookVOList = baseMapper.getBooks(page);
             } else {
-                bookVOList = baseMapper.getBooksByQueryNotDel(page, query);
+                bookVOList = baseMapper.getBooksByQuery(page, query);
             }
         }
 
@@ -51,7 +52,7 @@ public class BookServiceImpl extends BookService {
     }
 
     public BookVO selectOne(Integer bookId) {
-        BookVO bookVO = baseMapper.getOneBookNotDel(bookId);
+        BookVO bookVO = baseMapper.getOneBook(bookId);
 
         if (bookVO == null){
             return null;
@@ -75,7 +76,7 @@ public class BookServiceImpl extends BookService {
             List<Integer> cids = categoryService.getAllCategoryIds(cid);
             String str = MyStringUtils.listToString(cids);
 
-            List<BookVO> bookVOList = baseMapper.getBooksByCategoryNotDel(new Page<>(page, size), str);
+            List<BookVO> bookVOList = baseMapper.getBooksByCategory(new Page<>(page, size), str);
 
             indexVO.setId(c.getId());
             indexVO.setName(c.getName());
@@ -89,6 +90,6 @@ public class BookServiceImpl extends BookService {
 
     public double getRealPrice(Integer bid) {
         BookDO bookDO = baseMapper.selectById(bid);
-        return bookDO.getDiscount() * bookDO.getPrice();
+        return 1.00 * bookDO.getPrice();
     }
 }

@@ -31,22 +31,20 @@ public class BookVO {
     private String publisher;
     @TableField(value = "publish_date")
     private Date publishDate;
+    @TableField(value = "price")
+    private double price;
+
     @TableField(value = "description")
     private String description;
 
-    @TableField(value = "price")
-    private Double price;
-    @TableField(value = "discount")
-    private Double discount;
+    @TableField(value = "del")
+    private boolean del;
+
     @TableField(value = "picture")
     private String picture;
 
-    @TableField(value = "del")
-    private boolean del;
     @TableField(value = "stock")
     private Integer stock;
-    @TableField(value = "free_stock")
-    private Integer freeStock;
 
     private List<CategoryDO> categories;
 }

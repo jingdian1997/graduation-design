@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class StockCreateDTO {
+public class BookUpdatePictureDTO {
     @NotNull
-    private Integer bid;
+    private Integer id;
     @NotNull
-    private Integer stock;
+    private String picture;
 }

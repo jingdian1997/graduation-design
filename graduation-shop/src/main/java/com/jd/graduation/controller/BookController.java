@@ -35,7 +35,7 @@ public class BookController extends BaseController{
     @GetMapping("/index")
     public ReturnMap index(){
         int page = 1;
-        int size = 8;
+        int size = 6;
 
         List<IndexVO> map = bookService.index(page, size);
         return ReturnMap.ok(map);

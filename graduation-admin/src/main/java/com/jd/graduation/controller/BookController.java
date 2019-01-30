@@ -5,6 +5,8 @@ import com.jd.graduation.DO.AdminDO;
 import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DTO.BookCreateDTO;
 import com.jd.graduation.DTO.BookUpdateDTO;
+import com.jd.graduation.DTO.BookUpdatePictureDTO;
+import com.jd.graduation.Impl.BookPictureServiceImpl;
 import com.jd.graduation.Impl.BookServiceImpl;
 import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.AuthenticationService;
@@ -24,6 +26,8 @@ public class BookController extends BaseController {
     private AuthenticationService authenticationService;
     @Autowired
     private BookServiceImpl bookService;
+    @Autowired
+    private BookPictureServiceImpl bookPictureService;
 
     @PostMapping("/insert")
     public ReturnMap insert(@RequestBody @Valid BookCreateDTO dto, HttpServletRequest request) {
@@ -35,7 +39,12 @@ public class BookController extends BaseController {
             return ReturnMap.notAllowed();
         }
 
-        bookService.insert(dto);
+        try {
+            bookService.insert(dto);
+        } catch (Exception e){
+            return ReturnMap.error(e.getMessage());
+        }
+
         return ReturnMap.ok(null);
     }
 
@@ -49,7 +58,31 @@ public class BookController extends BaseController {
             return ReturnMap.notAllowed();
         }
 
-        bookService.update(dto);
+        try {
+            bookService.update(dto);
+        } catch (Exception e){
+            return ReturnMap.error(e.getMessage());
+        }
+
+        return ReturnMap.ok(null);
+    }
+
+    @PostMapping("/updatePicture")
+    public ReturnMap updatePicture(@RequestBody @Valid BookUpdatePictureDTO dto, HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
+
+        try {
+            bookPictureService.updatePicture(dto);
+        } catch (Exception e){
+            return ReturnMap.error(e.getMessage());
+        }
+
         return ReturnMap.ok(null);
     }
 
@@ -63,7 +96,12 @@ public class BookController extends BaseController {
             return ReturnMap.notAllowed();
         }
 
-        bookService.pullOff(id);
+        try {
+            bookService.pullOff(id);
+        } catch (Exception e){
+            return ReturnMap.error(e.getMessage());
+        }
+
         return ReturnMap.ok(null);
     }
 
@@ -80,7 +118,12 @@ public class BookController extends BaseController {
             return ReturnMap.notAllowed();
         }
 
-        Page<BookVO> books = bookService.selectList(new Page<>(page, size), cid, query);
+        Page<BookVO> books = null;
+        try {
+            books = bookService.selectList(new Page<>(page, size), cid, query);
+        } catch (Exception e) {
+            return ReturnMap.error(e.getMessage());
+        }
         return ReturnMap.ok(books);
     }
 
@@ -94,7 +137,12 @@ public class BookController extends BaseController {
             return ReturnMap.notAllowed();
         }
 
-        BookVO book = bookService.selectOne(id);
+        BookVO book = null;
+        try {
+            book = bookService.selectOne(id);
+        } catch (Exception e) {
+            return ReturnMap.error(e.getMessage());
+        }
         return ReturnMap.ok(book);
     }
 }

@@ -10,41 +10,32 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface BookMapper extends BaseMapper<BookDO> {
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where b.name like CONCAT('%',#{query},'%')")
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid " +
+            "where b.name like CONCAT('%',#{query},'%') ORDER BY b.del")
     List<BookVO> getBooksByQuery(Page<BookVO> page, @Param("query") String query);
 
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid ")
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid ORDER BY b.del")
     List<BookVO> getBooks(Page<BookVO> page);
 
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where b.name like CONCAT('%',#{query},'%') and FIND_IN_SET(b.cid, #{ids})")
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid " +
+            "where b.name like CONCAT('%',#{query},'%') " +
+            "and FIND_IN_SET(b.cid, #{ids}) ORDER BY b.del")
     List<BookVO> getBooksByCategoryAndQuery(Page<BookVO> page, @Param("query") String query,
                                             @Param("ids") String ids);
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where FIND_IN_SET(b.cid, #{ids})")
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid " +
+            "where FIND_IN_SET(b.cid, #{ids}) ORDER BY b.del")
     List<BookVO> getBooksByCategory(Page<BookVO> page, @Param("ids") String ids);
 
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid where b.id=#{id}")
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid where b.id=#{id}")
     BookVO getOneBook(@Param("id") Integer id);
-
-    //用户不能看到下架的商品
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where b.name like CONCAT('%',#{query},'%') and del = 0")
-    List<BookVO> getBooksByQueryNotDel(Page<BookVO> page, @Param("query") String query);
-
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid where del = 0")
-    List<BookVO> getBooksNotDel(Page<BookVO> page);
-
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where b.name like CONCAT('%',#{query},'%') and FIND_IN_SET(b.cid, #{ids}) and del = 0")
-    List<BookVO> getBooksByQueryAndCategoryNotDel(Page<BookVO> page, @Param("query") String query,
-                                                  @Param("ids") String ids);
-
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid " +
-            "where FIND_IN_SET(b.cid, #{ids}) and del = 0")
-    List<BookVO> getBooksByCategoryNotDel(Page<BookVO> page, @Param("ids") String ids);
-
-    @Select("SELECT * FROM book as b LEFT JOIN stock as s ON b.id = s.bid where b.id=#{id} and del = 0")
-    BookVO getOneBookNotDel(@Param("id") Integer id);
 }

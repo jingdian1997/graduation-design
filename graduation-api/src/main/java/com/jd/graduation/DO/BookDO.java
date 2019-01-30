@@ -39,10 +39,6 @@ public class BookDO {
 
     @TableField(value = "price")
     private Double price;
-    @TableField(value = "discount")
-    private Double discount;
-    @TableField(value = "picture")
-    private String picture;
 
     @TableField(value = "del")
     private boolean del;
