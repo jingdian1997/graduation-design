@@ -3,12 +3,13 @@ package com.jd.graduation.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.Impl.BookServiceImpl;
 import com.jd.graduation.VO.BookVO;
+import com.jd.graduation.VO.IndexVO;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -36,7 +37,7 @@ public class BookController extends BaseController{
         int page = 1;
         int size = 8;
 
-        Map<String, Object> map = bookService.index(page, size);
+        List<IndexVO> map = bookService.index(page, size);
         return ReturnMap.ok(map);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/category")
 @Api(description = "分类查询")
 public class CategoryController {
     @Autowired

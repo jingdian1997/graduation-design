@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CategoryDO;
 import com.jd.graduation.VO.BookVO;
+import com.jd.graduation.VO.IndexVO;
 import com.jd.graduation.service.BookService;
 import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
@@ -64,24 +64,27 @@ public class BookServiceImpl extends BookService {
         return bookVO;
     }
 
-    public Map<String, Object> index(int page, int size) {
-        Map<String, Object> result = new HashMap<>();
-        Map<Integer, List<BookVO>> books = new HashMap<>();
-
+    public List<IndexVO> index(int page, int size) {
+        List<IndexVO> list = new ArrayList<>();
         List<CategoryDO> categoryDOList = categoryService.getTopCategories();
-        result.put("category", categoryDOList);
 
         for (CategoryDO c : categoryDOList) {
+            IndexVO indexVO = new IndexVO();
+
             Integer cid = c.getId();
             List<Integer> cids = categoryService.getAllCategoryIds(cid);
             String str = MyStringUtils.listToString(cids);
 
             List<BookVO> bookVOList = baseMapper.getBooksByCategoryNotDel(new Page<>(page, size), str);
-            books.put(cid, bookVOList);
+
+            indexVO.setId(c.getId());
+            indexVO.setName(c.getName());
+            indexVO.setBooks(bookVOList);
+
+            list.add(indexVO);
         }
 
-        result.put("book", books);
-        return result;
+        return list;
     }
 
     public double getRealPrice(Integer bid) {
