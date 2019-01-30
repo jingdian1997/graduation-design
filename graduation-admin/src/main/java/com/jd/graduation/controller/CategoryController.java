@@ -89,8 +89,8 @@ public class CategoryController extends BaseController{
         return ReturnMap.error(message);
     }
 
-    @GetMapping("/list")
-    public ReturnMap list(HttpServletRequest request) {
+    @GetMapping("/list/{cid}")
+    public ReturnMap list(@PathVariable("cid") Integer cid, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
@@ -99,7 +99,7 @@ public class CategoryController extends BaseController{
             return ReturnMap.notAllowed();
         }
 
-        List<CategoryDO> list = categoryService.getList();
+        List<CategoryDO> list = categoryService.getSonCategories(cid);
         return ReturnMap.ok(list);
     }
 }
