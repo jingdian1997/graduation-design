@@ -1,9 +1,11 @@
-package com.jd.graduation.VO;
+package com.jd.graduation.DO;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,8 +13,10 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
-public class CartVO {
+@TableName(value = "user_focus")
+public class UserFocusDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -20,14 +24,6 @@ public class CartVO {
     private Integer uid;
     @TableField(value = "bid")
     private Integer bid;
-
-    @TableField(value = "name")
-    private String name;
-
-    @TableField(value = "amount")
-    private Integer amount;
-    @TableField(value = "price")
-    private Double price;
 
     @TableField(value = "create_time")
     private Date createTime;

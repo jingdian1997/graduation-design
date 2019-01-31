@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class CartVO {
+public class FocusVO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -23,9 +23,6 @@ public class CartVO {
 
     @TableField(value = "name")
     private String name;
-
-    @TableField(value = "amount")
-    private Integer amount;
     @TableField(value = "price")
     private Double price;
 

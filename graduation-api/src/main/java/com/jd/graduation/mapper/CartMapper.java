@@ -11,7 +11,8 @@ import java.util.List;
 public interface CartMapper extends BaseMapper<CartDO> {
     List<CartDO> getInIds(@Param("ids") List<Integer> ids, @Param("uid") Integer uid);
 
-    @Select("SELECT cart.*, book.discount * book.price as price FROM `cart` " +
-            "LEFT JOIN book ON cart.bid = book.id where cart.uid = #{uid}")
+    @Select("SELECT cart.*, book.price as price, book.name as name FROM `cart` " +
+            "LEFT JOIN book ON cart.bid = book.id " +
+            "where cart.uid = #{uid}")
     List<CartVO> selectByUid(@Param("uid") Integer uid);
 }
