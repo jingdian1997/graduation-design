@@ -38,4 +38,10 @@ public interface BookMapper extends BaseMapper<BookDO> {
             "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
             "LEFT JOIN `stock` as s ON b.id=s.bid where b.id=#{id}")
     BookVO getOneBook(@Param("id") Integer id);
+
+    @Select("SELECT * FROM `book` as b " +
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
+            "LEFT JOIN `stock` as s ON b.id=s.bid " +
+            "where FIND_IN_SET(b.cid, #{ids}) and b.del=0")
+    List<BookVO> getBooksByCategoryNotDel(Page<BookVO> page, @Param("ids") String ids);
 }

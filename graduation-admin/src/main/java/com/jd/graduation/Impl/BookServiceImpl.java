@@ -45,6 +45,7 @@ public class BookServiceImpl extends BookService {
         book.setPublisher(dto.getPublisher());
         book.setPublishDate(dto.getPublishDate());
         book.setDescription(dto.getDescription());
+        book.setPrice(dto.getPrice());
 
         book.setCid(dto.getCid());
         book.setDel(false);

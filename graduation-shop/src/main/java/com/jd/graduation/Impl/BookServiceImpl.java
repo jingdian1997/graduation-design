@@ -76,7 +76,7 @@ public class BookServiceImpl extends BookService {
             List<Integer> cids = categoryService.getAllCategoryIds(cid);
             String str = MyStringUtils.listToString(cids);
 
-            List<BookVO> bookVOList = baseMapper.getBooksByCategory(new Page<>(page, size), str);
+            List<BookVO> bookVOList = baseMapper.getBooksByCategoryNotDel(new Page<>(page, size), str);
 
             indexVO.setId(c.getId());
             indexVO.setName(c.getName());
