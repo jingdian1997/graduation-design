@@ -42,11 +42,12 @@ public class BookServiceImpl extends BookService {
             }
         }
 
-        for (BookVO bookVO : bookVOList) {
-            Integer oneCid = bookVO.getCid();
-            List<CategoryDO> categoryDOList = categoryService.getAllCategories(oneCid);
-            bookVO.setCategories(categoryDOList);
-        }
+        // 图书浏览时不需要设置类目路径
+//        for (BookVO bookVO : bookVOList) {
+//            Integer oneCid = bookVO.getCid();
+//            List<CategoryDO> categoryDOList = categoryService.getAllCategories(oneCid);
+//            bookVO.setCategories(categoryDOList);
+//        }
 
         return page.setRecords(bookVOList);
     }
