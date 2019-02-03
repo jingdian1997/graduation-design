@@ -42,4 +42,6 @@ public class BookDO {
 
     @TableField(value = "del")
     private boolean del;
+    @TableField(value = "create_time")
+    private Date createTime;
 }

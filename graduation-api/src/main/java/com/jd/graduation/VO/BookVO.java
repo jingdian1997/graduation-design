@@ -41,6 +41,9 @@ public class BookVO {
 
     @TableField(value = "del")
     private boolean del;
+    @TableField(value = "create_time")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
 
     @TableField(value = "picture")
     private String picture;

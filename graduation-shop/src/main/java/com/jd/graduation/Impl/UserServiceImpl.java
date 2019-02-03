@@ -4,6 +4,7 @@ import com.jd.graduation.DO.UserDO;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.UserChangeInfoDTO;
 import com.jd.graduation.DTO.UserCreateDTO;
+import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,9 @@ public class UserServiceImpl extends UserService {
         userDO.setIntroduce(dto.getIntroduce());
 
         baseMapper.updateById(userDO);
+    }
+
+    public UserVO get(Integer id) {
+        return baseMapper.getUser(id);
     }
 }

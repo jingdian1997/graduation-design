@@ -40,4 +40,13 @@ public class BookController extends BaseController{
         List<IndexVO> map = bookService.index(page, size);
         return ReturnMap.ok(map);
     }
+
+    @GetMapping("/news")
+    public ReturnMap news(){
+        int page = 1;
+        int size = 4;
+
+        List<BookVO> map = bookService.news(page, size);
+        return ReturnMap.ok(map);
+    }
 }

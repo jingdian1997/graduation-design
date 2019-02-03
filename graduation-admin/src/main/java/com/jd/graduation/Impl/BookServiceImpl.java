@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("BookServiceImpl")
@@ -46,6 +47,7 @@ public class BookServiceImpl extends BookService {
         book.setPublishDate(dto.getPublishDate());
         book.setDescription(dto.getDescription());
         book.setPrice(dto.getPrice());
+        book.setCreateTime(new Date());
 
         book.setCid(dto.getCid());
         book.setDel(false);

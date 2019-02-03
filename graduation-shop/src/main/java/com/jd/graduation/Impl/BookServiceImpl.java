@@ -92,4 +92,8 @@ public class BookServiceImpl extends BookService {
         BookDO bookDO = baseMapper.selectById(bid);
         return 1.00 * bookDO.getPrice();
     }
+
+    public List<BookVO> news(int page, int size) {
+        return baseMapper.getNewBooks(new Page<>(page, size));
+    }
 }
