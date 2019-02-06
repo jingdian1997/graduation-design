@@ -29,11 +29,9 @@ public class UserVO {
 
     @TableField(value = "birthday")
     private Date birthday;
-    @TableField(value = "introduce")
-    private String introduce;
 
     @TableField(value = "time")
-    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date time;
 
     @TableField(value = "tel")

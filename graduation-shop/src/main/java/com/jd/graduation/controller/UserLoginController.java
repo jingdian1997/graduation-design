@@ -6,7 +6,7 @@ import com.jd.graduation.DTO.LoginDTO;
 import com.jd.graduation.DTO.UserChangeMailDTO;
 import com.jd.graduation.DTO.UserChangeTelDTO;
 import com.jd.graduation.Impl.UserLoginServiceImpl;
-import com.jd.graduation.Impl.UserServiceImpl;
+import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -32,12 +33,15 @@ public class UserLoginController extends BaseController {
 
     @PostMapping("/login")
     public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO) {
-        String key = userLoginService.login(loginDTO.getAccount(), loginDTO.getPwd());
+        Map<String, Object> map = userLoginService.login(loginDTO.getAccount(), loginDTO.getPwd());
+        String key = (String) map.get("key");
 
         if (key != null){
             System.out.println(key);
             response.addCookie(new Cookie("token", key));
-            return ReturnMap.ok(null);
+
+            UserVO userVO = (UserVO) map.get("user");
+            return ReturnMap.ok(userVO);
         }
 
         return ReturnMap.wrongLogin();

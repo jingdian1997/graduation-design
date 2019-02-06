@@ -5,10 +5,14 @@ import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.ChangePasswordDTO;
 import com.jd.graduation.DTO.UserChangeMailDTO;
 import com.jd.graduation.DTO.UserChangeTelDTO;
+import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service("UserLoginServiceImpl")
 public class UserLoginServiceImpl extends UserLoginService {
@@ -21,7 +25,8 @@ public class UserLoginServiceImpl extends UserLoginService {
         return baseMapper.insert(userLoginDO);
     }
 
-    public String login(String account, String pwd) {
+    public Map<String, Object> login(String account, String pwd) {
+        Map<String, Object> map = new HashMap<>();
         QueryWrapper<UserLoginDO> wrapper = new QueryWrapper<>();
 
         //构造相等条件，注意这里的字段为数据表中的字段，而不是Java实体类
@@ -40,9 +45,15 @@ public class UserLoginServiceImpl extends UserLoginService {
             String key = authenticationService.makeToken(userLoginDO.getTel());
             authenticationService.set(key, userLoginDO);
 
-            return key;
+            UserVO userVO = userService.get(userLoginDO.getId());
+
+            map.put("key", key);
+            map.put("user", userVO);
+            return map;
         }
-        return null;
+
+        map.put("key", null);
+        return map;
     }
 
     public void logout(String key) {

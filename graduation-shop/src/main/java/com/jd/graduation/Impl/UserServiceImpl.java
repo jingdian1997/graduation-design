@@ -38,12 +38,10 @@ public class UserServiceImpl extends UserService {
     public void changeInfo(UserChangeInfoDTO dto, Integer id) {
         UserDO userDO = baseMapper.selectById(id);
 
-        userDO.setNickname(dto.getNickname());
         userDO.setName(dto.getName());
         userDO.setSex(dto.getSex());
         userDO.setBirthday(dto.getBirthday());
         userDO.setIdCard(dto.getIdCard());
-        userDO.setIntroduce(dto.getIntroduce());
 
         baseMapper.updateById(userDO);
     }

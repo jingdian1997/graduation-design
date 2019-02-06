@@ -33,8 +33,6 @@ public class UserDO {
 
     @TableField(value = "birthday")
     private Date birthday;
-    @TableField(value = "introduce")
-    private String introduce;
 
     @TableField(value = "time")
     private Date time;
