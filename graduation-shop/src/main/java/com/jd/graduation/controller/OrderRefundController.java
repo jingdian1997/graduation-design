@@ -38,21 +38,6 @@ public class OrderRefundController extends BaseController {
         return ReturnMap.ok(null);
     }
 
-//    @PostMapping("/complete")
-//    public ReturnMap complete(@RequestBody Integer id, HttpServletRequest request) {
-//        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
-//        if (user == null) {
-//            return ReturnMap.notLogin();
-//        }
-//
-//        try {
-//            orderRefundService.complete(id, user.getId());
-//        } catch (Exception e) {
-//            return ReturnMap.error(e.getMessage());
-//        }
-//        return ReturnMap.ok(null);
-//    }
-
     @GetMapping("/get")
     public ReturnMap get( HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));

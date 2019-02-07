@@ -24,8 +24,8 @@ public class OrderRefundController extends BaseController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping("/approve")
-    public ReturnMap approve(@RequestBody Integer id, HttpServletRequest request) {
+    @PostMapping("/approve/{id}")
+    public ReturnMap approve(@PathVariable("id") Integer id, HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();
@@ -79,7 +79,7 @@ public class OrderRefundController extends BaseController {
     }
 
     @GetMapping("/get")
-    public ReturnMap get( HttpServletRequest request) {
+    public ReturnMap get(HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (adminDO == null) {
             return ReturnMap.notLogin();

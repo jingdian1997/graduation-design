@@ -46,8 +46,8 @@ public class UserAddressController extends BaseController {
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/setDefault")
-    public ReturnMap setDefault(@RequestBody Integer id, HttpServletRequest request) {
+    @PostMapping("/setDefault/{id}")
+    public ReturnMap setDefault(@PathVariable("id") Integer id, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -60,8 +60,8 @@ public class UserAddressController extends BaseController {
         return ReturnMap.error(message);
     }
 
-    @PostMapping("/delete")
-    public ReturnMap delete(@RequestBody Integer id, HttpServletRequest request) {
+    @PostMapping("/delete/{id}")
+    public ReturnMap delete(@PathVariable("id") Integer id, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();

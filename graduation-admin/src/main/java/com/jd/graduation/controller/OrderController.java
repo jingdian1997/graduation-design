@@ -28,8 +28,8 @@ public class OrderController extends BaseController{
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping("/confirmOrder")
-    public ReturnMap confirmOrder(@RequestBody Integer oid, HttpServletRequest request){
+    @PostMapping("/confirmOrder/{oid}")
+    public ReturnMap confirmOrder(@PathVariable("oid") Integer oid, HttpServletRequest request){
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();
@@ -99,8 +99,8 @@ public class OrderController extends BaseController{
         return ReturnMap.ok(map);
     }
 
-    @PostMapping("/deleteOrder")
-    public ReturnMap deleteOrder(@RequestBody Integer oid, HttpServletRequest request){
+    @PostMapping("/deleteOrder/{oid}")
+    public ReturnMap deleteOrder(@PathVariable("oid") Integer oid, HttpServletRequest request){
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();

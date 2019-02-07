@@ -45,4 +45,12 @@ public class UserFocusServiceImpl extends UserFocusService {
             baseMapper.delete(wrapper);
         }
     }
+
+    public boolean ifFocused(Integer bid, Integer uid) {
+        QueryWrapper<UserFocusDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("uid", uid);
+        wrapper.eq("bid", bid);
+
+        return baseMapper.selectCount(wrapper) > 0;
+    }
 }

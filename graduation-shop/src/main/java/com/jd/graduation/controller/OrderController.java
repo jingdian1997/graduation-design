@@ -37,12 +37,11 @@ public class OrderController extends BaseController{
         }
 
         try {
-            orderService.create(dto, user.getId());
+            Integer oid = orderService.create(dto, user.getId());
+            return ReturnMap.ok(oid);
         } catch (Exception e) {
             return ReturnMap.error(e.getMessage());
         }
-
-        return ReturnMap.ok(null);
     }
 
     @PostMapping("/cancelOrder")

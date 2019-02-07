@@ -38,8 +38,8 @@ public class UserVisitController extends BaseController{
         return ReturnMap.ok(list);
     }
 
-    @PostMapping("/create")
-    public ReturnMap create(@RequestBody Integer bid, HttpServletRequest request) {
+    @PostMapping("/create/{bid}")
+    public ReturnMap create(@PathVariable("bid") Integer bid, HttpServletRequest request) {
         Integer uid;
 
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));

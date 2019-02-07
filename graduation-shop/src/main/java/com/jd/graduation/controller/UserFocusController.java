@@ -38,8 +38,8 @@ public class UserFocusController extends BaseController{
         return ReturnMap.ok(list);
     }
 
-    @PostMapping("/focus")
-    public ReturnMap focus(@RequestBody Integer bid, HttpServletRequest request) {
+    @PostMapping("/focus/{bid}")
+    public ReturnMap focus(@PathVariable("bid") Integer bid, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -52,5 +52,20 @@ public class UserFocusController extends BaseController{
         }
 
         return ReturnMap.ok(null);
+    }
+
+    @GetMapping("/ifFocused/{bid}")
+    public ReturnMap ifFocused(@PathVariable("bid") Integer bid, HttpServletRequest request) {
+        UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
+        if (user == null) {
+            return ReturnMap.notLogin();
+        }
+
+        try {
+            boolean is = userFocusService.ifFocused(bid, user.getId());
+            return ReturnMap.ok(is);
+        } catch (Exception e){
+            return ReturnMap.error(e.getMessage());
+        }
     }
 }

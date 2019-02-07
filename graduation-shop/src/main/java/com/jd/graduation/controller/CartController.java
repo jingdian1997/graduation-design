@@ -23,8 +23,8 @@ public class CartController extends BaseController{
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping("/addTo")
-    public ReturnMap addTo(@RequestBody Integer bid, HttpServletRequest request) {
+    @PostMapping("/addTo/{bid}")
+    public ReturnMap addTo(@PathVariable("bid") Integer bid, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -48,8 +48,8 @@ public class CartController extends BaseController{
         return ReturnMap.ok(data);
     }
 
-    @PostMapping("/delete")
-    public ReturnMap delete(@RequestBody Integer id, HttpServletRequest request){
+    @PostMapping("/delete/{id}")
+    public ReturnMap delete(@PathVariable("id") Integer id, HttpServletRequest request){
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();

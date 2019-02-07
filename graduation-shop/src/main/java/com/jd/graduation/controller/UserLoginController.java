@@ -70,8 +70,7 @@ public class UserLoginController extends BaseController {
     }
 
     @PostMapping("/changeMail")
-    public ReturnMap changeMail(@RequestBody @Valid UserChangeMailDTO dto,
-                                      HttpServletRequest request) {
+    public ReturnMap changeMail(@RequestBody @Valid UserChangeMailDTO dto, HttpServletRequest request) {
         String key = getHeaderAuthorization(request);
 
         UserLoginDO user = authenticationService.getUser(key);
@@ -87,8 +86,7 @@ public class UserLoginController extends BaseController {
     }
 
     @PostMapping("/changeTel")
-    public ReturnMap changeTel(@RequestBody @Valid UserChangeTelDTO dto,
-                                HttpServletRequest request) {
+    public ReturnMap changeTel(@RequestBody @Valid UserChangeTelDTO dto, HttpServletRequest request) {
         String key = getHeaderAuthorization(request);
 
         UserLoginDO user = authenticationService.getUser(key);

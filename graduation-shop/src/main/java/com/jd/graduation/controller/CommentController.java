@@ -38,8 +38,8 @@ public class CommentController extends BaseController {
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/deleteComment")
-    public ReturnMap deleteComment(@RequestBody @Valid Integer id, HttpServletRequest request) {
+    @PostMapping("/deleteComment/{id}")
+    public ReturnMap deleteComment(@PathVariable("id") Integer id, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();

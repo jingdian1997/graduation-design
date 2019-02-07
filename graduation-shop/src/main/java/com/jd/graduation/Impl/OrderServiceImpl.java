@@ -20,7 +20,7 @@ public class OrderServiceImpl extends OrderService {
     private SysConfigServiceImpl sysConfigService;
 
     @Transactional(rollbackFor = Exception.class)
-    public void create(OrderCreateDTO dto, Integer uid) throws Exception {
+    public Integer create(OrderCreateDTO dto, Integer uid) throws Exception {
         OrderDO orderDO = new OrderDO();
         orderDO.setUid(uid);
         orderDO.setAid(dto.getAddressId());
@@ -41,6 +41,8 @@ public class OrderServiceImpl extends OrderService {
         orderDO.setFreight(freight);
         orderDO.setPrice(price);
         baseMapper.updateById(orderDO);
+
+        return orderDO.getId();
     }
 
     @Transactional(rollbackFor = Exception.class)
