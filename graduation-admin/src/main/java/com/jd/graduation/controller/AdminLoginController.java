@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
@@ -24,12 +25,13 @@ public class AdminLoginController extends BaseController{
 
     @PostMapping("/login")
     public ReturnMap login(HttpServletResponse response, @RequestBody @Valid LoginDTO loginDTO){
-        String key = userService.login(loginDTO.getAccount(), loginDTO.getPwd());
+        Map<String, Object> map = userService.login(loginDTO.getAccount(), loginDTO.getPwd());
+        String key = (String) map.get("key");
 
         if (key != null){
             System.out.println(key);
             response.addCookie(new Cookie("token", key));
-            return ReturnMap.ok(null);
+            return ReturnMap.ok(map);
         }
         return ReturnMap.wrongLogin();
     }

@@ -9,12 +9,16 @@ import com.jd.graduation.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service("AdminServiceImpl")
 public class AdminServiceImpl extends AdminService {
     @Autowired
     private AuthenticationService authenticationService;
 
-    public String login(String account, String pwd) {
+    public Map<String, Object> login(String account, String pwd) {
+        Map<String, Object> map = new HashMap<>();
         AdminDO adminDO = baseMapper.selectById(account);
 
         if (adminDO != null && pwd.equals(adminDO.getPwd())) {
@@ -26,9 +30,13 @@ public class AdminServiceImpl extends AdminService {
             String key = authenticationService.makeAdminToken(account);
             authenticationService.set(key, adminDO);
 
-            return key;
+            map.put("key", key);
+            map.put("admin", adminDO);
+            return map;
         }
-        return null;
+
+        map.put("key", null);
+        return map;
     }
 
     public void logout(String key) {

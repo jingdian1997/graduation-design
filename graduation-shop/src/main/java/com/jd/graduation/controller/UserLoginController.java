@@ -6,7 +6,6 @@ import com.jd.graduation.DTO.LoginDTO;
 import com.jd.graduation.DTO.UserChangeMailDTO;
 import com.jd.graduation.DTO.UserChangeTelDTO;
 import com.jd.graduation.Impl.UserLoginServiceImpl;
-import com.jd.graduation.VO.UserVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
@@ -40,8 +39,7 @@ public class UserLoginController extends BaseController {
             System.out.println(key);
             response.addCookie(new Cookie("token", key));
 
-            UserVO userVO = (UserVO) map.get("user");
-            return ReturnMap.ok(userVO);
+            return ReturnMap.ok(map);
         }
 
         return ReturnMap.wrongLogin();
