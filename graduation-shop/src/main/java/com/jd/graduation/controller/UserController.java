@@ -25,12 +25,13 @@ public class UserController extends BaseController{
 
     @PostMapping("/register")
     public ReturnMap register(@RequestBody @Valid UserCreateDTO dto){
-        String result = userService.create(dto);
-        if (result == null){
-            return ReturnMap.ok(null);
+        try {
+            userService.create(dto);
+        } catch (Exception e) {
+            return ReturnMap.error(e.getMessage());
         }
 
-        return ReturnMap.error(result);
+        return ReturnMap.ok(null);
     }
 
     @PostMapping("/changeInfo")

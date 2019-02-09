@@ -110,4 +110,18 @@ public class UserLoginServiceImpl extends UserLoginService {
 
         return null;
     }
+
+    public boolean validTel(String tel) {
+        QueryWrapper<UserLoginDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("tel", tel);
+
+        return baseMapper.selectCount(wrapper) == 0;
+    }
+
+    public boolean validMail(String mail) {
+        QueryWrapper<UserLoginDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("mail", mail);
+
+        return baseMapper.selectCount(wrapper) == 0;
+    }
 }

@@ -52,7 +52,6 @@ public class UserLoginController extends BaseController {
         return ReturnMap.ok(null);
     }
 
-
     @PostMapping("/changePwd")
     public ReturnMap changePwd(@RequestBody @Valid ChangePasswordDTO dto, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));

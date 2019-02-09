@@ -1,5 +1,6 @@
 package com.jd.graduation.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.UserDO;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.UserChangeInfoDTO;
@@ -16,9 +17,18 @@ public class UserServiceImpl extends UserService {
     private UserLoginServiceImpl userLoginService;
 
     @Transactional(rollbackFor = Exception.class)
-    public String create(UserCreateDTO dto) {
+    public void create(UserCreateDTO dto) throws Exception {
         if (!dto.getPwd().equals(dto.getPwdAgain())) {
-            return "两次输入的密码不一致";
+            throw new Exception("两次密码不一致");
+        }
+        if (!validNickname(dto.getNickname())) {
+            throw new Exception("昵称占用");
+        }
+        if (!userLoginService.validTel(dto.getTel())) {
+            throw new Exception("手机号占用");
+        }
+        if (!userLoginService.validMail(dto.getEmail())) {
+            throw new Exception("邮箱占用");
         }
 
         UserDO userDO = new UserDO();
@@ -31,8 +41,6 @@ public class UserServiceImpl extends UserService {
         userLoginDO.setMail(dto.getEmail());
         userLoginDO.setPwd(dto.getPwd());
         userLoginService.insert(userLoginDO);
-
-        return null;
     }
 
     public void changeInfo(UserChangeInfoDTO dto, Integer id) {
@@ -48,5 +56,12 @@ public class UserServiceImpl extends UserService {
 
     public UserVO get(Integer id) {
         return baseMapper.getUser(id);
+    }
+
+    public boolean validNickname(String nickname) {
+        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("nickname", nickname);
+
+        return baseMapper.selectCount(wrapper) == 0;
     }
 }
