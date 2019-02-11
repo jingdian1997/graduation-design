@@ -60,14 +60,14 @@ public class UserVisitController extends BaseController{
     }
 
     @PostMapping("/delete")
-    public ReturnMap delete(@RequestBody List<Integer> ids, HttpServletRequest request) {
+    public ReturnMap delete(HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
         }
 
         try {
-            userVisitService.delete(ids, user.getId());
+            userVisitService.delete(user.getId());
         } catch (Exception e){
             return ReturnMap.error(e.getMessage());
         }

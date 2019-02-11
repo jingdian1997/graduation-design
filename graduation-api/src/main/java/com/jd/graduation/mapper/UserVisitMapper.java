@@ -14,6 +14,6 @@ public interface UserVisitMapper extends BaseMapper<UserVisitDO> {
             "LEFT JOIN book ON uv.bid = book.id where uv.uid = #{uid} and uv.del=0")
     List<VisitVO> selectByUid(@Param("uid") Integer uid);
 
-    @Update("update user_visit set del=1 where uid=#{uid} and FIND_IN_SET(id, #{ids})")
-    void updateDel(@Param("uid") Integer uid, @Param("ids") String ids);
+    @Update("update user_visit set del=1 where uid=#{uid}")
+    void updateDel(@Param("uid") Integer uid);
 }

@@ -4,7 +4,6 @@ import com.jd.graduation.DO.UserVisitDO;
 import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.VO.VisitVO;
 import com.jd.graduation.service.UserVisitService;
-import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +38,7 @@ public class UserVisitServiceImpl extends UserVisitService {
         baseMapper.insert(userVisitDO);
     }
 
-    public void delete(List<Integer> ids, Integer uid) {
-        String str = MyStringUtils.listToString(ids);
-        baseMapper.updateDel(uid, str);
+    public void delete(Integer uid) {
+        baseMapper.updateDel(uid);
     }
 }
