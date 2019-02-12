@@ -15,6 +15,7 @@ public class UserAddressServiceImpl extends UserAddressService {
     public List<UserAddressDO> all(Integer uid) {
         QueryWrapper<UserAddressDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);
+        wrapper.eq("del", false);
         return baseMapper.selectList(wrapper);
     }
 

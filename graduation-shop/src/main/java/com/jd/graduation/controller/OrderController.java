@@ -44,8 +44,8 @@ public class OrderController extends BaseController{
         }
     }
 
-    @PostMapping("/cancelOrder")
-    public ReturnMap cancelOder(@RequestBody Integer oid, HttpServletRequest request) {
+    @PostMapping("/cancelOrder/{oid}")
+    public ReturnMap cancelOder(@PathVariable("oid") Integer oid, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -60,8 +60,8 @@ public class OrderController extends BaseController{
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/payOrder")
-    public ReturnMap payOrder(@RequestBody Integer oid, HttpServletRequest request) {
+    @PostMapping("/payOrder/{oid}")
+    public ReturnMap payOrder(@PathVariable("oid") Integer oid, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -76,8 +76,8 @@ public class OrderController extends BaseController{
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/completeOrder")
-    public ReturnMap completeOrder(@RequestBody Integer oid, HttpServletRequest request) {
+    @PostMapping("/completeOrder/{oid}")
+    public ReturnMap completeOrder(@PathVariable("oid") Integer oid, HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
@@ -119,8 +119,8 @@ public class OrderController extends BaseController{
         return ReturnMap.ok(map);
     }
 
-    @PostMapping("/deleteOrder")
-    public ReturnMap deleteOrder(@RequestBody Integer oid, HttpServletRequest request){
+    @PostMapping("/deleteOrder/{oid}")
+    public ReturnMap deleteOrder(@PathVariable("oid") Integer oid, HttpServletRequest request){
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
