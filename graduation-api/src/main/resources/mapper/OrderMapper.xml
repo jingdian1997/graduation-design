@@ -6,7 +6,7 @@
         <result column="price" property="price"/>
         <result column="freight" property="freight"/>
         <result column="pay" property="pay"/>
-        <result column="deliverNo" property="deliverNo"/>
+        <result column="deliver_no" property="deliverNo"/>
         <result column="status" property="status"/>
         <collection property="details" ofType="com.jd.graduation.DO.OrderDetailDO" column="id">
             <id column="odid" property="id"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
@@ -17,8 +17,9 @@
     </resultMap>
 
     <select id="getList" resultMap="orders" parameterType="java.lang.Integer">
-        select o.id, o.price, o.freight, o.pay, o.deliver_no, o.status,
+        select o.id, o.price, o.freight, o.pay, o.deliver_no, o.`status`,
         od.id as odid, od.bid, od.bname, od.amount
-        from `order` as o left join order_detail as od on o.id=od.oid where o.uid = #{uid}
+        from `order` as o left join order_detail as od on o.id=od.oid
+        where o.uid = #{uid} order by o.create_time desc
     </select>
 </mapper>

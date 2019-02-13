@@ -19,7 +19,7 @@ public class OrderVO {
     private Double freight;
     private Double pay;
 
-    private Double deliverNo;
+    private String deliverNo;
     private Integer status;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
