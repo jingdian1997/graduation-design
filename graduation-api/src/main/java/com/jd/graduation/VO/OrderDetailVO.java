@@ -1,8 +1,6 @@
 package com.jd.graduation.VO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.jd.graduation.DO.BookDO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,23 +9,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OrderDetailVO {
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "oid")
     private Integer oid;
-    @TableField(value = "bid")
     private Integer bid;
-    @TableField(value = "bname")
-    private String bname;
 
-    @TableField(value = "amount")
+    private BookDO bookDO;
+
     private Integer amount;
-    @TableField(value = "price")
     private Double price;
-    @TableField(value = "total")
     private Double total;
 
-    @TableField(value = "flag")
     private Integer flag;
 }

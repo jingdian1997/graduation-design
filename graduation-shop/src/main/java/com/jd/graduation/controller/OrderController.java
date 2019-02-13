@@ -1,10 +1,13 @@
 package com.jd.graduation.controller;
 
+import com.jd.graduation.DO.OrderDO;
+import com.jd.graduation.DO.OrderDetailDO;
+import com.jd.graduation.DO.UserAddressDO;
 import com.jd.graduation.DO.UserLoginDO;
 import com.jd.graduation.DTO.OrderCreateDTO;
 import com.jd.graduation.Impl.OrderDetailServiceImpl;
 import com.jd.graduation.Impl.OrderServiceImpl;
-import com.jd.graduation.VO.OrderDetailVO;
+import com.jd.graduation.Impl.UserAddressServiceImpl;
 import com.jd.graduation.VO.OrderVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
@@ -26,6 +29,8 @@ public class OrderController extends BaseController{
     private OrderServiceImpl orderService;
     @Autowired
     private OrderDetailServiceImpl orderDetailService;
+    @Autowired
+    private UserAddressServiceImpl userAddressService;
     @Autowired
     private AuthenticationService authenticationService;
 
@@ -111,12 +116,18 @@ public class OrderController extends BaseController{
         }
 
         Map<String, Object> map = new HashMap<>();
-        OrderVO one = orderService.getOne(user.getId(), oid);
-        List<OrderDetailVO> list = orderDetailService.getByOid(one.getId());
+        try {
+            OrderDO one = orderService.getOne(user.getId(), oid);
+            UserAddressDO addressDO = userAddressService.one(one.getAid());
+            List<OrderDetailDO> list = orderDetailService.getByOid(one.getId());
 
-        map.put("order", one);
-        map.put("detail", list);
-        return ReturnMap.ok(map);
+            map.put("order", one);
+            map.put("address", addressDO);
+            map.put("detail", list);
+            return ReturnMap.ok(map);
+        } catch (Exception e) {
+            return ReturnMap.error(e.getMessage());
+        }
     }
 
     @PostMapping("/deleteOrder/{oid}")

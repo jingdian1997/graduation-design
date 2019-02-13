@@ -22,6 +22,8 @@ public class OrderDetailDO {
     private Integer oid;
     @TableField(value = "bid")
     private Integer bid;
+    @TableField(value = "bname")
+    private String bname;
     @TableField(value = "uid")
     private Integer uid;
 

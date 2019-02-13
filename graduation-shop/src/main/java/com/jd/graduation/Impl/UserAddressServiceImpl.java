@@ -79,4 +79,8 @@ public class UserAddressServiceImpl extends UserAddressService {
 
         return null;
     }
+
+    public UserAddressDO one(Integer id) {
+        return baseMapper.selectById(id);
+    }
 }

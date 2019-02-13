@@ -1,15 +1,16 @@
 package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.OrderDetailDO;
-import com.jd.graduation.VO.OrderDetailVO;
 import com.jd.graduation.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("OrderDetailServiceImpl")
 public class OrderDetailServiceImpl extends OrderDetailService {
@@ -29,7 +30,10 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             OrderDetailDO orderDetailDO = new OrderDetailDO();
 
             Integer bid = one.getBid();
-            double singlePrice = bookService.getRealPrice(bid);
+            Map<String, Object> realMap = bookService.getRealBook(bid);
+            double singlePrice = (double) realMap.get("real");
+            BookDO bookDO = (BookDO) realMap.get("book");
+
             Integer amount = one.getAmount();
 
             boolean result = stockService.reduceStock(amount, bid);
@@ -41,6 +45,7 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             price += total;
 
             orderDetailDO.setBid(bid);
+            orderDetailDO.setBname(bookDO.getName());
             orderDetailDO.setAmount(amount);
             orderDetailDO.setPrice(singlePrice);
             orderDetailDO.setTotal(total);
@@ -91,8 +96,10 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         return baseMapper.selectById(id);
     }
 
-    public List<OrderDetailVO> getByOid(Integer oid) {
-        return baseMapper.getByOid(oid);
+    public List<OrderDetailDO> getByOid(Integer oid) {
+        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("oid", oid);
+        return baseMapper.selectList(wrapper);
     }
 
     public boolean checkBought(Integer oid, Integer bid) {

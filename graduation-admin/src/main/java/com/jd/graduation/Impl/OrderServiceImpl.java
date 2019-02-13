@@ -56,8 +56,8 @@ public class OrderServiceImpl extends OrderService {
         return baseMapper.getListByStatus(status);
     }
 
-    public OrderVO getOne(Integer oid) {
-        return baseMapper.getById(oid);
+    public OrderDO getOne(Integer oid) {
+        return baseMapper.selectById(oid);
     }
 
     @Transactional(rollbackFor = Exception.class)

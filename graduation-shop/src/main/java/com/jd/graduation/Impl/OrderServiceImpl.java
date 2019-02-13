@@ -1,5 +1,6 @@
 package com.jd.graduation.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.OrderDO;
 import com.jd.graduation.DO.SysConfigKey;
 import com.jd.graduation.DTO.OrderCreateDTO;
@@ -105,8 +106,12 @@ public class OrderServiceImpl extends OrderService {
         return baseMapper.getList(uid);
     }
 
-    public OrderVO getOne(Integer uid, Integer oid) {
-        return baseMapper.getOne(uid, oid);
+    public OrderDO getOne(Integer uid, Integer oid) throws Exception {
+        OrderDO orderDO = baseMapper.selectById(oid);
+        if (!orderDO.getUid().equals(uid)) {
+            throw new Exception("不是你的订单");
+        }
+        return orderDO;
     }
 
     @Transactional(rollbackFor = Exception.class)

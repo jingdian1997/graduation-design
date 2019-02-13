@@ -9,17 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface OrderMapper extends BaseMapper<OrderDO> {
-    @Select("SELECT o.*, a.address, a.recipient, a.tel FROM `order` as o " +
-            "LEFT JOIN user_address as a ON o.aid = a.id WHERE o.uid = #{uid}")
     List<OrderVO> getList(@Param("uid") Integer uid);
-
-    @Select("SELECT o.*, a.address, a.recipient, a.tel FROM `order` as o " +
-            "LEFT JOIN user_address as a ON o.aid = a.id WHERE o.uid = #{uid} and o.id = #{oid}")
-    OrderVO getOne(@Param("uid") Integer uid, @Param("oid") Integer oid);
-
-    @Select("SELECT o.*, a.address, a.recipient, a.tel FROM `order` as o " +
-            "LEFT JOIN user_address as a ON o.aid = a.id WHERE o.id = #{oid}")
-    OrderVO getById(@Param("oid") Integer oid);
 
     @Select("SELECT o.*, a.address, a.recipient, a.tel FROM `order` as o " +
             "LEFT JOIN user_address as a ON o.aid = a.id WHERE o.status = #{status}")

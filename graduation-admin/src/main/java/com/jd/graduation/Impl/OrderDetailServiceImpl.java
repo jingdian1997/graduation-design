@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.OrderDetailDO;
-import com.jd.graduation.VO.OrderDetailVO;
 import com.jd.graduation.service.OrderDetailService;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,10 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         baseMapper.delete(wrapper);
     }
 
-    public List<OrderDetailVO> getByOid(Integer oid) {
-        return baseMapper.getByOid(oid);
+    public List<OrderDetailDO> getByOid(Integer oid) {
+        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("oid", oid);
+        return baseMapper.selectList(wrapper);
     }
 
     public IPage<OrderDetailDO> getList(int page, int size) {

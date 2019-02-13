@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("BookServiceImpl")
 public class BookServiceImpl extends BookService {
@@ -89,9 +91,14 @@ public class BookServiceImpl extends BookService {
         return list;
     }
 
-    public double getRealPrice(Integer bid) {
+    public Map<String, Object> getRealBook(Integer bid) {
+        Map<String, Object> map = new HashMap<>();
         BookDO bookDO = baseMapper.selectById(bid);
-        return 1.00 * bookDO.getPrice();
+
+        map.put("book", bookDO);
+        map.put("real", 1.00 * bookDO.getPrice());
+
+        return map;
     }
 
     public List<BookVO> news(int page, int size) {
