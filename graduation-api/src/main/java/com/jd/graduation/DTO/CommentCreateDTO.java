@@ -15,7 +15,7 @@ public class CommentCreateDTO {
     @NotNull
     private Integer score;
     @NotNull
-    private Integer oid;
+    private Integer odid;
 
     private String content;
 }

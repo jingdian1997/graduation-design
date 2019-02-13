@@ -13,12 +13,13 @@
             <result column="bname" property="bname"/><!-- property对应JavaBean中的属性名 -->
             <result column="bid" property="bid"/>
             <result column="amount" property="amount"/>
+            <result column="is_comment" property="ifComment"/>
         </collection>
     </resultMap>
 
     <select id="getList" resultMap="orders" parameterType="java.lang.Integer">
         select o.id, o.price, o.freight, o.pay, o.deliver_no, o.`status`,
-        od.id as odid, od.bid, od.bname, od.amount
+        od.id as odid, od.bid, od.bname, od.amount, od.is_comment
         from `order` as o left join order_detail as od on o.id=od.oid
         where o.uid = #{uid} order by o.create_time desc
     </select>

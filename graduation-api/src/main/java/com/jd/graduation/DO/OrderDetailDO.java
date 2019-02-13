@@ -37,4 +37,6 @@ public class OrderDetailDO {
     //冗余order status字段
     @TableField(value = "flag")
     private Integer flag;
+    @TableField(value = "if_comment")
+    private boolean ifComment;
 }
