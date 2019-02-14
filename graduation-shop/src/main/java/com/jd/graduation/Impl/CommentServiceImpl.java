@@ -17,7 +17,7 @@ public class CommentServiceImpl extends CommentService {
     private OrderDetailServiceImpl orderDetailService;
 
     public void makeComment(CommentCreateDTO dto, Integer uid) throws Exception {
-        if (!orderDetailService.checkBought(dto.getOid(), dto.getBid())){
+        if (!orderDetailService.checkBought(dto.getOdid(), dto.getBid())){
             throw new Exception("你没有买过该商品，不可评价");
         }
 
@@ -30,6 +30,7 @@ public class CommentServiceImpl extends CommentService {
         commentDO.setTime(new Date());
 
         baseMapper.insert(commentDO);
+        orderDetailService.setCommented(dto.getOdid());
     }
 
 

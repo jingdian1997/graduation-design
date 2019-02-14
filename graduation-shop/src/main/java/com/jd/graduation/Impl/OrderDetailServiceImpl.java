@@ -22,7 +22,11 @@ public class OrderDetailServiceImpl extends OrderDetailService {
     private StockServiceImpl stockService;
 
     @Transactional(rollbackFor = Exception.class)
-    public double createList(List<Integer> cartIds, Integer uid, Integer oid) throws Exception{
+    public double createList(List<Integer> cartIds, Integer uid, Integer oid) throws Exception {
+        if (cartIds.size() == 0) {
+            throw new Exception("空订单不可提交！");
+        }
+
         List<CartDO> cartDOS = cartService.getInIds(cartIds, uid);
         double price = 0.0;
 
@@ -102,14 +106,16 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         return baseMapper.selectList(wrapper);
     }
 
-    public boolean checkBought(Integer oid, Integer bid) {
-        QueryWrapper<OrderDetailDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("oid", oid);
-        wrapper.eq("bid", bid);
+    public boolean checkBought(Integer odid, Integer bid) {
+        OrderDetailDO orderDetailDO = baseMapper.selectById(odid);
         //用户必须已经完成相关订单才可以评论
-        wrapper.eq("flag", 4);
-        int count = baseMapper.selectCount(wrapper);
+        return orderDetailDO.getBid().equals(bid) && orderDetailDO.getFlag() == 4;
+    }
 
-        return count > 0;
+    @Transactional(rollbackFor = Exception.class)
+    public void setCommented(Integer odid) {
+        OrderDetailDO orderDetailDO = baseMapper.selectById(odid);
+        orderDetailDO.setIfComment(true);
+        baseMapper.updateById(orderDetailDO);
     }
 }
