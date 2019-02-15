@@ -46,7 +46,7 @@ public interface BookMapper extends BaseMapper<BookDO> {
     List<BookVO> getBooksByCategoryNotDel(Page<BookVO> page, @Param("ids") String ids);
 
     @Select("SELECT * FROM `book` as b " +
-            "LEFT JOIN `book_picture` as bp ON b.id=bp.id " +
-            "LEFT JOIN `stock` as s ON b.id=s.bid order by b.create_time desc")
-    List<BookVO> getNewBooks(Page<BookVO> page);
+            "LEFT JOIN `book_picture` as bp ON b.id=bp.id LEFT JOIN `stock` as s ON b.id=s.bid " +
+            "order by b.create_time desc LIMIT #{size}")
+    List<BookVO> getNewBooks(@Param("size") int size);
 }

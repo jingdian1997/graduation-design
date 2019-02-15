@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.OrderDetailDO;
+import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,5 +118,9 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         OrderDetailDO orderDetailDO = baseMapper.selectById(odid);
         orderDetailDO.setIfComment(true);
         baseMapper.updateById(orderDetailDO);
+    }
+
+    public List<BookVO> getMostSold(int size) {
+        return baseMapper.getMostSold(size);
     }
 }

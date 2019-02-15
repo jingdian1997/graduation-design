@@ -41,4 +41,8 @@ public class UserVisitServiceImpl extends UserVisitService {
     public void delete(Integer uid) {
         baseMapper.updateDel(uid);
     }
+
+    public List<BookVO> getMostVisited(int size) {
+        return baseMapper.getMostVisited(size);
+    }
 }

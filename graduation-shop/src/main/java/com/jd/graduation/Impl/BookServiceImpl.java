@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DO.CategoryDO;
 import com.jd.graduation.VO.BookVO;
-import com.jd.graduation.VO.IndexVO;
 import com.jd.graduation.service.BookService;
 import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +17,12 @@ import java.util.Map;
 public class BookServiceImpl extends BookService {
     @Autowired
     private CategoryServiceImpl categoryService;
+    @Autowired
+    private UserVisitServiceImpl userVisitService;
+    @Autowired
+    private UserFocusServiceImpl userFocusService;
+    @Autowired
+    private OrderDetailServiceImpl orderDetailService;
 
     public Page<BookVO> selectList(Page<BookVO> page, Integer cid, String query) {
         List<BookVO> bookVOList = null;
@@ -68,27 +72,28 @@ public class BookServiceImpl extends BookService {
         return bookVO;
     }
 
-    public List<IndexVO> index(int page, int size) {
-        List<IndexVO> list = new ArrayList<>();
-        List<CategoryDO> categoryDOList = categoryService.getTopCategories();
+    public Map<String, List<BookVO>> index(int size) {
+        Map<String, List<BookVO>> map = new HashMap<>();
 
-        for (CategoryDO c : categoryDOList) {
-            IndexVO indexVO = new IndexVO();
+        //新书榜（news），人气榜（visit），关注榜（focus），热销榜（detail），*好评榜（comment）
+        List<BookVO> newest = news(size);
+        List<BookVO> visits = userVisitService.getMostVisited(size);
+        List<BookVO> focus = userFocusService.getMostFocused(size);
+        List<BookVO> sell = orderDetailService.getMostSold(size);
 
-            Integer cid = c.getId();
-            List<Integer> cids = categoryService.getAllCategoryIds(cid);
-            String str = MyStringUtils.listToString(cids);
+        map.put("new", newest);
+        map.put("visit", visits);
+        map.put("sell", sell);
+        map.put("focus", focus);
+        return map;
+    }
 
-            List<BookVO> bookVOList = baseMapper.getBooksByCategoryNotDel(new Page<>(page, size), str);
+    public Page<BookVO> getBooksByCategory(Integer cid, Page<BookVO> page) {
+        List<Integer> cids = categoryService.getAllCategoryIds(cid);
+        String str = MyStringUtils.listToString(cids);
 
-            indexVO.setId(c.getId());
-            indexVO.setName(c.getName());
-            indexVO.setBooks(bookVOList);
-
-            list.add(indexVO);
-        }
-
-        return list;
+        List<BookVO> bookVOList = baseMapper.getBooksByCategoryNotDel(page, str);
+        return page.setRecords(bookVOList);
     }
 
     public Map<String, Object> getRealBook(Integer bid) {
@@ -101,7 +106,7 @@ public class BookServiceImpl extends BookService {
         return map;
     }
 
-    public List<BookVO> news(int page, int size) {
-        return baseMapper.getNewBooks(new Page<>(page, size));
+    private List<BookVO> news(int size) {
+        return baseMapper.getNewBooks(size);
     }
 }

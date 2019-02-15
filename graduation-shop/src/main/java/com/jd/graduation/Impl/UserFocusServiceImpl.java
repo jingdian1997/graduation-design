@@ -53,4 +53,8 @@ public class UserFocusServiceImpl extends UserFocusService {
 
         return baseMapper.selectCount(wrapper) > 0;
     }
+
+    public List<BookVO> getMostFocused(int size) {
+        return baseMapper.getMostFocused(size);
+    }
 }
