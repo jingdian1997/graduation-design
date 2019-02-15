@@ -23,6 +23,8 @@ public class BookServiceImpl extends BookService {
     private UserFocusServiceImpl userFocusService;
     @Autowired
     private OrderDetailServiceImpl orderDetailService;
+    @Autowired
+    private CommentServiceImpl commentService;
 
     public Page<BookVO> selectList(Page<BookVO> page, Integer cid, String query) {
         List<BookVO> bookVOList = null;
@@ -75,16 +77,19 @@ public class BookServiceImpl extends BookService {
     public Map<String, List<BookVO>> index(int size) {
         Map<String, List<BookVO>> map = new HashMap<>();
 
-        //新书榜（news），人气榜（visit），关注榜（focus），热销榜（detail），*好评榜（comment）
+        //新书榜（news），人气榜（visit），关注榜（focus），热销榜（detail），好评榜（comment）
         List<BookVO> newest = news(size);
         List<BookVO> visits = userVisitService.getMostVisited(size);
         List<BookVO> focus = userFocusService.getMostFocused(size);
         List<BookVO> sell = orderDetailService.getMostSold(size);
+        List<BookVO> score = commentService.getHighestScore(size);
 
         map.put("new", newest);
         map.put("visit", visits);
         map.put("sell", sell);
         map.put("focus", focus);
+        map.put("score", score);
+
         return map;
     }
 

@@ -3,6 +3,7 @@ package com.jd.graduation.Impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.CommentDO;
 import com.jd.graduation.DTO.CommentCreateDTO;
+import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.VO.CommentVO;
 import com.jd.graduation.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,9 @@ public class CommentServiceImpl extends CommentService {
     public Page<CommentVO> getListByBid(Integer bid, Page<CommentVO> page) {
         List<CommentVO> list = baseMapper.getByBid(bid, page);
         return page.setRecords(list);
+    }
+
+    public List<BookVO> getHighestScore(int size) {
+        return baseMapper.getHighestScore(size);
     }
 }

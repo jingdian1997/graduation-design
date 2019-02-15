@@ -17,5 +17,5 @@ public interface UserFocusMapper extends BaseMapper<UserFocusDO> {
     @Select("SELECT b.*, bp.picture FROM `user_focus` as uf LEFT JOIN book as b ON uf.bid=b.id " +
             "LEFT JOIN book_picture as bp ON bp.id=uf.bid WHERE b.del=0 " +
             "GROUP BY uf.bid ORDER BY COUNT(1) DESC LIMIT #{size}")
-    public List<BookVO> getMostFocused(@Param("size") int size);
+    List<BookVO> getMostFocused(@Param("size") int size);
 }
