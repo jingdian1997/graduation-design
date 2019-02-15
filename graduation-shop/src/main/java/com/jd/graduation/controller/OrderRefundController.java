@@ -39,7 +39,7 @@ public class OrderRefundController extends BaseController {
     }
 
     @GetMapping("/get")
-    public ReturnMap get( HttpServletRequest request) {
+    public ReturnMap get(HttpServletRequest request) {
         UserLoginDO user = authenticationService.getUser(getHeaderAuthorization(request));
         if (user == null) {
             return ReturnMap.notLogin();
