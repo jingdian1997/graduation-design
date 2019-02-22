@@ -59,11 +59,13 @@ public class UserLoginController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userLoginService.changePwd(user.getId(), dto);
-        if (message == null){
+        try {
+            userLoginService.changePwd(user.getId(), dto);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/changeMail")
@@ -75,11 +77,13 @@ public class UserLoginController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userLoginService.changeMail(dto, user.getId(), key);
-        if (message == null){
+        try {
+            userLoginService.changeMail(dto, user.getId(), key);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/changeTel")
@@ -91,10 +95,12 @@ public class UserLoginController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userLoginService.changeTel(dto, user.getId(), key);
-        if (message == null){
+        try {
+            userLoginService.changeTel(dto, user.getId(), key);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 }

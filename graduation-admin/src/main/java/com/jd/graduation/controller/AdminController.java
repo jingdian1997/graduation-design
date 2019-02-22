@@ -47,12 +47,13 @@ public class AdminController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        String message = adminService.changePwd(adminDO.getId(), dto);
-        if (message == null) {
+        try {
+            adminService.changePwd(adminDO.getId(), dto);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/changeInfo")
@@ -62,7 +63,12 @@ public class AdminController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        adminService.changeInfo(dto, adminDO.getId());
-        return ReturnMap.ok(null);
+        try {
+            adminService.changeInfo(dto, adminDO.getId());
+            return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
+        }
     }
 }

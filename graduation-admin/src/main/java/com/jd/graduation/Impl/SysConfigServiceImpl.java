@@ -27,4 +27,8 @@ public class SysConfigServiceImpl extends SysConfigService {
         wrapper.eq("name", key.getKey());
         return baseMapper.selectOne(wrapper).getValue();
     }
+
+    public void raiseCategoryVersion() {
+        baseMapper.raiseVersion();
+    }
 }

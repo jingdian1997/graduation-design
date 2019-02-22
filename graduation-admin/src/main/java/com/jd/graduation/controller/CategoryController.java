@@ -34,11 +34,13 @@ public class CategoryController extends BaseController{
             return ReturnMap.notAllowed();
         }
 
-        String message = categoryService.insert(dto);
-        if (message == null){
+        try {
+            categoryService.insert(dto);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/delete/{id}")
@@ -51,11 +53,13 @@ public class CategoryController extends BaseController{
             return ReturnMap.notAllowed();
         }
 
-        String message = categoryService.delete(id);
-        if (message == null){
+        try {
+            categoryService.delete(id);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/active/{id}")
@@ -68,8 +72,13 @@ public class CategoryController extends BaseController{
             return ReturnMap.notAllowed();
         }
 
-        categoryService.active(id);
-        return ReturnMap.ok(null);
+        try {
+            categoryService.active(id);
+            return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
+        }
     }
 
     @PostMapping("/update")
@@ -82,11 +91,13 @@ public class CategoryController extends BaseController{
             return ReturnMap.notAllowed();
         }
 
-        String message = categoryService.update(dto);
-        if (message == null){
+        try {
+            categoryService.update(dto);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @GetMapping("/list/{cid}")

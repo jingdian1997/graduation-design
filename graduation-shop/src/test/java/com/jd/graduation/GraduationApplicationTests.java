@@ -18,10 +18,10 @@ public class GraduationApplicationTests {
 
     @Test
     public void contextLoads() {
-        CategoryVO categoryVO = categoryService.categoryTreeSet();
+//        CategoryVO categoryVO = categoryService.categoryTreeSet();
 //        CategoryVO result = categoryService.findById(18);
 
-        List<Integer> ids = categoryService.getAllCategoryIds(15);
+//        List<Integer> ids = categoryService.getAllCategoryIds(15);
         System.out.println("");
     }
 

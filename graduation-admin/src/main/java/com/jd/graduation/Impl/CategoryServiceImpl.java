@@ -8,6 +8,7 @@ import com.jd.graduation.service.CategoryService;
 import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +18,13 @@ import java.util.Map;
 public class CategoryServiceImpl extends CategoryService {
     @Autowired
     private BookServiceImpl bookService;
+    @Autowired
+    private SysConfigServiceImpl sysConfigService;
 
-    public String insert(CategoryCreateDTO dto) {
+    @Transactional(rollbackFor = Exception.class)
+    public void insert(CategoryCreateDTO dto) throws Exception {
         if (!checkNameUnique(dto.getName())){
-            return "已经存在同名的类别";
+            throw new Exception("已经存在同名的类别");
         }
 
         CategoryDO category = new CategoryDO();
@@ -29,39 +33,44 @@ public class CategoryServiceImpl extends CategoryService {
         category.setDel(false);
 
         baseMapper.insert(category);
-        return null;
+        sysConfigService.raiseCategoryVersion();
     }
 
-    public String delete(Integer cid) {
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Integer cid) throws Exception {
         if(bookService.countBookByCategoryAndDel(cid) > 0) {
-            return "删除失败，请检查该分类下是否有图书";
+            throw new Exception("删除失败，请检查该分类下是否有图书");
         }
         if (countSonCategory(cid) > 0) {
-            return "删除失败，请检查该分类下是否有小类";
+            throw new Exception("删除失败，请检查该分类下是否有小类");
         }
 
         CategoryDO categoryDO = baseMapper.selectById(cid);
         categoryDO.setDel(true);
 
         baseMapper.updateById(categoryDO);
-        return null;
+        sysConfigService.raiseCategoryVersion();
     }
 
-    public void active(Integer id) {
+    @Transactional(rollbackFor = Exception.class)
+    public void active(Integer id) throws Exception{
         CategoryDO categoryDO = baseMapper.selectById(id);
         categoryDO.setDel(false);
+
         baseMapper.updateById(categoryDO);
+        sysConfigService.raiseCategoryVersion();
     }
 
-    public String update(CategoryUpdateDTO dto) {
+    @Transactional(rollbackFor = Exception.class)
+    public void update(CategoryUpdateDTO dto) throws Exception {
         CategoryDO categoryDO = baseMapper.selectById(dto.getId());
         if (!checkNameUnique(dto.getName())){
-            return "已经存在同名的类别，或者你没有更改类名";
+            throw new Exception("已经存在同名的类别，或者你没有更改类名");
         }
 
         categoryDO.setName(dto.getName());
         baseMapper.updateById(categoryDO);
-        return null;
+        sysConfigService.raiseCategoryVersion();
     }
 
     public List<CategoryDO> getList() {

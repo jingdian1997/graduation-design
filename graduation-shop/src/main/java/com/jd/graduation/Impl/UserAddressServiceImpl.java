@@ -20,7 +20,7 @@ public class UserAddressServiceImpl extends UserAddressService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void add(Integer uid, UserAddressCreateDTO dto) {
+    public void add(Integer uid, UserAddressCreateDTO dto) throws Exception{
         UserAddressDO userAddressDO = new UserAddressDO();
 
         userAddressDO.setUid(uid);
@@ -37,47 +37,41 @@ public class UserAddressServiceImpl extends UserAddressService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String setDefault(Integer id, Integer uid) {
+    public void setDefault(Integer id, Integer uid) throws Exception {
         UserAddressDO userAddressDO = baseMapper.selectById(id);
         if (userAddressDO == null || userAddressDO.isDel() || !userAddressDO.getUid().equals(uid)){
-            return "不是你的地址";
+            throw new Exception("不是你的地址");
         }
 
         baseMapper.setNotDefault(uid);
         userAddressDO.setDefaulting(true);
         baseMapper.updateById(userAddressDO);
-
-        return null;
     }
 
-    public String delete(Integer id, Integer uid) {
+    public void delete(Integer id, Integer uid) throws Exception {
         UserAddressDO userAddressDO = baseMapper.selectById(id);
         if (userAddressDO == null || userAddressDO.isDel() || !userAddressDO.getUid().equals(uid)){
-            return "不是你的地址";
+            throw new Exception("不是你的地址");
         }
 
         if (userAddressDO.isDefaulting()){
-            return "默认地址不可删除";
+            throw new Exception("默认地址不可删除");
         }
 
         userAddressDO.setDel(true);
         baseMapper.updateById(userAddressDO);
-
-        return null;
     }
 
-    public String update(UserAddressUpdateDTO dto, Integer uid) {
+    public void update(UserAddressUpdateDTO dto, Integer uid) throws Exception {
         UserAddressDO userAddressDO = baseMapper.selectById(dto.getId());
         if (userAddressDO == null || userAddressDO.isDel() || !userAddressDO.getUid().equals(uid)){
-            return "不是你的地址";
+            throw new Exception("不是你的地址");
         }
 
         userAddressDO.setTel(dto.getTel());
         userAddressDO.setRecipient(dto.getRecipient());
         userAddressDO.setAddress(dto.getAddress());
         baseMapper.updateById(userAddressDO);
-
-        return null;
     }
 
     public UserAddressDO one(Integer id) {

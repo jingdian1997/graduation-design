@@ -30,11 +30,13 @@ public class CartController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        String message = cartService.addToCart(user.getId(), bid);
-        if (message == null){
+        try {
+            cartService.addToCart(user.getId(), bid);
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @GetMapping("/getAll")
@@ -55,11 +57,13 @@ public class CartController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        String message = cartService.delete(id, user.getId());
-        if (message == null) {
+        try {
+            cartService.delete(id, user.getId());
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/changAmount")
@@ -69,10 +73,12 @@ public class CartController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        String message = cartService.changeAmount(dto, user.getId());
-        if (message == null) {
+        try {
+            cartService.changeAmount(dto, user.getId());
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 }

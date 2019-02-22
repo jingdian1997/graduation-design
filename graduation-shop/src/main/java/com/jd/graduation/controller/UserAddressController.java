@@ -42,8 +42,13 @@ public class UserAddressController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        userAddressService.add(user.getId(), dto);
-        return ReturnMap.ok(null);
+        try {
+            userAddressService.add(user.getId(), dto);
+            return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
+        }
     }
 
     @PostMapping("/setDefault/{id}")
@@ -53,11 +58,13 @@ public class UserAddressController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userAddressService.setDefault(id, user.getId());
-        if (message == null) {
+        try {
+            userAddressService.setDefault(id, user.getId());
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/delete/{id}")
@@ -67,11 +74,13 @@ public class UserAddressController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userAddressService.delete(id, user.getId());
-        if (message == null) {
+        try {
+            userAddressService.delete(id, user.getId());
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 
     @PostMapping("/update")
@@ -81,10 +90,12 @@ public class UserAddressController extends BaseController {
             return ReturnMap.notLogin();
         }
 
-        String message = userAddressService.update(dto, user.getId());
-        if (message == null) {
+        try {
+            userAddressService.update(dto, user.getId());
             return ReturnMap.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnMap.error(e.getMessage());
         }
-        return ReturnMap.error(message);
     }
 }

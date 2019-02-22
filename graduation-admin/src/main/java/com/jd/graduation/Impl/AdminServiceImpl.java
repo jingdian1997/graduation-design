@@ -54,23 +54,22 @@ public class AdminServiceImpl extends AdminService {
         baseMapper.insert(adminDO);
     }
 
-    public String changePwd(String id, ChangePasswordDTO dto) {
+    public void changePwd(String id, ChangePasswordDTO dto) throws Exception {
         AdminDO adminDO = baseMapper.selectById(id);
         String prePwd = adminDO.getPwd();
 
         if (!dto.getPrePassword().equals(prePwd)){
-            return "原密码错误";
+            throw new Exception("原密码错误");
         }
         if (prePwd.equals(dto.getNewPassword())){
-            return "新密码不能与原密码相同";
+            throw new Exception("新密码不能与原密码相同");
         }
         if (!dto.getNewPassword().equals(dto.getNewPasswordAgain())) {
-            return "两次密码不一致";
+            throw new Exception("两次密码不一致");
         }
 
         adminDO.setPwd(dto.getNewPassword());
         baseMapper.updateById(adminDO);
-        return null;
     }
 
     public void changeInfo(AdminChangeInfoDTO dto, String id){

@@ -60,30 +60,29 @@ public class UserLoginServiceImpl extends UserLoginService {
         authenticationService.delete(key);
     }
 
-    public String changePwd(Integer id, ChangePasswordDTO dto) {
+    public void changePwd(Integer id, ChangePasswordDTO dto) throws Exception {
         UserLoginDO userLoginDO = baseMapper.selectById(id);
         String prePwd = userLoginDO.getPwd();
 
         if (!dto.getPrePassword().equals(prePwd)){
-            return "原密码错误";
+            throw new Exception("原密码错误");
         }
         if (prePwd.equals(dto.getNewPassword())){
-            return "新密码不能与原密码相同";
+            throw new Exception("新密码不能与原密码相同");
         }
         if (!dto.getNewPassword().equals(dto.getNewPasswordAgain())) {
-            return "两次密码不一致";
+            throw new Exception("两次密码不一致");
         }
 
         userLoginDO.setPwd(dto.getNewPassword());
         baseMapper.updateById(userLoginDO);
-        return null;
     }
 
-    public String changeMail(UserChangeMailDTO dto, Integer id, String key) {
+    public void changeMail(UserChangeMailDTO dto, Integer id, String key) throws Exception {
         UserLoginDO userLoginDO = baseMapper.selectById(id);
 
         if (dto.getMail().equals(userLoginDO.getMail())) {
-            return "相同的邮箱";
+            throw new Exception("相同的邮箱");
         }
 
         userLoginDO.setMail(dto.getMail());
@@ -91,15 +90,13 @@ public class UserLoginServiceImpl extends UserLoginService {
         //重置缓存
         userLoginDO.setPwd(null);
         authenticationService.set(key, userLoginDO);
-
-        return null;
     }
 
-    public String changeTel(UserChangeTelDTO dto, Integer id, String key) {
+    public void changeTel(UserChangeTelDTO dto, Integer id, String key) throws Exception {
         UserLoginDO userLoginDO = baseMapper.selectById(id);
 
         if (dto.getTel().equals(userLoginDO.getTel())) {
-            return "相同的电话号码";
+            throw new Exception("相同的电话号码");
         }
 
         userLoginDO.setTel(dto.getTel());
@@ -107,8 +104,6 @@ public class UserLoginServiceImpl extends UserLoginService {
         //重置缓存
         userLoginDO.setPwd(null);
         authenticationService.set(key, userLoginDO);
-
-        return null;
     }
 
     public boolean validTel(String tel) {

@@ -16,11 +16,11 @@ public class CartServiceImpl extends CartService {
     @Autowired
     private BookServiceImpl bookService;
 
-    public String addToCart(Integer uid, Integer bid) {
+    public void addToCart(Integer uid, Integer bid) throws Exception {
         BookVO bookVO = bookService.selectOne(bid);
 
         if (bookVO == null){
-            return "错误的图书";
+            throw new Exception("错误的图书");
         }
 
         CartDO cartDO = new CartDO();
@@ -30,17 +30,15 @@ public class CartServiceImpl extends CartService {
         cartDO.setCreateTime(new Date());
 
         baseMapper.insert(cartDO);
-        return null;
     }
 
-    public String delete(Integer id, Integer uid) {
+    public void delete(Integer id, Integer uid) throws Exception {
         CartDO cartDO = baseMapper.selectById(id);
         if (cartDO == null || !cartDO.getUid().equals(uid)){
-            return "不是你的购物车";
+            throw new Exception("你只能操作你的购物车");
         }
 
         baseMapper.deleteById(id);
-        return null;
     }
 
     public List<CartDO> getInIds(List<Integer> ids, Integer uid) {
@@ -51,14 +49,13 @@ public class CartServiceImpl extends CartService {
         return baseMapper.selectByUid(uid);
     }
 
-    public String changeAmount(CartChangeAmountDTO dto, Integer uid) {
+    public void changeAmount(CartChangeAmountDTO dto, Integer uid) throws Exception {
         CartDO cartDO = baseMapper.selectById(dto.getId());
         if (cartDO == null || !cartDO.getUid().equals(uid)){
-            return "不是你的购物车";
+            throw new Exception("你只能操作你的购物车");
         }
 
         cartDO.setAmount(dto.getAmount());
         baseMapper.updateById(cartDO);
-        return null;
     }
 }

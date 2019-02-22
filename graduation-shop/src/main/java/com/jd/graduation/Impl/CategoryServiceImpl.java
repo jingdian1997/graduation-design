@@ -2,20 +2,24 @@ package com.jd.graduation.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.CategoryDO;
+import com.jd.graduation.DO.SysConfigKey;
 import com.jd.graduation.VO.CategoryVO;
 import com.jd.graduation.service.CategoryService;
-import com.jd.graduation.util.MyStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service("CategoryServiceImpl")
 public class CategoryServiceImpl extends CategoryService {
+    @Autowired
+    private SysConfigServiceImpl sysConfigService;
+
     private Map<Integer, CategoryDO> map;
     private CategoryVO root = null;
+    private Integer categoryVersion = 0;
 
     public Map<Integer, CategoryDO> getCategoryMap(){
         if (map == null){
@@ -24,15 +28,15 @@ public class CategoryServiceImpl extends CategoryService {
         return map;
     }
 
-    public CategoryVO categoryTreeSet() {
+    private void categoryTreeSet(Integer presentVersion) {
         if (root == null) {
             List<CategoryVO> list = baseMapper.getTopCategoryVONotDel();
             root = new CategoryVO();
             root.setId(0);
             createTree(list, root);
+            this.categoryVersion = presentVersion;
         }
-
-        return root;
+//        return root;
     }
 
     /**
@@ -57,8 +61,9 @@ public class CategoryServiceImpl extends CategoryService {
      * @return 对应的对象
      */
     public CategoryVO findById(Integer cid) {
-        if (root == null) {
-            categoryTreeSet();
+        Integer presentVersion = sysConfigService.getValueInteger(SysConfigKey.CATEGORY_VERSION);
+        if (root == null || presentVersion > this.categoryVersion) {
+            categoryTreeSet(presentVersion);
         }
         return find(cid, root);
     }

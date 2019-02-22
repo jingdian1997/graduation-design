@@ -58,7 +58,7 @@ public class UserServiceImpl extends UserService {
         return baseMapper.getUser(id);
     }
 
-    public boolean validNickname(String nickname) {
+    private boolean validNickname(String nickname) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.eq("nickname", nickname);
 
