@@ -15,6 +15,8 @@ import java.util.List;
 public class OrderVO {
     private Integer id;
 
+    private String nickname;
+
     private Double price;
     private Double freight;
     private Double pay;

@@ -52,8 +52,8 @@ public class OrderController extends BaseController{
         return ReturnMap.ok(null);
     }
 
-    @PostMapping("/deliverOder")
-    public ReturnMap deliverOder(@RequestBody OrderDeliverDTO dto, HttpServletRequest request) {
+    @PostMapping("/deliverOrder")
+    public ReturnMap deliverOrder(@RequestBody OrderDeliverDTO dto, HttpServletRequest request) {
         AdminDO admin = authenticationService.getAdmin(getHeaderAuthorization(request));
         if (admin == null) {
             return ReturnMap.notLogin();
