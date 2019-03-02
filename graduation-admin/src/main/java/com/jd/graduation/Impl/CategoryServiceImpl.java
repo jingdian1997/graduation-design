@@ -151,4 +151,8 @@ public class CategoryServiceImpl extends CategoryService {
 
         return baseMapper.selectList(wrapper);
     }
+
+    public CategoryDO getOne(Integer id) {
+        return baseMapper.selectById(id);
+    }
 }

@@ -113,4 +113,18 @@ public class CategoryController extends BaseController{
         List<CategoryDO> list = categoryService.getSonCategories(cid);
         return ReturnMap.ok(list);
     }
+
+    @GetMapping("/one/{id}")
+    public ReturnMap one(@PathVariable("id") Integer id, HttpServletRequest request) {
+        AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
+        if (adminDO == null) {
+            return ReturnMap.notLogin();
+        }
+        if (!adminDO.getRole().equals(2) && !adminDO.getRole().equals(0)){
+            return ReturnMap.notAllowed();
+        }
+
+        CategoryDO one = categoryService.getOne(id);
+        return ReturnMap.ok(one);
+    }
 }
