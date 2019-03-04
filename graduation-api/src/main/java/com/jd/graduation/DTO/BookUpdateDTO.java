@@ -13,7 +13,5 @@ public class BookUpdateDTO {
     @NotNull
     private Integer id;
     @NotNull
-    private double price;
-    @NotNull
     private String description;
 }

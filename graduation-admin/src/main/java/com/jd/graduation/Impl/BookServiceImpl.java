@@ -72,7 +72,6 @@ public class BookServiceImpl extends BookService {
 
         if (book != null) {
             book.setDescription(dto.getDescription());
-            book.setPrice(dto.getPrice());
             book.setDel(false);
             baseMapper.updateById(book);
         } else {

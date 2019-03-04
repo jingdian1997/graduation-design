@@ -2,7 +2,6 @@ package com.jd.graduation.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.AdminDO;
-import com.jd.graduation.DO.BookDO;
 import com.jd.graduation.DTO.BookCreateDTO;
 import com.jd.graduation.DTO.BookUpdateDTO;
 import com.jd.graduation.DTO.BookUpdatePictureDTO;
