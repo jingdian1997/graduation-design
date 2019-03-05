@@ -40,7 +40,7 @@ public class BookServiceImpl extends BookService {
         BookDO book = new BookDO();
 
         // 设置图书主表
-        book.setISBN(dto.getISBN());
+        book.setISBN(dto.getIsbn());
         book.setName(dto.getName());
         book.setAuthor(dto.getAuthor());
         book.setPublisher(dto.getPublisher());

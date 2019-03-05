@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 public class BookCreateDTO {
     @NotNull
-    private String ISBN;
+    private String isbn;
     @NotNull
     private String name;
     @NotNull
