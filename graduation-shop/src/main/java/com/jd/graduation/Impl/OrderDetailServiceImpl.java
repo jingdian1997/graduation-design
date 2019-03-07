@@ -6,10 +6,12 @@ import com.jd.graduation.DO.CartDO;
 import com.jd.graduation.DO.OrderDetailDO;
 import com.jd.graduation.VO.BookVO;
 import com.jd.graduation.service.OrderDetailService;
+import com.jd.graduation.util.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +30,7 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             throw new Exception("空订单不可提交！");
         }
 
-        List<CartDO> cartDOS = cartService.getInIds(cartIds, uid);
+        List<CartDO> cartDOS = (List<CartDO>) cartService.listByIds(cartIds);
         double price = 0.0;
 
         for (CartDO one : cartDOS) {
@@ -57,11 +59,11 @@ public class OrderDetailServiceImpl extends OrderDetailService {
             orderDetailDO.setOid(oid);
             orderDetailDO.setUid(uid);
             orderDetailDO.setFlag(0);
-            baseMapper.insert(orderDetailDO);
 
-            //删除购购物车
-            cartService.delete(one.getId(), uid);
+            save(orderDetailDO);
         }
+        //删除购购物车
+        cartService.removeByIds(cartIds);
 
         return price;
     }

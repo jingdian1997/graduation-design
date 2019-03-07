@@ -29,7 +29,7 @@ public class CartServiceImpl extends CartService {
         cartDO.setAmount(1);
         cartDO.setCreateTime(new Date());
 
-        baseMapper.insert(cartDO);
+        save(cartDO);
     }
 
     public void delete(Integer id, Integer uid) throws Exception {
@@ -38,11 +38,7 @@ public class CartServiceImpl extends CartService {
             throw new Exception("你只能操作你的购物车");
         }
 
-        baseMapper.deleteById(id);
-    }
-
-    public List<CartDO> getInIds(List<Integer> ids, Integer uid) {
-        return baseMapper.getInIds(ids, uid);
+        removeById(id);
     }
 
     public List<CartVO> getAll(Integer uid) {
@@ -56,6 +52,7 @@ public class CartServiceImpl extends CartService {
         }
 
         cartDO.setAmount(dto.getAmount());
-        baseMapper.updateById(cartDO);
+
+        updateById(cartDO);
     }
 }

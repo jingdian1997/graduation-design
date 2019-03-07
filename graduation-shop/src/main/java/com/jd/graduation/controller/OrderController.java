@@ -8,7 +8,6 @@ import com.jd.graduation.DTO.OrderCreateDTO;
 import com.jd.graduation.Impl.OrderDetailServiceImpl;
 import com.jd.graduation.Impl.OrderServiceImpl;
 import com.jd.graduation.Impl.UserAddressServiceImpl;
-import com.jd.graduation.VO.OrderVO;
 import com.jd.graduation.service.AuthenticationService;
 import com.jd.graduation.util.ReturnMap;
 import io.swagger.annotations.Api;
@@ -104,7 +103,7 @@ public class OrderController extends BaseController{
             return ReturnMap.notLogin();
         }
 
-        List<OrderVO> list = orderService.getList(user.getId());
+        List<OrderDO> list = orderService.getList(user.getId());
         return ReturnMap.ok(list);
     }
 

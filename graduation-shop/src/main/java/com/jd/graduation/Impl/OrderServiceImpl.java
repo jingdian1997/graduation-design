@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jd.graduation.DO.OrderDO;
 import com.jd.graduation.DO.SysConfigKey;
 import com.jd.graduation.DTO.OrderCreateDTO;
-import com.jd.graduation.VO.OrderVO;
 import com.jd.graduation.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,8 +101,11 @@ public class OrderServiceImpl extends OrderService {
         baseMapper.updateById(orderDO);
     }
 
-    public List<OrderVO> getList(Integer uid) {
-        return baseMapper.getList(uid);
+    public List<OrderDO> getList(Integer uid) {
+        QueryWrapper<OrderDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("uid", uid);
+
+        return list(wrapper);
     }
 
     public OrderDO getOne(Integer uid, Integer oid) throws Exception {
