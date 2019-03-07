@@ -40,8 +40,8 @@ public class CommentController extends BaseController{
         return ReturnMap.ok(list);
     }
 
-    @GetMapping("/comments/{page}/{size}")
-    public ReturnMap comments(@PathVariable("page") Integer page,
+    @GetMapping("/list/{page}/{size}")
+    public ReturnMap list(@PathVariable("page") Integer page,
                               @PathVariable("size") Integer size,
                               HttpServletRequest request) {
         AdminDO adminDO = authenticationService.getAdmin(getHeaderAuthorization(request));
