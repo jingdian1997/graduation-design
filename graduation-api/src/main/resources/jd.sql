@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 31/01/2019 11:37:01
+ Date: 07/03/2019 10:35:31
 */
 
 SET NAMES utf8mb4;
@@ -29,19 +29,8 @@ CREATE TABLE `admin`  (
   `mail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `role` int(11) NOT NULL COMMENT '模块权限，admin为0',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `admin_role`(`role`) USING BTREE,
-  CONSTRAINT `admin_role` FOREIGN KEY (`role`) REFERENCES `admin_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `admin_role`(`role`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for admin_role
--- ----------------------------
-DROP TABLE IF EXISTS `admin_role`;
-CREATE TABLE `admin_role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '等级规则，不得删除',
-  `authority` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '等级名称',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for book
@@ -58,12 +47,13 @@ CREATE TABLE `book`  (
   `price` decimal(10, 2) NOT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `del` bit(1) NULL DEFAULT b'0' COMMENT '下架否',
+  `create_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `ISBN`(`ISBN`) USING BTREE,
   INDEX `book_category`(`cid`) USING BTREE,
   INDEX `b_publisher`(`publisher`) USING BTREE,
   CONSTRAINT `b_category` FOREIGN KEY (`cid`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for book_picture
@@ -90,7 +80,7 @@ CREATE TABLE `cart`  (
   INDEX `cart_book`(`bid`) USING BTREE,
   CONSTRAINT `cart_book` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cart_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for category
@@ -103,7 +93,7 @@ CREATE TABLE `category`  (
   `del` bit(1) NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name_unqiue`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for comment
@@ -123,7 +113,7 @@ CREATE TABLE `comment`  (
   INDEX `cou`(`uid`) USING BTREE,
   CONSTRAINT `cob` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cou` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for order
@@ -140,7 +130,7 @@ CREATE TABLE `order`  (
   `status` int(11) NOT NULL COMMENT '0未支付，1已支付，2已确认，3已发货，4完成，-1取消',
   `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间0',
   `pay_time` datetime(0) NULL DEFAULT NULL COMMENT '支付时间1',
-  `confirm_time` datetime(0) NULL DEFAULT NULL COMMENT '商家确认时间',
+  `confirm_time` datetime(0) NULL DEFAULT NULL COMMENT '商家确认时间1',
   `deliver_time` datetime(0) NULL DEFAULT NULL COMMENT '发货时间3',
   `complete_time` datetime(0) NULL DEFAULT NULL COMMENT '确认收货时间4',
   `cancel_time` datetime(0) NULL DEFAULT NULL COMMENT '取消时间-1',
@@ -149,7 +139,7 @@ CREATE TABLE `order`  (
   INDEX `order_address`(`aid`) USING BTREE,
   CONSTRAINT `order_address` FOREIGN KEY (`aid`) REFERENCES `user_address` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -160,16 +150,18 @@ CREATE TABLE `order_detail`  (
   `oid` int(11) NOT NULL COMMENT 'order id',
   `uid` int(11) NOT NULL,
   `bid` int(11) NOT NULL COMMENT 'book id',
+  `bname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `amount` int(11) NOT NULL COMMENT '成交数量',
   `price` decimal(10, 2) NOT NULL COMMENT '成交单价',
   `total` decimal(10, 2) NOT NULL COMMENT '成交总价',
   `flag` int(11) NULL DEFAULT NULL COMMENT '0未支付，1已支付，2已确认，3已发货，4完成，-1取消',
+  `if_comment` bit(1) NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sale_detail_sale`(`oid`) USING BTREE,
   INDEX `sale_detail_book`(`bid`) USING BTREE,
   CONSTRAINT `sale_detail_book` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sale_detail_sale` FOREIGN KEY (`oid`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for order_refund
@@ -197,7 +189,7 @@ CREATE TABLE `order_refund`  (
   CONSTRAINT `or_book` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `or_od` FOREIGN KEY (`odid`) REFERENCES `order_detail` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `or_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for stock
@@ -210,7 +202,7 @@ CREATE TABLE `stock`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sb`(`bid`) USING BTREE,
   CONSTRAINT `sb` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -222,7 +214,7 @@ CREATE TABLE `sys_config`  (
   `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
@@ -235,11 +227,10 @@ CREATE TABLE `user`  (
   `id_card` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `sex` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `birthday` date NULL DEFAULT NULL,
-  `introduce` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自我介绍',
   `time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创号时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_nickname`(`nickname`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_address
@@ -256,7 +247,7 @@ CREATE TABLE `user_address`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uidaddress`(`uid`) USING BTREE,
   CONSTRAINT `uidaddress` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_focus
@@ -271,7 +262,7 @@ CREATE TABLE `user_focus`  (
   INDEX `cart_user`(`uid`) USING BTREE,
   INDEX `cart_book`(`bid`) USING BTREE,
   CONSTRAINT `user_focus_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_login
@@ -300,6 +291,6 @@ CREATE TABLE `user_visit`  (
   INDEX `cart_user`(`uid`) USING BTREE,
   INDEX `cart_book`(`bid`) USING BTREE,
   CONSTRAINT `user_visit_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `book` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
