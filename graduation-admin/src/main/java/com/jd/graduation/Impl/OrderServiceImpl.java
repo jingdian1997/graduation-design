@@ -2,6 +2,7 @@ package com.jd.graduation.Impl;
 
 import com.jd.graduation.DO.OrderDO;
 import com.jd.graduation.VO.OrderVO;
+import com.jd.graduation.VO.StaticsMonthVO;
 import com.jd.graduation.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,5 +74,13 @@ public class OrderServiceImpl extends OrderService {
 
         orderDetailService.deleteList(oid);
         baseMapper.deleteById(oid);
+    }
+
+    public List<StaticsMonthVO> getStaticsByMonth() {
+        return baseMapper.getStaticsByMonth();
+    }
+
+    public Double allPay() {
+        return baseMapper.allPay();
     }
 }
