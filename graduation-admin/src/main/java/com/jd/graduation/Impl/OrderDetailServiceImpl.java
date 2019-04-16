@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jd.graduation.DO.OrderDetailDO;
+import com.jd.graduation.VO.StaticAmountVO;
+import com.jd.graduation.VO.StaticPriceVO;
 import com.jd.graduation.service.OrderDetailService;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,14 @@ public class OrderDetailServiceImpl extends OrderDetailService {
         wrapper.eq("flag", 4);
         wrapper.eq("bid", bid);
         return baseMapper.selectPage(doPage, wrapper);
+    }
+
+
+    public List<StaticPriceVO> getPriceStatics() {
+        return baseMapper.getPriceStatics();
+    }
+
+    public List<StaticAmountVO> getAmountStatics() {
+        return baseMapper.getAmountStatics();
     }
 }
