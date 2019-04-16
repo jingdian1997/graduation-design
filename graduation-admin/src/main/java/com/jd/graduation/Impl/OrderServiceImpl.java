@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,24 @@ public class OrderServiceImpl extends OrderService {
 
     public List<StaticsMonthVO> getStaticsByMonth() {
         return baseMapper.getStaticsByMonth();
+    }
+
+    public List<Double> getMonth12(String year) {
+        List<Double> list = new ArrayList<>();
+
+        for (int i = 1; i <= 12; ++i) {
+            String time = year + "-";
+            if (i < 10) {
+                time += "0" + i;
+            } else {
+                time += i;
+            }
+
+            Double oneMonth = baseMapper.getMonth12(time);
+            list.add(oneMonth);
+        }
+
+        return list;
     }
 
     public Double allPay() {

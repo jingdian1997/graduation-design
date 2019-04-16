@@ -89,4 +89,8 @@ public class StaticServiceImpl {
 
         return map;
     }
+
+    public List<Double> getMonth12(String year) {
+        return orderService.getMonth12(year);
+    }
 }

@@ -17,6 +17,9 @@ public interface OrderMapper extends BaseMapper<OrderDO> {
             "FROM `order` WHERE `status`>0 GROUP BY name")
     List<StaticsMonthVO> getStaticsByMonth();
 
+    @Select("select IFNULL(SUM(o.pay),0) FROM `order` AS o WHERE date_format(o.pay_time, '%Y-%m')=#{time}")
+    Double getMonth12(@Param("time") String time);
+
     @Select("select SUM(pay) from `order` WHERE `status`>0")
     Double allPay();
 }
