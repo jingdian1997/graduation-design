@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface OrderMapper extends BaseMapper<OrderDO> {
-    @Select("SELECT o.*, u.nickname FROM `order` as o LEFT JOIN user as u ON u.id=o.uid")
+    @Select("SELECT o.*, u.nickname FROM `order` as o LEFT JOIN user as u ON u.id=o.uid where o.status=#{status}")
     List<OrderVO> getListByStatus(@Param("status") Integer status);
 
     @Select("SELECT SUM(pay) as `value`, DATE_FORMAT(pay_time, '%Y-%m') AS name " +
